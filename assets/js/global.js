@@ -9,6 +9,24 @@ document.addEventListener("click", function (e) {
   document.getElementById(e.target.dataset.target).classList.add("active");
 });
 
+/* ========== LANDING PAGE TOOL CARD NAVIGATION ========== */
+document.addEventListener("click", function (e) {
+  const card = e.target.closest(".tool-card");
+  if (!card) return;
+
+  // Remove active state from tabs
+  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+
+  // Activate the correct tool page
+  const target = card.dataset.target;
+  document.getElementById(target).classList.add("active");
+
+  // Also activate the matching tab (optional but recommended)
+  const matchingTab = document.querySelector(`.tab[data-target="${target}"]`);
+  if (matchingTab) matchingTab.classList.add("active");
+});
+
 /* ========== THEME TOGGLE ========== */
 document.getElementById("toggleStyleBtn").addEventListener("click", () => {
   const body = document.body;
