@@ -283,3 +283,100 @@ body.light-mode footer {
 .tools-landing {
   margin-top: 20px;
 }
+
+/* ============================
+   LANDING PAGE POLISH
+   ============================ */
+
+.tools-landing {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.tools-landing h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.tools-landing p {
+  font-size: 18px;
+  opacity: 0.85;
+  margin-bottom: 40px;
+}
+
+/* Tool Grid */
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  padding: 10px;
+}
+
+/* Tool Cards */
+.tool-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 25px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border: 1px solid transparent;
+  backdrop-filter: blur(4px);
+}
+
+.tool-card h3 {
+  margin-top: 0;
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.tool-card p {
+  font-size: 15px;
+  opacity: 0.85;
+}
+
+/* Hover effect */
+.tool-card:hover {
+  transform: translateY(-6px);
+  border-color: #f39c12;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+/* Dark Mode */
+body.dark-mode .tool-card {
+  background: rgba(17, 38, 71, 0.6);
+  color: #e0e6ed;
+}
+
+body.dark-mode .tool-card:hover {
+  background: rgba(17, 38, 71, 0.9);
+}
+
+/* Light Mode */
+body.light-mode .tool-card {
+  background: #ffffff;
+  border-color: #c7d3df;
+  color: #1a1f24;
+}
+
+body.light-mode .tool-card:hover {
+  background: #f9fafb;
+  border-color: #1e3a8a;
+}
+
+/* Subtle animation on load */
+.tool-card {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeUp 0.5s ease forwards;
+}
+
+.tool-card:nth-child(2) { animation-delay: 0.1s; }
+.tool-card:nth-child(3) { animation-delay: 0.2s; }
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
