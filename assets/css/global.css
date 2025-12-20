@@ -260,3 +260,26 @@ body.light-mode footer {
 .page.active {
   display: block;
 }
+
+/* Fix Chrome collapsing the landing page */
+.tools-landing {
+  display: block;
+  position: relative;
+  z-index: 1;
+  padding-bottom: 40px; /* ensures real height */
+}
+
+/* Ensure the grid sits above any collapsed parent */
+.tool-grid {
+  position: relative;
+  z-index: 2;
+}
+
+/* ---Landing page spacing--- */
+.tools-landing h2 {
+  margin-top: 0;
+}
+
+.tools-landing {
+  margin-top: 20px;
+}
