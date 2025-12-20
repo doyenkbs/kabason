@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="assets/css/new-tool.css">
 </head>
 
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "YOUR_TOKEN"}'></script>
+  
 <body class="dark-mode">
 
   <!-- THEME TOGGLE -->
@@ -41,6 +43,28 @@
     </p>
   </div>
 
+  <section class="tools-landing">
+  <h2>Available Tools</h2>
+  <p>Your centralized suite for data processing, validation, and transformation.</p>
+
+  <div class="tool-grid">
+    <a href="#listTool" class="tool-card">
+      <h3>List Comparison</h3>
+      <p>Compare datasets, remove duplicates, and extract CSV/XLSX columns.</p>
+    </a>
+
+    <a href="#regexTool" class="tool-card">
+      <h3>Regex Formatter</h3>
+      <p>Generate clean, environment‑ready regex from hostnames or lists.</p>
+    </a>
+
+    <a href="#ipTool" class="tool-card">
+      <h3>IP / CIDR Utility</h3>
+      <p>Validate, expand, collapse, and normalize IP address lists.</p>
+    </a>
+  </div>
+</section>
+  
   <div id="listTool" class="page"></div>
   <div id="regexTool" class="page"></div>
   <div id="ipTool" class="page"></div>
