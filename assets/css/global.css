@@ -251,3 +251,12 @@ body.light-mode footer {
   background: #ffffff;
   color: #1e3a8a;
 }
+
+/*                   */
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
