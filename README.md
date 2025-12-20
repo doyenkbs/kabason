@@ -1,34 +1,59 @@
-# KABASON Utility Suite  
-A modular, scalable collection of operational tools designed to support data accuracy, workflow efficiency, and technical clarity.
+![Cloudflare Pages](https://img.shields.io/badge/Cloudflare-Pages-F38020?logo=cloudflare&logoColor=white)
+![GitHub Repo Size](https://img.shields.io/github/repo-size/doyenkbs/kabason)
+![GitHub Last Commit](https://img.shields.io/github/last-commit/doyenkbs/kabason)
 
-This suite is built with a **fully modular architecture**, allowing new tools to be added easily without modifying the core structure.
+# KABASON Utility Suite
+
+The **Kabason Utility Suite** is a modular, browser‑based collection of precision tools designed to streamline data processing, validation, and transformation workflows. Each tool loads dynamically, ensuring fast performance, clean separation of logic, and effortless scalability as new utilities are added.
+
+Live Site: **https://kabason.com**
 
 ---
 
-## ✅ Features
+## 🚀 Features
 
-### **1. List Comparison Tool**
-- Compare two lists
-- Case-insensitive matching
-- Remove duplicates
-- Ignore blank lines
-- Strip whitespace
-- File upload (CSV/XLSX)
-- Column selection
-- Trim & Clean utilities
+### ✅ Modular Architecture
+Each tool is isolated into its own HTML, CSS, and JS files, dynamically loaded into the main interface. This keeps the codebase clean, scalable, and easy to maintain.
 
-### **2. Regex Formatter Tool**
-- Convert hostnames/FQDNs into Tanium-ready regex
-- File upload + column selection
-- Clean, escape, and format patterns
+### ✅ Included Tools
 
-### **3. IP/CIDR Utility Tool**
-- Validate IPs
-- Expand CIDR blocks (all IPs or hosts only)
-- Collapse IP lists into minimal CIDR ranges
-- Sort, clean, dedupe
-- File upload + column selection
+#### **1. List Comparison Tool**
+- Compare two datasets  
+- Remove duplicates  
+- Ignore blank lines  
+- Case‑insensitive matching  
+- CSV/XLSX column extraction  
+- Side‑by‑side comparison results  
 
+#### **2. Regex Formatter**
+- Convert hostnames into clean, environment‑ready regex  
+- Escape special characters  
+- Extract base names  
+- CSV/XLSX column extraction  
+- Copy/download output  
+
+#### **3. IP / CIDR Utility Tool**
+- Validate IPs  
+- Expand CIDR blocks  
+- Collapse IP lists into minimal CIDRs  
+- Sort, clean, and normalize lists  
+- CSV/XLSX column extraction  
+- Copy/download output  
+
+---
+
+## 🧱 Tech Stack
+
+- **HTML / CSS / JavaScript**
+- **Cloudflare Pages** (deployment)
+- **GitHub** (version control)
+- **XLSX.js** (CSV/XLSX parsing)
+
+---
+
+## 📦 Project Structure
+
+kabason-utility-suite/ │ ├── index.html ├── assets/ │   ├── css/ │   ├── js/ │   └── img/ └── tools/ ├── list-tool.html ├── regex-tool.html └── new-tool.html
 ---
 
 ## ✅ Project Structure
@@ -61,41 +86,27 @@ kabason-utility-suite/
 ├── README.md
 └── LICENSE
 
+
 ---
 
-## ✅ Adding a New Tool
+## 🌐 Deployment
 
-1. Create three files:
-'tools/my-tool.html assets/css/my-tool.css assets/js/my-tool.js'
+This project is deployed using **Cloudflare Pages** and automatically updates on every push to the `main` branch.
 
+---
 
-2. Add a new tab in `index.html`:
-```html
-<div class="tab" data-target="myTool">My Tool</div>
-```
+## 📊 Analytics
 
-3. Add a container:
-```html
-<div id="myTool" class="page"></div>
-```
+Cloudflare Web Analytics is enabled to provide privacy‑friendly insights into usage patterns without tracking users.
 
-4. Load the tool:
+---
 
-```JavaScript
-loadTool("myTool", "tools/my-tool.html");
-```
-That’s it — the suite automatically scales.
+## 🛠️ Future Enhancements
 
-## ✅ Requirements
-• 	Modern browser (Chrome, Edge, Firefox, Safari)
-• 	No backend required — fully client-side
-• 	Internet connection only needed for XLSX library CDN
-
-## ✅ License
-This project is licensed under the MIT License (see LICENSE file).
-
-## ✅ Author
-Christian Kaba
+- Additional tools (JSON formatter, log parser, hash generator, etc.)
+- Global search across tools
+- User preferences (persisted theme, settings)
+- Tool‑specific documentation pages
 
 
 ---
@@ -125,5 +136,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING
 FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OF OTHER  
 DEALINGS IN THE SOFTWARE.
 
+---
+
+## © 2025 KABASON — Empowering Through Service
 
 
