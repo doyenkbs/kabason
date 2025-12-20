@@ -1,0 +1,26 @@
+<h2>Tanium Hostname & FQDN Regex Formatter</h2>
+<p>This tool converts hostnames or FQDNs into a clean, Tanium‑ready regex pattern.</p>
+
+<div class="upload-row">
+  <div class="upload-section">
+    <div class="upload-title">Upload for Regex</div>
+    <div class="upload-desc">Choose a CSV/XLSX file. Select the column with hostnames/FQDNs.</div>
+    <div class="upload-controls">
+      <input type="file" id="regexFile" accept=".csv,.xlsx" />
+      <select id="regexColumn"><option value="">Select column…</option></select>
+      <span id="regexFileInfo" style="font-size:12px;"></span>
+    </div>
+  </div>
+</div>
+
+<textarea id="regexInput" placeholder="Enter hostnames or FQDNs here..."></textarea>
+
+<div class="buttons">
+  <button onclick="formatHostnames()">Format Regex</button>
+  <button onclick="copyRegex()">Copy Output</button>
+  <button onclick="downloadRegex()">Download Regex</button>
+  <button onclick="clearRegex()">Clear</button>
+</div>
+
+<h3>Formatted Regex Output</h3>
+<div id="regexOutput" class="regex-output"></div>

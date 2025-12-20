@@ -1,0 +1,42 @@
+/* ========== IP/CIDR UTILITY TOOL STYLES ========== */
+
+#ipTool .ip-layout {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+#ipTool .ip-section {
+  flex: 1;
+  min-width: 260px;
+}
+
+/* Input textarea */
+#ipInput {
+  height: 160px;
+  resize: none;
+}
+
+/* Output box */
+#ipOutput {
+  min-height: 160px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+/* Validation summary */
+#ipSummary {
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+/* Buttons row */
+#ipTool .buttons {
+  margin: 10px 0 15px;
+}
+
+/* Tool heading */
+#ipTool h2 {
+  margin-top: 0;
+}

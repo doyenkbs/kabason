@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>KABASON Utility Suite</title>
+
+  <!-- GLOBAL CSS -->
+  <link rel="stylesheet" href="assets/css/global.css">
+
+  <!-- TOOL CSS -->
+  <link rel="stylesheet" href="assets/css/list-tool.css">
+  <link rel="stylesheet" href="assets/css/regex-tool.css">
+  <link rel="stylesheet" href="assets/css/new-tool.css">
+</head>
+
+<body class="dark-mode">
+
+  <!-- THEME TOGGLE -->
+  <button id="toggleStyleBtn">Toggle Style</button>
+
+  <!-- HEADER -->
+  <header>
+    <img src="assets/img/logo.png" alt="Kabason Logo" />
+    <h1>KABASON Utility Suite</h1>
+    <p>Empowering Through Service</p>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="tab active" data-target="home">Home</div>
+    <div class="tab" data-target="listTool">List Comparison</div>
+    <div class="tab" data-target="regexTool">Regex Formatter</div>
+    <div class="tab" data-target="ipTool">IP/CIDR Utility</div>
+  </nav>
+
+  <!-- PAGE CONTAINERS -->
+  <div id="home" class="page active">
+    <h2>Welcome to the Kabason Utility Suite</h2>
+    <p>
+      The Kabason Utility Suite provides a comprehensive set of precision tools designed to enhance operational efficiency, ensure data accuracy, and provide technical clarity throughout your workflows.
+    </p>
+  </div>
+
+  <div id="listTool" class="page"></div>
+  <div id="regexTool" class="page"></div>
+  <div id="ipTool" class="page"></div>
+
+  <!-- GLOBAL JS -->
+  <script src="assets/js/global.js"></script>
+
+  <!-- TOOL JS -->
+  <script src="assets/js/list-tool.js"></script>
+  <script src="assets/js/regex-tool.js"></script>
+  <script src="assets/js/new-tool.js"></script>
+
+  <!-- DYNAMIC TOOL LOADER -->
+  <script>
+    async function loadTool(id, file, callback) {
+      const container = document.getElementById(id);
+      const html = await fetch(file).then(r => r.text());
+      container.innerHTML = html;
+      if (callback) callback();
+    }
+
+    loadTool("listTool", "tools/list-tool.html", initListTool);
+    loadTool("regexTool", "tools/regex-tool.html", initRegexTool);
+    loadTool("ipTool", "tools/new-tool.html", initIPTool);
+  </script>
+
+  <footer>
+    © 2025 KABASON — Empowering Through Service
+  </footer>
+
+</body>
+</html>

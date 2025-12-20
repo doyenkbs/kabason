@@ -1,0 +1,39 @@
+<h2>IP / CIDR Utility Tool</h2>
+<p>Upload IP lists or CIDR blocks, validate them, expand them, collapse them, and clean them.</p>
+
+<div class="upload-row">
+  <div class="upload-section">
+    <div class="upload-title">Upload IP List</div>
+    <div class="upload-desc">Choose a CSV/XLSX file. Select the column containing IPs or CIDRs.</div>
+    <div class="upload-controls">
+      <input type="file" id="ipFile" accept=".csv,.xlsx" />
+      <select id="ipColumn"><option value="">Select column…</option></select>
+      <span id="ipFileInfo" style="font-size:12px;"></span>
+    </div>
+  </div>
+</div>
+
+<div class="ip-layout">
+  <div class="ip-section">
+    <h3>Input</h3>
+    <textarea id="ipInput" placeholder="Enter IPs or CIDR blocks..."></textarea>
+  </div>
+
+  <div class="ip-section">
+    <h3>Output</h3>
+    <div id="ipSummary"></div>
+    <div id="ipOutput" class="output"></div>
+  </div>
+</div>
+
+<div class="buttons">
+  <button id="validateIPs">Validate</button>
+  <button id="expandAll">Expand (All IPs)</button>
+  <button id="expandHosts">Expand (Hosts Only)</button>
+  <button id="collapseCIDR">Collapse to CIDR</button>
+  <button id="sortIPs">Sort</button>
+  <button id="cleanIPs">Clean</button>
+  <button id="copyIPs">Copy Output</button>
+  <button id="downloadIPs">Download Output</button>
+  <button id="clearIPTool">Clear All</button>
+</div>
