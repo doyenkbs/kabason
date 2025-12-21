@@ -29,6 +29,18 @@ document.addEventListener("click", function (e) {
   if (matchingTab) matchingTab.classList.add("active");
 });
 
+/* ========== INTERNAL ADVANCED REGEX TABS ========== */
+document.addEventListener("click", function (e) {
+  const tab = e.target.closest(".regex-tab");
+  if (!tab) return;
+
+  document.querySelectorAll(".regex-tab").forEach(t => t.classList.remove("active"));
+  document.querySelectorAll(".regex-panel").forEach(p => p.classList.remove("active"));
+
+  tab.classList.add("active");
+  document.getElementById(tab.dataset.target).classList.add("active");
+});
+
 /* ========== THEME TOGGLE ========== */
 document.getElementById("toggleStyleBtn").addEventListener("click", () => {
   const body = document.body;
