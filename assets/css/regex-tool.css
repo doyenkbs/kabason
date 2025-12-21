@@ -4,6 +4,56 @@
 #regexInput {
   height: 160px;
   resize: none;
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #3498db;
+  background: #0f172a;
+  color: #f4f6f7;
+  font-family: monospace;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+/* Light mode override */
+body.light-mode #regexInput {
+  background: #ffffff;
+  color: #111;
+  border-color: #1e3a8a;
+}
+
+/* Upload block */
+.upload-row {
+  margin-bottom: 20px;
+}
+
+.upload-section {
+  background: #0f172a;
+  padding: 15px;
+  border-radius: 4px;
+  border: 1px solid #3498db;
+}
+
+body.light-mode .upload-section {
+  background: #ffffff;
+  border-color: #1e3a8a;
+}
+
+.upload-title {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.upload-desc {
+  font-size: 13px;
+  opacity: 0.8;
+  margin-bottom: 10px;
+}
+
+.upload-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 /* Regex output block */
@@ -32,3 +82,154 @@ body.light-mode .regex-output {
 #regexTool h2 {
   margin-top: 0;
 }
+
+/* Section wrapper */
+.regex-section {
+  background: #0f172a;
+  padding: 15px;
+  border-radius: 4px;
+  border: 1px solid #3498db;
+  margin-bottom: 20px;
+}
+
+body.light-mode .regex-section {
+  background: #ffffff;
+  border-color: #1e3a8a;
+}
+
+.section-title {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* Options row */
+.regex-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.regex-options label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+/* Environment dropdown */
+#regexEnvironment {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #3498db;
+  background: #0f172a;
+  color: #f4f6f7;
+  font-size: 15px;
+}
+
+body.light-mode #regexEnvironment {
+  background: #ffffff;
+  color: #111;
+  border-color: #1e3a8a;
+}
+
+/* DEEP 3D CARD EFFECT */
+.upload-section,
+.regex-section,
+#regexOutput {
+    background: #0f172a;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.10);
+
+    /* Deep multi-layer shadow stack */
+    box-shadow:
+        0 12px 28px rgba(0,0,0,0.55),      /* main depth */
+        0 6px 12px rgba(0,0,0,0.35),       /* mid depth */
+        0 2px 4px rgba(0,0,0,0.45),        /* tight shadow */
+        0 0 0 1px rgba(255,255,255,0.06) inset, /* inner bevel */
+        0 0 12px rgba(255,255,255,0.03) inset;  /* soft inner glow */
+
+    padding: 20px;
+}
+
+/* Light mode version */
+body.light-mode .upload-section,
+body.light-mode .regex-section,
+body.light-mode #regexOutput {
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,0.12);
+
+    box-shadow:
+        0 12px 28px rgba(0,0,0,0.25),
+        0 6px 12px rgba(0,0,0,0.15),
+        0 2px 4px rgba(0,0,0,0.20),
+        0 0 0 1px rgba(0,0,0,0.05) inset,
+        0 0 12px rgba(0,0,0,0.03) inset;
+
+    padding: 20px;
+}
+
+/* Make regex output text green */
+#regexOutput,
+.regex-output {
+    color: #48bb78 !important; /* soft green */
+}
+
+
+/* ================= 3D POP-OUT CARD EFFECT STYLES ================= 
+---* 3D depth for all tool sections *---
+.upload-section,
+.regex-section,
+#regexOutput {
+    background: #0f172a;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow:
+        0 6px 14px rgba(0,0,0,0.45),
+        0 0 0 1px rgba(255,255,255,0.05) inset;
+    padding: 18px;
+}
+
+---* Light mode support *---
+body.light-mode .upload-section,
+body.light-mode .regex-section,
+body.light-mode #regexOutput {
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,0.12);
+    box-shadow:
+        0 6px 14px rgba(0,0,0,0.18),
+        0 0 0 1px rgba(0,0,0,0.05) inset;
+}
+================== END OF 3D POP-OUT CARD EFFECT STYLES ================= */
+
+/* Buttons 
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.buttons button {
+  padding: 8px 14px;
+  border-radius: 4px;
+  border: 1px solid #3498db;
+  background: #1c2833;
+  color: #f4f6f7;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.buttons button:hover {
+  background: #243447;
+}
+
+body.light-mode .buttons button {
+  background: #ffffff;
+  color: #111;
+  border-color: #1e3a8a;
+}
+
+body.light-mode .buttons button:hover {
+  background: #e5e7eb;
+} */
