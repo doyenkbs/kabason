@@ -1,6 +1,7 @@
 <h2>Tanium Hostname & FQDN Regex Formatter</h2>
 <p>This tool converts hostnames or FQDNs into a clean, Tanium‑ready regex pattern.</p>
 
+<!-- ✅ KEEPING YOUR ORIGINAL UPLOAD BLOCK EXACTLY AS PROVIDED -->
 <div class="upload-row">
   <div class="upload-section">
     <div class="upload-title">Upload for Regex</div>
@@ -13,8 +14,32 @@
   </div>
 </div>
 
-<textarea id="regexInput" placeholder="Enter hostnames or FQDNs here..."></textarea>
+<!-- ✅ INPUT SECTION -->
+<div class="regex-section">
+  <div class="section-title">Input</div>
+  <textarea id="regexInput" rows="8" placeholder="Enter hostnames or FQDNs here..."></textarea>
 
+  <div class="regex-options">
+    <label><input type="checkbox" id="regexTrim"> Trim / Clean Input</label>
+    <label><input type="checkbox" id="regexCaseSensitive"> Case Sensitive</label>
+    <label><input type="checkbox" id="regexBegin"> ^ Beginning Anchor</label>
+    <label><input type="checkbox" id="regexEnd"> $ Ending Anchor</label>
+  </div>
+</div>
+
+<!-- ✅ ENVIRONMENT DROPDOWN -->
+<div class="regex-section">
+  <div class="section-title">Environment</div>
+  <select id="regexEnvironment">
+    <option value="tanium" selected>Tanium</option>
+    <option value="powershell">PowerShell</option>
+    <option value="javascript">JavaScript</option>
+    <option value="python">Python</option>
+    <option value="bash">Bash</option>
+  </select>
+</div>
+
+<!-- ✅ BUTTONS -->
 <div class="buttons">
   <button onclick="formatHostnames()">Format Regex</button>
   <button onclick="copyRegex()">Copy Output</button>
@@ -22,5 +47,6 @@
   <button onclick="clearRegex()">Clear</button>
 </div>
 
+<!-- ✅ OUTPUT -->
 <h3>Formatted Regex Output</h3>
 <div id="regexOutput" class="regex-output"></div>
