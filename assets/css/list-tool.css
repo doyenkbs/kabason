@@ -25,6 +25,17 @@
 #listB {
   height: 160px;
   resize: none;
+  background: #0f172a;
+  padding: 15px;
+  border-radius: 4px;
+  border: 1px solid #3498db;
+  margin-bottom: 20px;
+}
+
+body.light-mode #listA,
+body.light-mode #listB {
+  background: #ffffff;
+  border-color: #1e3a8a;
 }
 
 /* Results layout */
@@ -60,3 +71,4 @@
 #listTool h2 {
   margin-top: 0;
 }
+
