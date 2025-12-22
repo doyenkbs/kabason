@@ -72,3 +72,61 @@ body.light-mode #listB {
   margin-top: 0;
 }
 
+/* ========== DEEP 3D CARD WRAP FOR LIST TOOL ========== */
+
+/* Dark mode: wrap List A/B and result panels in deep 3D cards */
+body.dark-mode #listTool .list-section,
+body.dark-mode #listTool .result-section {
+  background: #0f172a;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  padding: 20px;
+
+  /* Deep multi-layer shadow stack (mirrors regex tool) */
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.55),
+    0 6px 12px rgba(0, 0, 0, 0.35),
+    0 2px 4px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+    0 0 12px rgba(255, 255, 255, 0.03) inset;
+}
+
+/* Light mode card variant */
+body.light-mode #listTool .list-section,
+body.light-mode #listTool .result-section {
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 20px;
+
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.25),
+    0 6px 12px rgba(0, 0, 0, 0.15),
+    0 2px 4px rgba(0, 0, 0, 0.20),
+    0 0 0 1px rgba(0, 0, 0, 0.05) inset,
+    0 0 12px rgba(0, 0, 0, 0.03) inset;
+}
+
+/* Ensure textareas and outputs stay inside the 3D card */
+#listTool .list-section textarea,
+#listTool .result-section .output {
+  width: 100%;
+  box-sizing: border-box; /* prevents overflow */
+  margin: 0;              /* removes default spacing that pushes outside */
+}
+
+/* Optional: tighten spacing inside cards */
+#listTool .list-section textarea {
+  margin-top: 10px;
+}
+
+#listTool .result-section .output {
+  margin-top: 10px;
+}
+
+/* Green result text inside output boxes */
+#listTool .output {
+  color: #48bb78 !important;
+  /*color: #2ecc71; 
+  font-weight: 600;*/
+}
