@@ -452,3 +452,18 @@ body.light-mode .btn-outline-green {
   color: #27ae60;
   border-color: #27ae60;
 }
+
+/* Small Screen adjustment */
+@media (max-width: 480px) {
+  header h1 { font-size: 22px; }
+  header img { height: 36px; }
+  nav { gap: 16px; font-size: 14px; }
+  .page { padding: 16px; }
+}
+
+
+@media (max-width: 640px) {
+  .tool-grid {
+    grid-template-columns: 1fr; /* Force single column on small screens */
+  }
+}
