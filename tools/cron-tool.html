@@ -1,0 +1,144 @@
+
+<!-- tools/cron-tool.html -->
+<div class="cron-header">
+  <h2>Cron Scheduler &amp; Expression Builder</h2>
+  <div class="cron-actions">
+    <button id="openCronHelpBtn" class="btn-secondary" aria-haspopup="dialog" aria-controls="cronHelpModal">
+      Help
+    </button>
+  </div>
+</div>
+
+<p class="cron-intro">
+  Create, interpret, validate, and preview cron expressions with clarity. Use plain English or the generator
+  to build expressions, then inspect parsed output, next run times, and validation status.
+</p>
+
+
+<!-- 1. Plain-English Scheduler -->
+<section class="cron-section" aria-labelledby="englishLabel">
+  <div class="section-title" id="englishLabel">Plain‑English Scheduler</div>
+  <textarea id="englishInput" rows="3" placeholder="e.g., every 15 minutes on weekday at 9am, every 3 hours on a weekend, at 5pm on weekdays in January and February, every 15 minutes on 1 and 15 of March, at 03:30 on 1-5 in Dec, every minute on weekend"></textarea>
+
+  <div class="cron-buttons">
+    <button class="btn-primary" onclick="englishToCron()">Convert to Cron</button>
+    <!-- NEW: Clear the plain-English textarea -->
+    <button class="btn-outline" onclick="clearEnglish()">Clear</button>
+  </div>
+</section>
+
+
+<!-- 2. Generator Options -->
+<section class="cron-section" aria-labelledby="generatorLabel">
+  <div class="section-title" id="generatorLabel">Cron Generator Options</div>
+
+  <div class="generator-grid" role="group" aria-label="Cron field generator">
+    <label class="field">
+      <span>Minutes</span>
+      <input id="genMinutes" type="text" placeholder="*, */5, 0, 15,30,45" />
+    </label>
+
+    <label class="field">
+      <span>Hours</span>
+      <input id="genHours" type="text" placeholder="*, 0-23, 8-18" />
+    </label>
+
+    <label class="field">
+      <span>Day of Month</span>
+      <input id="genDom" type="text" placeholder="*, 1-31, 1,15" />
+    </label>
+
+    <label class="field">
+      <span>Month</span>
+      <input id="genMonth" type="text" placeholder="*, 1-12, 1,6,12" />
+    </label>
+
+    <label class="field">
+      <span>Day of Week</span>
+      <input id="genDow" type="text" placeholder="*, 0-6, 1-5 (weekdays), 0,6 (weekend)" />
+    </label>
+  </div>
+
+  <div class="cron-buttons">
+    <button class="btn-primary" onclick="generateCron()">Build Cron</button>
+  </div>
+</section>
+
+<!-- 3. Cron Expression -->
+<section class="cron-section" aria-labelledby="cronExpressionLabel">
+  <div class="section-title" id="cronExpressionLabel">Cron Expression</div>
+  <input id="cronInput" type="text" inputmode="text" spellcheck="false" placeholder="*/15 * * * 1" />
+
+  <div class="cron-buttons">
+    <button class="btn-primary" onclick="parseCron()">Parse</button>
+    <button class="btn-outline" onclick="clearCron()">Clear</button>
+    <!-- NEW: Copy the cron expression to clipboard -->
+    <button class="btn-secondary" onclick="copyCron()">Copy Cron</button>
+
+  </div>
+</section>
+
+<!-- 4. Parsed Output -->
+<h3 class="cron-subtitle">Parsed Output</h3>
+<div id="cronOutput" class="cron-output" aria-live="polite"></div>
+
+<!-- 5. Next 10 Run Times -->
+<h3 class="cron-subtitle">Next 10 Run Times</h3>
+<div id="cronPreview" class="cron-output" aria-live="polite"></div>
+
+<!-- 6. Validator -->
+<h3 class="cron-subtitle">Validator</h3>
+<div id="cronValidation" class="cron-output" aria-live="polite"></div>
+
+<!-- Help Modal (markup only; wiring is in cron-tool.js init) -->
+<div id="cronHelpModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="cronHelpTitle" aria-describedby="cronHelpDesc" hidden>
+  <div class="modal-backdrop" data-close="modal"></div>
+  <div class="modal-panel">
+    <header class="modal-header">
+      <div class="brand">
+        <span class="brand-mark">K</span>
+        <span class="brand-text">KABASON</span>
+      </div>
+      <h3 id="cronHelpTitle">Cron Tool — Help &amp; Guide</h3>
+      <button class="modal-close" aria-label="Close help" data-close="modal">×</button>
+    </header>
+
+    <div id="cronHelpDesc" class="modal-body">
+      <p><strong>Cron fields (5):</strong> <em>minute</em>, <em>hour</em>, <em>day‑of‑month</em>, <em>month</em>, <em>day‑of‑week</em>. This tool targets Linux‑style cron without seconds.</p>
+      <ul class="help-list">
+        <li><code>*</code> = every value</li>
+        <li><code>a,b,c</code> = list (e.g., <code>1,15</code>)</li>
+        <li><code>a-b</code> = range (e.g., <code>8-18</code>)</li>
+        <li><code>*/n</code> = step (e.g., <code>*/5</code>)</li>
+        <li>DOW: <code>0-6</code> where <code>0</code>=Sun</li>
+      </ul>
+
+      <div class="help-examples">
+        <div class="example">
+          <div class="example-title">Every 15 minutes</div>
+          <code>*/15 * * * *</code>
+        </div>
+        <div class="example">
+          <div class="example-title">Weekdays at 09:00</div>
+          <code>0 9 * * 1-5</code>
+        </div>
+        <div class="example">
+          <div class="example-title">On the 1st and 15th at 03:30</div>
+          <code>30 3 1,15 * *</code>
+        </div>
+        <div class="example">
+          <div class="example-title">Weekends at 20:00</div>
+          <code>0 20 * * 0,6</code>
+        </div>
+      </div>
+
+      <div class="help-notes">
+        <p><strong>Notes:</strong> Preview uses browser timezone and DST. Quartz/enterprise schedulers may use 6/7 fields (seconds); adapt if needed.</p>
+      </div>
+    </div>
+
+    <footer class="modal-footer">
+      <button class="btn-primary" data-close="modal">Close</button>
+    </footer>
+  </div>
+</div>
