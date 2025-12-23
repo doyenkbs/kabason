@@ -32,6 +32,31 @@ Each tool is isolated into its own HTML, CSS, and JS files, dynamically loaded i
 - CSV/XLSX column extraction  
 - Copy/download output  
 
+
+## Cron Scheduler & Expression Builder
+
+A cron utility for building, interpreting, validating, and previewing cron expressions.
+
+### Features
+- **Plain‑English → Cron** (e.g., “weekday at 09:00”, “every 15 minutes”)
+- **Field generator** (minutes, hours, DOM, month, DOW)
+- **Parser output** (human‑readable)
+- **Next 10 run times** (browser timezone)
+- **Validator** (Linux‑style 5‑field cron)
+
+### Files & Placement
+- `tools/cron-tool.html` — fragment injected into `#cronTool`
+- `assets/css/cron-tool.css` — scoped styles (dark/light, 3D cards)
+- `assets/js/cron-tool.js` — logic (parser, generator, validator, preview) + **modal wiring** inside `initCronTool()`
+
+### Integration
+1. Copy files into paths above.
+2. Ensure `index.html` loads:
+   ```html
+   <link rel="stylesheet" href="assets/css/cron-tool.css">
+   <script src="assets/js/cron-tool.js"></script>
+
+
 #### **3. IP / CIDR Utility Tool**
 - Validate IPs  
 - Expand CIDR blocks  
