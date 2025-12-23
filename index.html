@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>KABASON Utility Suite</title>
-  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <!-- <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico"> -->
 
   <!-- GLOBAL CSS -->
@@ -12,6 +12,7 @@
   <!-- TOOL CSS -->
   <link rel="stylesheet" href="assets/css/list-tool.css">
   <link rel="stylesheet" href="assets/css/regex-tool.css">
+  <link rel="stylesheet" href="assets/css/cron-tool.css">
   <link rel="stylesheet" href="assets/css/new-tool.css">
   <link rel="stylesheet" href="assets/css/landing.css">
 </head>
@@ -37,6 +38,7 @@
     <div class="tab" data-target="listTool">List Comparison</div>
     <div class="tab" data-target="regexTool">Regex Formatter</div>
     <!-- <div class="tab" data-target="advancedRegex">Advanced Regex</div> -->
+     <div class="tab" data-target="cronTool">Cron Parser</div>
     <div class="tab" data-target="ipTool">IP/CIDR Utility</div>
   </nav>
 
@@ -65,7 +67,12 @@
               <h3>Regex Formatter</h3>
               <p>Generate clean, environment‑ready regex from hostnames or lists.</p>
             </div>
-          
+
+            <div class="tool-card" data-target="cronTool">
+              <h3>Cron Parser &amp; Builder</h3>
+              <p>Create, interpret, and validate cron expressions with ease.</p>
+            </div>
+
             <div class="tool-card" data-target="ipTool">
               <h3>IP / CIDR Utility</h3>
               <p>Validate, expand, collapse, and normalize IP address lists.</p>
@@ -77,6 +84,7 @@
   
   <div id="listTool" class="page"></div>
   <div id="regexTool" class="page"></div>
+  <div id="cronTool" class="page"></div>
   <div id="ipTool" class="page"></div>
 
   <!-- GLOBAL JS -->
@@ -89,6 +97,7 @@
   <script src="assets/js/list-tool.js"></script>
   <script src="assets/js/regex-tool.js"></script>
   <!-- <script src="assets/js/regex-advanced.js"></script> -->
+  <script src="assets/js/cron-tool.js"></script>
   <script src="assets/js/new-tool.js"></script>
 
   <!-- DYNAMIC TOOL LOADER -->
@@ -103,6 +112,7 @@
   loadTool("listTool", "tools/list-tool.html", initListTool);
   loadTool("regexTool", "tools/regex-tool.html", initRegexTool);
   loadTool("ipTool", "tools/new-tool.html", initIPTool);
+  loadTool("cronTool", "tools/cron-tool.html", initCronTool);
  
 </script>
 
