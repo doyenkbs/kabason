@@ -33,6 +33,10 @@
         <button class="btn btn-outline-green" id="cleanA">Trim &amp; Clean</button>
         <!-- ✅ match JS: clearA -->
         <button class="btn btn-outline-green" id="clearA">Clear A</button>
+        
+        <!-- NEW: List A count (hidden until there are items) -->
+        <span id="listACount" class="list-count" hidden></span>
+
       </div>
     </div>
     <textarea id="listA" placeholder="Enter List A items…"></textarea>
@@ -46,6 +50,10 @@
         <button class="btn btn-outline-green" id="cleanB">Trim &amp; Clean</button>
         <!-- ✅ match JS: clearB -->
         <button class="btn btn-outline-green" id="clearB">Clear B</button>
+     
+        <!-- NEW: List B count (hidden until there are items) -->
+        <span id="listBCount" class="list-count" hidden></span>
+
       </div>
     </div>
     <textarea id="listB" placeholder="Enter List B items…"></textarea>
@@ -57,8 +65,18 @@
   <button class="btn btn-green" id="compareBtn">Compare Lists</button>
   <!-- ✅ match JS: clearAllBtn (only one element with this ID) -->
   <button class="btn btn-outline-green" id="clearAllBtn">Clear All</button>
+ 
+  <label style="margin-left:15px;">
+    <input type="checkbox" id="caseInsensitive" checked style="transform:scale(1.2); margin-right:6px;">
+    Case-insensitive
+  </label>
 
   <label style="margin-left:15px;">
+    <input type="checkbox" id="removeDuplicates" checked style="transform:scale(1.2); margin-right:6px;">
+    Remove duplicates
+  </label>
+
+  <!--label style="margin-left:15px;">
     <input type="checkbox" id="caseInsensitive" style="transform:scale(1.2); margin-right:6px;">
     Case-insensitive
   </label>
@@ -66,7 +84,7 @@
   <label style="margin-left:15px;">
     <input type="checkbox" id="removeDuplicates" style="transform:scale(1.2); margin-right:6px;">
     Remove duplicates
-  </label>
+  </label -->
 
   <label style="margin-left:15px;">
     <input type="checkbox" id="ignoreBlanks" style="transform:scale(1.2); margin-right:6px;">
