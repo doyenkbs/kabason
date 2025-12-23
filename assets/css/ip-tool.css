@@ -1,0 +1,100 @@
+
+/* ========= IP Tool styles (matches kabason suite cards/buttons) ========= */
+
+#ipTool .ip-controls {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+#ipTool .ip-card {
+  flex: 1;
+  min-width: 320px;
+  border-radius: 8px;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: #0f172a; /* dark */
+  box-shadow:
+    0 12px 28px rgba(0,0,0,0.55),
+    0 6px 12px rgba(0,0,0,0.35),
+    0 2px 4px rgba(0,0,0,0.45),
+    0 0 0 1px rgba(255,255,255,0.06) inset,
+    0 0 12px rgba(255,255,255,0.03) inset;
+}
+
+body.light-mode #ipTool .ip-card {
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.12);
+  box-shadow:
+    0 12px 28px rgba(0,0,0,0.25),
+    0 6px 12px rgba(0,0,0,0.15),
+    0 2px 4px rgba(0,0,0,0.20),
+    0 0 0 1px rgba(0,0,0,0.05) inset,
+    0 0 12px rgba(0,0,0,0.03) inset;
+}
+
+#ipTool .ip-card-header {
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+  padding: 12px 16px;
+}
+body.light-mode #ipTool .ip-card-header {
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+#ipTool .ip-card-body {
+  padding: 16px;
+}
+
+#ipTool .field-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0;
+}
+#ipTool .field-row input[type="text"],
+#ipTool .field-row input[type="number"],
+#ipTool .field-row select {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: 1px solid #3498db;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+body.light-mode #ipTool .field-row input[type="text"],
+body.light-mode #ipTool .field-row input[type="number"],
+body.light-mode #ipTool .field-row select {
+  background: #fff;
+  color: #1e293b;
+  border-color: #1e3a8a;
+}
+
+#ipTool .hint {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+#ipTool .btn-group {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 10px 0;
+}
+
+#ipTool .ip-results .kv {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+  font-size: 14px;
+}
+#ipTool .ip-results .kv code {
+  color: #48bb78 !important; /* green text like results */
+}
+
+#ipTool .msg {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #94a3b8;
+}
