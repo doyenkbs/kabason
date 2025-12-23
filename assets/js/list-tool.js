@@ -1,4 +1,16 @@
 function initListTool() {
+  
+  /* ---------------------------------------
+   Helper / Guard (place at the TOP)
+   --------------------------------------- */
+  function mustGet(id) {
+    const el = document.getElementById(id);
+    if (!el) {
+      console.warn(`[ListTool] Missing element: #${id}`);
+    }
+    return el;
+  }
+
   const listAEl = document.getElementById("listA");
   const listBEl = document.getElementById("listB");
 
@@ -65,6 +77,69 @@ function initListTool() {
   }
   document.getElementById("cleanA").onclick = () => trimClean(listAEl);
   document.getElementById("cleanB").onclick = () => trimClean(listBEl);
+
+  
+// Clear A / Clear B handlers
+document.getElementById("clearA").onclick = () => {
+  const listAEl = document.getElementById("listA");
+  if (listAEl) listAEl.value = "";
+};
+
+document.getElementById("clearB").onclick = () => {
+  const listBEl = document.getElementById("listB");
+  if (listBEl) listBEl.value = "";
+};
+
+
+// --- Full reset for List A (textarea + upload) ---
+document.getElementById("clearA").onclick = () => {
+  const listAEl   = document.getElementById("listA");
+  const fileA     = document.getElementById("fileA");
+  const columnA   = document.getElementById("columnA");
+  const fileAInfo = document.getElementById("fileAInfo");
+
+  // 1) Clear textarea
+  if (listAEl) listAEl.value = "";
+
+  // 2) Clear file input
+  if (fileA) fileA.value = "";
+
+  // 3) Reset column select (back to placeholder)
+  if (columnA) {
+    columnA.innerHTML = ""; // wipe options
+    const opt = document.createElement("option");
+    opt.value = "";
+    opt.textContent = "Select column…";
+    columnA.appendChild(opt);
+    columnA.selectedIndex = 0;
+  }
+
+  // 4) Clear file info label
+  if (fileAInfo) fileAInfo.textContent = "";
+};
+
+// --- Full reset for List B (textarea + upload) ---
+document.getElementById("clearB").onclick = () => {
+  const listBEl   = document.getElementById("listB");
+  const fileB     = document.getElementById("fileB");
+  const columnB   = document.getElementById("columnB");
+  const fileBInfo = document.getElementById("fileBInfo");
+
+  if (listBEl) listBEl.value = "";
+  if (fileB) fileB.value = "";
+
+  if (columnB) {
+    columnB.innerHTML = "";
+    const opt = document.createElement("option");
+    opt.value = "";
+    opt.textContent = "Select column…";
+    columnB.appendChild(opt);
+    columnB.selectedIndex = 0;
+  }
+
+  if (fileBInfo) fileBInfo.textContent = "";
+};
+
 
   /* Compare Lists */
   document.getElementById("compareBtn").onclick = () => {
@@ -134,4 +209,59 @@ function initListTool() {
       document.getElementById(id).innerText = "";
     });
   };
+
+  
+// === Standardize result actions (Copy / Download / Clear) ===
+(function wireResultActions() {
+  const scope = document.getElementById("listTool");
+  if (!scope) return;
+
+  // Copy buttons
+  scope.querySelectorAll("[data-copy]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.copy;
+      const el = document.getElementById(id);
+      const text = el ? el.innerText : "";
+      if (!text) return alert("Nothing to copy.");
+      navigator.clipboard.writeText(text)
+        .then(() => alert("Copied!"))
+        .catch(() => {
+          // Fallback
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          document.body.removeChild(ta);
+          alert("Copied!");
+        });
+    });
+  });
+
+  // Download buttons
+  scope.querySelectorAll("[data-download]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.download;
+      const fn = btn.dataset.fn || "list.txt";
+      const el = document.getElementById(id);
+      const text = el ? el.innerText : "";
+      if (!text) return alert("Nothing to download.");
+      // Uses downloadText from global.js
+      downloadText(text, fn);
+    });
+  });
+
+  // Per-result Clear buttons
+  scope.querySelectorAll("[data-clear]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const outId = btn.dataset.clear;
+      const countId = btn.dataset.clearcount;
+      const outEl = document.getElementById(outId);
+      const countEl = document.getElementById(countId);
+      if (outEl) outEl.innerText = "";
+      if (countEl) countEl.innerText = "";
+    });
+  });
+})();
+
 }
