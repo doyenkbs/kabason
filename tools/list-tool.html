@@ -1,3 +1,4 @@
+
 <h2>List Comparison Tool</h2>
 <p>This tool compares two lists and shows items in both, only in A, and only in B.</p>
 
@@ -27,9 +28,11 @@
   <div class="list-section">
     <div class="list-header">
       <h3>List A</h3>
-      <div>
-        <button id="cleanA">Trim & Clean</button>
-        <button id="clearA">Clear A</button>
+      <div class="btn-group">
+        <!-- ✅ match JS: cleanA -->
+        <button class="btn btn-outline-green" id="cleanA">Trim &amp; Clean</button>
+        <!-- ✅ match JS: clearA -->
+        <button class="btn btn-outline-green" id="clearA">Clear A</button>
       </div>
     </div>
     <textarea id="listA" placeholder="Enter List A items…"></textarea>
@@ -38,18 +41,22 @@
   <div class="list-section">
     <div class="list-header">
       <h3>List B</h3>
-      <div>
-        <button id="cleanB">Trim & Clean</button>
-        <button id="clearB">Clear B</button>
+      <div class="btn-group">
+        <!-- ✅ match JS: cleanB -->
+        <button class="btn btn-outline-green" id="cleanB">Trim &amp; Clean</button>
+        <!-- ✅ match JS: clearB -->
+        <button class="btn btn-outline-green" id="clearB">Clear B</button>
       </div>
     </div>
     <textarea id="listB" placeholder="Enter List B items…"></textarea>
   </div>
 </div>
 
-<div class="buttons">
-  <button id="compareBtn">Compare Lists</button>
-  <button id="clearAllBtn">Clear All</button>
+<div class="buttons btn-group">
+  <!-- ✅ match JS: compareBtn -->
+  <button class="btn btn-green" id="compareBtn">Compare Lists</button>
+  <!-- ✅ match JS: clearAllBtn (only one element with this ID) -->
+  <button class="btn btn-outline-green" id="clearAllBtn">Clear All</button>
 
   <label style="margin-left:15px;">
     <input type="checkbox" id="caseInsensitive" style="transform:scale(1.2); margin-right:6px;">
@@ -77,10 +84,10 @@
     <h3>Items in Both Lists</h3>
     <div id="bothCount" class="count"></div>
     <div id="bothOutput" class="output"></div>
-    <div class="buttons">
-      <button data-copy="bothOutput">Copy</button>
-      <button data-download="bothOutput" data-fn="items_in_both.txt">Download</button>
-      <button data-clear="bothOutput" data-clearcount="bothCount">Clear</button>
+    <div class="buttons btn-group">
+      <button class="btn btn-blue"  data-copy="bothOutput">Copy</button>
+      <button class="btn btn-gray"  data-download="bothOutput" data-fn="items_in_both.txt">Download</button>
+      <button class="btn btn-outline-green" data-clear="bothOutput" data-clearcount="bothCount">Clear</button>
     </div>
   </div>
 
@@ -88,10 +95,10 @@
     <h3>Items Only in List A</h3>
     <div id="onlyACount" class="count"></div>
     <div id="onlyAOutput" class="output"></div>
-    <div class="buttons">
-      <button data-copy="onlyAOutput">Copy</button>
-      <button data-download="onlyAOutput" data-fn="items_only_in_A.txt">Download</button>
-      <button data-clear="onlyAOutput" data-clearcount="onlyACount">Clear</button>
+    <div class="buttons btn-group">
+      <button class="btn btn-blue"  data-copy="onlyAOutput">Copy</button>
+      <button class="btn btn-gray"  data-download="onlyAOutput" data-fn="items_only_in_A.txt">Download</button>
+      <button class="btn btn-outline-green" data-clear="onlyAOutput" data-clearcount="onlyACount">Clear</button>
     </div>
   </div>
 
@@ -99,10 +106,10 @@
     <h3>Items Only in List B</h3>
     <div id="onlyBCount" class="count"></div>
     <div id="onlyBOutput" class="output"></div>
-    <div class="buttons">
-      <button data-copy="onlyBOutput">Copy</button>
-      <button data-download="onlyBOutput" data-fn="items_only_in_B.txt">Download</button>
-      <button data-clear="onlyBOutput" data-clearcount="onlyBCount">Clear</button>
+    <div class="buttons btn-group">
+      <button class="btn btn-blue"  data-copy="onlyBOutput">Copy</button>
+      <button class="btn btn-gray"  data-download="onlyBOutput" data-fn="items_only_in_B.txt">Download</button>
+      <button class="btn btn-outline-green" data-clear="onlyBOutput" data-clearcount="onlyBCount">Clear</button>
     </div>
   </div>
 </div>
