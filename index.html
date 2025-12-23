@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>KABASON Utility Suite</title>
     <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <!-- <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico"> -->
@@ -13,7 +15,7 @@
   <link rel="stylesheet" href="assets/css/list-tool.css">
   <link rel="stylesheet" href="assets/css/regex-tool.css">
   <link rel="stylesheet" href="assets/css/cron-tool.css">
-  <link rel="stylesheet" href="assets/css/new-tool.css">
+  <link rel="stylesheet" href="assets/css/ip-tool.css">
   <link rel="stylesheet" href="assets/css/landing.css">
 </head>
 
@@ -38,8 +40,8 @@
     <div class="tab" data-target="listTool">List Comparison</div>
     <div class="tab" data-target="regexTool">Regex Formatter</div>
     <!-- <div class="tab" data-target="advancedRegex">Advanced Regex</div> -->
-     <div class="tab" data-target="cronTool">Cron Parser</div>
-    <div class="tab" data-target="ipTool">IP/CIDR Utility</div>
+    <div class="tab" data-target="cronTool">Cron Parser</div>
+    <div class="tab" data-target="ipTool">IP Networking</div>
   </nav>
 
   <!-- PAGE CONTAINERS -->
@@ -74,9 +76,8 @@
             </div>
 
             <div class="tool-card" data-target="ipTool">
-              <h3>IP / CIDR Utility</h3>
-              <p>Validate, expand, collapse, and normalize IP address lists.</p>
-            </div>
+              <h3>IP Networking Tool</h3>
+              <p>Calculate subnets, validate IPs, and convert between formats.</p>
       
           </div>
       </section>
@@ -98,7 +99,7 @@
   <script src="assets/js/regex-tool.js"></script>
   <!-- <script src="assets/js/regex-advanced.js"></script> -->
   <script src="assets/js/cron-tool.js"></script>
-  <script src="assets/js/new-tool.js"></script>
+  <script src="assets/js/ip-tool.js"></script>
 
   <!-- DYNAMIC TOOL LOADER -->
   <script>
@@ -111,7 +112,7 @@
 
   loadTool("listTool", "tools/list-tool.html", initListTool);
   loadTool("regexTool", "tools/regex-tool.html", initRegexTool);
-  loadTool("ipTool", "tools/new-tool.html", initIPTool);
+  loadTool("ipTool", "tools/ip-tool.html", initIPTool);
   loadTool("cronTool", "tools/cron-tool.html", initCronTool);
  
 </script>
