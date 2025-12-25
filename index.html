@@ -17,6 +17,9 @@
   <link rel="stylesheet" href="assets/css/cron-tool.css">
   <link rel="stylesheet" href="assets/css/ip-tool.css">
   <link rel="stylesheet" href="assets/css/landing.css">
+  <link rel="stylesheet" href="assets/css/json-to-csv.css">
+  <link rel="stylesheet" href="assets/css/csv-to-json.css">
+
 </head>
 
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "YOUR_TOKEN"}'></script>
@@ -41,6 +44,8 @@
     <div class="tab" data-target="regexTool">Regex Formatter</div>
     <!-- <div class="tab" data-target="advancedRegex">Advanced Regex</div> -->
     <div class="tab" data-target="cronTool">Cron Parser</div>
+    <div class="tab" data-target="jsonToCsvTool">JSON to CSV</div>
+    <div class="tab" data-target="csvToJsonTool">CSV to JSON</div>
     <div class="tab" data-target="ipTool">IP Networking</div>
   </nav>
 
@@ -75,10 +80,21 @@
               <p>Create, interpret, and validate cron expressions with ease.</p>
             </div>
 
+            <div class="tool-card" data-target="jsonToCsvTool">
+              <h3>JSON → CSV / Table</h3>
+              <p>Flatten API JSON into a clean CSV or searchable table for Excel and reporting.</p>
+            </div>
+
+            <div class="tool-card" data-target="csvToJsonTool">
+              <h3>CSV → JSON Converter</h3>
+              <p>Convert CSV (Excel exports) into clean JSON for APIs, configs, and automation.</p>
+            </div>
+
             <div class="tool-card" data-target="ipTool">
               <h3>IP Networking Tool</h3>
               <p>Calculate subnets, validate IPs, and convert between formats.</p>
-      
+            </div> 
+
           </div>
       </section>
   </div>
@@ -86,6 +102,8 @@
   <div id="listTool" class="page"></div>
   <div id="regexTool" class="page"></div>
   <div id="cronTool" class="page"></div>
+  <div id="jsonToCsvTool" class="page"></div>
+  <div id="csvToJsonTool" class="page"></div>
   <div id="ipTool" class="page"></div>
 
   <!-- GLOBAL JS -->
@@ -99,10 +117,12 @@
   <script src="assets/js/regex-tool.js"></script>
   <!-- <script src="assets/js/regex-advanced.js"></script> -->
   <script src="assets/js/cron-tool.js"></script>
+  <script src="assets/js/json-to-csv.js"></script>
+  <script src="assets/js/csv-to-json.js"></script>
   <script src="assets/js/ip-tool.js"></script>
 
   <!-- DYNAMIC TOOL LOADER -->
-  <script>
+<script>
   async function loadTool(id, file, callback) {
     const container = document.getElementById(id);
     const html = await fetch(file).then(r => r.text());
@@ -114,6 +134,8 @@
   loadTool("regexTool", "tools/regex-tool.html", initRegexTool);
   loadTool("ipTool", "tools/ip-tool.html", initIPTool);
   loadTool("cronTool", "tools/cron-tool.html", initCronTool);
+  loadTool("jsonToCsvTool", "tools/json-to-csv.html", initJsonToCsvTool);
+  loadTool("csvToJsonTool", "tools/csv-to-json.html", initCsvToJsonTool);
  
 </script>
 
