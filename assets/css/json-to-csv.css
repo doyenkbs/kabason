@@ -1,0 +1,286 @@
+/* ========== JSON → CSV / TABLE CONVERTER STYLES ========== */
+
+/* Tool heading alignment */
+#jsonToCsvPage h2 {
+  margin-top: 0;
+}
+
+/* -------------------------------------------------------
+   INPUT JSON TEXTAREA (match regex tool feel)
+   ------------------------------------------------------- */
+#jsonInput {
+  height: 160px;          /* matches regexInput */
+  resize: none;
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+
+  border: 1px solid #3498db;
+  background: #0f172a;
+  color: #f4f6f7;
+
+  font-family: monospace;
+  font-size: 15px;
+  box-sizing: border-box;
+
+  /* Prevent “touching border” look */
+  margin-top: 8px;
+}
+
+/* Light mode override */
+body.light-mode #jsonInput {
+  background: #ffffff;
+  color: #111;
+  border-color: #1e3a8a;
+}
+
+/* -------------------------------------------------------
+   CONTROLS (root path, dropdowns, join separator)
+   ------------------------------------------------------- */
+#jsonToCsvPage input[type="text"],
+#jsonToCsvPage select {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #3498db;
+  background: #0f172a;
+  color: #f4f6f7;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+body.light-mode #jsonToCsvPage input[type="text"],
+body.light-mode #jsonToCsvPage select {
+  background: #ffffff;
+  color: #111;
+  border-color: #1e3a8a;
+}
+
+/* Make small join separator box feel consistent */
+#arrayJoiner {
+  font-family: monospace;
+  text-align: center;
+}
+
+/* Upload block spacing like regex tool */
+#jsonToCsvPage .upload-row {
+  margin-bottom: 20px;
+}
+
+#jsonToCsvPage .upload-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* -------------------------------------------------------
+   TABLE PREVIEW + CSV OUTPUT (deep 3D panels)
+   IMPORTANT: keep padding so borders don't touch
+   ------------------------------------------------------- */
+#tableWrap,
+#csvOutput {
+  background: #1c2833;
+  color: #f4f6f7;
+
+  padding: 15px;
+  border: 1px solid #3498db;
+  border-radius: 4px;
+
+  white-space: pre-wrap;
+  font-family: monospace;
+  font-size: 14px;
+
+  overflow: auto;
+
+  /* Add breathing room from controls above */
+  margin-top: 10px;
+}
+
+/* Light mode overrides */
+body.light-mode #tableWrap,
+body.light-mode #csvOutput {
+  background: #ffffff;
+  color: #111;
+  border-color: #1e3a8a;
+}
+
+/* Keep CSV block readable like regex output */
+#csvOutput {
+  min-height: 120px;
+  max-height: 260px; /* matches your inline style intent */
+}
+
+/* Keep table preview readable + consistent */
+#tableWrap {
+  min-height: 240px;
+  max-height: 520px; /* matches your inline style intent */
+}
+
+/* -------------------------------------------------------
+   TABLE INSIDE TABLE PREVIEW
+   ------------------------------------------------------- */
+#tableWrap table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#tableWrap th,
+#tableWrap td {
+  padding: 10px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+  font-family: inherit;
+  font-size: 13px;
+}
+
+body.light-mode #tableWrap th,
+body.light-mode #tableWrap td {
+  border-bottom: 1px solid rgba(0,0,0,0.10);
+}
+
+/* Sticky header look */
+#tableWrap th {
+  position: sticky;
+  top: 0;
+  background: #0f172a;
+  z-index: 1;
+}
+
+body.light-mode #tableWrap th {
+  background: #f3f4f6;
+}
+
+/* Hover row */
+body.dark-mode #tableWrap tbody tr:hover td {
+  background: rgba(72, 187, 120, 0.08);
+}
+body.light-mode #tableWrap tbody tr:hover td {
+  background: rgba(30, 58, 138, 0.06);
+}
+
+/* -------------------------------------------------------
+   DEEP 3D CARD EFFECT (match regex-tool.css exactly)
+   Apply to upload sections + output blocks
+   ------------------------------------------------------- */
+#jsonToCsvPage .upload-section,
+#tableWrap,
+#csvOutput {
+  background: #0f172a;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.10);
+
+  box-shadow:
+    0 12px 28px rgba(0,0,0,0.55),
+    0 6px 12px rgba(0,0,0,0.35),
+    0 2px 4px rgba(0,0,0,0.45),
+    0 0 0 1px rgba(255,255,255,0.06) inset,
+    0 0 12px rgba(255,255,255,0.03) inset;
+
+  padding: 20px; /* This is the big fix for border-touching */
+}
+
+/* Light mode deep card */
+body.light-mode #jsonToCsvPage .upload-section,
+body.light-mode #tableWrap,
+body.light-mode #csvOutput {
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.12);
+
+  box-shadow:
+    0 12px 28px rgba(0,0,0,0.25),
+    0 6px 12px rgba(0,0,0,0.15),
+    0 2px 4px rgba(0,0,0,0.20),
+    0 0 0 1px rgba(0,0,0,0.05) inset,
+    0 0 12px rgba(0,0,0,0.03) inset;
+
+  padding: 20px;
+}
+
+/* Section titles */
+#jsonToCsvPage .upload-title {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+#jsonToCsvPage .upload-desc {
+  font-size: 13px;
+  opacity: 0.8;
+  margin-bottom: 10px;
+}
+
+/* Make the CSV output text “soft green” like regex output (optional) */
+#csvOutput {
+  color: #48bb78;
+}
+
+/* Keep table text readable (not green) */
+#tableWrap {
+  color: #f4f6f7;
+}
+body.light-mode #tableWrap {
+  color: #111;
+}
+
+/* -------------------------------------------------------
+   RESPONSIVE
+   ------------------------------------------------------- */
+@media (max-width: 640px) {
+  #jsonToCsvPage .upload-controls {
+    gap: 8px;
+  }
+
+  #jsonToCsvPage input[type="text"],
+  #jsonToCsvPage select {
+    width: 100%;
+  }
+
+  #arrayJoiner {
+    width: 100px;
+  }
+}
+
+/* ===== Table Preview: match JSON textarea look + add breathing room ===== */
+
+#jsonToCsvPage #tableWrap {
+  /* keep space from the section border (right/left/top/bottom) */
+  margin: 10px 10px 0 10px;
+
+  /* match textarea feel */
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid #3498db;     /* same light blue border */
+  background: #0f172a;           /* same as textarea */
+  color: #f4f6f7;
+
+  /* behave like an editor/output box */
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+/* Light mode matches your textarea border scheme */
+body.light-mode #jsonToCsvPage #tableWrap {
+  background: #ffffff;
+  color: #111;
+  border-color: #1e3a8a;
+}
+
+/* Make table sit nicely inside the preview box */
+#jsonToCsvPage #tableWrap table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Clean table spacing (no layout surprises) */
+#jsonToCsvPage #tableWrap th,
+#jsonToCsvPage #tableWrap td {
+  padding: 10px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+
+body.light-mode #jsonToCsvPage #tableWrap th,
+body.light-mode #jsonToCsvPage #tableWrap td {
+  border-bottom: 1px solid rgba(0,0,0,0.10);
+}
