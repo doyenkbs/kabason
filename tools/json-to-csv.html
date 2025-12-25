@@ -1,0 +1,78 @@
+<div id="jsonToCsvPage">
+  <h2>JSON → CSV / Table Converter</h2>
+  <p>Paste JSON from an API, flatten it, preview as a table, then export to CSV.</p>
+
+  <div class="upload-row">
+    <div class="upload-section">
+      <div class="upload-title">Input JSON</div>
+      <div class="upload-desc">Paste JSON (object or array) or upload a .json file.</div>
+
+      <div class="upload-controls">
+        <input type="file" id="jsonFile" accept=".json,application/json" />
+
+        <!-- Root path for API responses like: { "users": [...] } or { "data": { "items": [...] } } -->
+        <input
+          type="text"
+          id="rootPath"
+          placeholder="Root path (optional): e.g. users or data.items"
+          title="If your JSON is an object with an array inside, enter the path to that array (example: users, items, data.results, data.items)"
+          style="min-width:260px;"
+        />
+
+        <select id="rootPreset" title="Quick root path presets (optional)">
+          <option value="">Use Root: (none)</option>
+          <option value="users">users</option>
+          <option value="items">items</option>
+          <option value="results">results</option>
+          <option value="data">data</option>
+          <option value="data.items">data.items</option>
+          <option value="data.results">data.results</option>
+          <option value="response.items">response.items</option>
+        </select>
+      </div>
+
+      <div class="upload-controls">
+        <select id="arrayMode">
+          <option value="join" selected>Arrays: Join values</option>
+          <option value="index">Arrays: Index keys</option>
+        </select>
+
+        <input
+          type="text"
+          id="arrayJoiner"
+          value="; "
+          placeholder="; "
+          style="width:90px;"
+          title="Join separator (used only when Arrays: Join values is selected)"
+        />
+      </div>
+
+      <textarea
+        id="jsonInput"
+        rows="10"
+        placeholder='[{"id":1,"user":{"name":"Chris"},"tags":["a","b"]}]'
+      ></textarea>
+
+      <div class="btn-group" style="margin-top:10px;">
+        <button class="btn btn-green" id="btnConvert">Convert</button>
+        <button class="btn btn-outline-green" id="btnClear">Clear</button>
+        <button class="btn btn-blue" id="btnCopyCsv" disabled>Copy CSV</button>
+        <button class="btn btn-gray" id="btnDownloadCsv" disabled>Download CSV</button>
+      </div>
+    </div>
+
+    <div class="upload-section">
+      <div class="upload-title">Table Preview</div>
+      <div class="upload-desc">Search/filter rows instantly.</div>
+
+      <div class="upload-controls">
+        <input type="text" id="tableSearch" placeholder="Search table..." style="min-width:260px;" />
+      </div>
+
+      <div class="output" id="tableWrap" style="max-height:520px; overflow:auto;"></div>
+    </div>
+  </div>
+
+  <h3>CSV Output</h3>
+  <div class="output" id="csvOutput" style="max-height:260px;"></div>
+</div>

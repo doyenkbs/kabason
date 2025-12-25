@@ -1,0 +1,102 @@
+<div id="csvToJsonPage">
+  <h2>CSV → JSON Converter</h2>
+  <p>Paste CSV (or upload), preview conversion options, then export JSON.</p>
+
+  <div class="upload-row">
+    <!-- LEFT: INPUT -->
+    <div class="upload-section">
+      <div class="upload-title">Input CSV</div>
+      <div class="upload-desc">Paste CSV or upload a .csv file. First row can be headers.</div>
+
+      <div class="upload-controls">
+        <input type="file" id="csvFile" accept=".csv,text/csv,.txt,text/plain" />
+
+        <select id="delimiterMode" title="Delimiter">
+          <option value="auto" selected>Delimiter: Auto</option>
+          <option value=",">Delimiter: Comma (,)</option>
+          <option value=";">Delimiter: Semicolon (;)</option>
+          <option value="\t">Delimiter: Tab</option>
+          <option value="|">Delimiter: Pipe (|)</option>
+        </select>
+
+        <select id="headerMode" title="Header row">
+          <option value="headers" selected>Headers: First row</option>
+          <option value="noheaders">Headers: None</option>
+        </select>
+      </div>
+
+      <div class="upload-controls">
+        <label class="csv-opt">
+          <input type="checkbox" id="inferTypes" checked />
+          Infer types (numbers/booleans)
+        </label>
+
+        <label class="csv-opt">
+          <input type="checkbox" id="dotNotation" checked />
+          Dot headers → nested JSON
+        </label>
+
+        <label class="csv-opt">
+          <input type="checkbox" id="trimCells" checked />
+          Trim cells
+        </label>
+
+        <label class="csv-opt">
+          <input type="checkbox" id="skipEmpty" checked />
+          Skip empty lines
+        </label>
+      </div>
+
+      <div class="upload-controls">
+        <select id="outputMode" title="Output mode">
+          <option value="array" selected>Output: Array of objects</option>
+          <option value="keyed">Output: Object keyed by column</option>
+        </select>
+
+        <select id="keyColumn" title="Key column (for keyed output)" disabled>
+          <option value="">Key column: (select)</option>
+        </select>
+
+        <select id="indent" title="Indent">
+          <option value="2" selected>Indent: 2</option>
+          <option value="4">Indent: 4</option>
+          <option value="0">Indent: Minify</option>
+        </select>
+      </div>
+
+      <textarea id="csvInput" rows="10" placeholder="id,name,email&#10;1,Alice,alice@example.com&#10;2,Bob,bob@example.com"></textarea>
+
+      <div class="btn-group" style="margin-top:10px;">
+        <button class="btn btn-green" id="btnConvertCsv">Convert</button>
+        <button class="btn btn-outline-green" id="btnClearCsv">Clear</button>
+      </div>
+    </div>
+
+    <!-- RIGHT: OUTPUT -->
+    <div class="upload-section">
+      <div class="upload-title">JSON Output</div>
+      <div class="upload-desc">Preview the generated JSON. Use Copy/Download when ready.</div>
+
+      <!-- Buttons moved INTO the JSON Output section -->
+      <div class="btn-group" style="margin: 10px 0;">
+        <button class="btn btn-blue" id="btnCopyJson" disabled>Copy JSON</button>
+        <button class="btn btn-gray" id="btnDownloadJson" disabled>Download JSON</button>
+      </div>
+
+      <div class="output" id="jsonOutput" style="max-height:520px; overflow:auto;"></div>
+    </div>
+  </div>
+
+  <div class="upload-section" style="margin-top:20px;">
+    <div class="upload-title">Next step</div>
+    <div class="upload-desc">
+      Need to go the other direction? Send JSON into the JSON → CSV / Table Converter.
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-blue" id="btnGoJsonToCsv" type="button">
+        Open JSON → CSV Converter
+      </button>
+    </div>
+  </div>
+</div>
