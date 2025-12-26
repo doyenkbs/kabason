@@ -129,13 +129,42 @@ body.light-mode .cron-section input[type="text"] {
 }
 .btn-outline:hover { background: rgba(46,204,113,0.12); }
 
-/* ======== Outputs ======== */
+/* ======== Outputs Deep 3D ======== */
 .cron-subtitle { margin: 14px 0 8px; }
 .cron-output {
   min-height: 120px;
   padding: 15px;
   border-radius: 6px;
-  background: #112647;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: #0f172a;
+  color: #2ecc71;
+  white-space: pre-wrap;
+  font-family: monospace;
+  overflow-y: auto;
+  box-shadow:
+    0 12px 28px rgba(0,0,0,0.55),
+    0 6px 12px rgba(0,0,0,0.35),
+    0 2px 4px rgba(0,0,0,0.45),
+    0 0 0 1px rgba(255,255,255,0.06) inset,
+    0 0 12px rgba(255,255,255,0.03) inset;
+}
+body.light-mode .cron-output {
+  background: #ffffff;
+  border: 1px solid #c7d3df;
+  color: #2ecc71;
+  box-shadow:
+    0 12px 28px rgba(0,0,0,0.25),
+    0 6px 12px rgba(0,0,0,0.15),
+    0 2px 4px rgba(0,0,0,0.20),
+    0 0 0 1px rgba(0,0,0,0.05) inset,
+    0 0 12px rgba(0,0,0,0.03) inset;
+}
+/*.cron-subtitle { margin: 14px 0 8px; }
+.cron-output {
+  min-height: 120px;
+  padding: 15px;
+  border-radius: 6px;
+  background: #0f172a;
   border: 1px solid #2ecc71;
   color: #2ecc71;
   white-space: pre-wrap;
@@ -146,7 +175,7 @@ body.light-mode .cron-output {
   background: #ffffff;
   border-color: #1e3a8a;
   color: #2ecc71;
-}
+}*/
 
 /* ======== Help Modal ======== */
 .modal[hidden] { display: none; }
