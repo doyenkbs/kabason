@@ -1,110 +1,49 @@
-/* ========== CSV → JSON TOOL STYLES ========== */
+/* ========== CSV TO JSON ==========
+   CSV in on the left, JSON out on the right.
+   Panels, inputs, and buttons are inherited from global.css. */
 
-#csvToJsonPage h2 { margin-top: 0; }
-
-/* Textarea (match suite style) */
 #csvToJsonPage #csvInput {
-  height: 160px;
-  resize: none;
-  width: 100%;
-  padding: 10px;
-  border-radius: 4px;
-  border: 1px solid #3498db;
-  background: #0f172a;
-  color: #f4f6f7;
-  font-family: monospace;
-  font-size: 15px;
-  box-sizing: border-box;
-  margin-top: 8px;
+  min-height: 220px;
 }
 
-body.light-mode #csvToJsonPage #csvInput {
-  background: #ffffff;
-  color: #111;
-  border-color: #1e3a8a;
-}
-
-/* Options labels */
 #csvToJsonPage .csv-opt {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 14px;
+  gap: var(--s-2);
+  font-size: var(--t-13);
+  color: var(--text-dim);
+  cursor: pointer;
 }
 
-/* Controls */
-#csvToJsonPage input[type="text"],
-#csvToJsonPage select {
-  border-radius: 4px;
-  padding: 8px;
-  border: 1px solid #3498db;
-  background: #0f172a;
-  color: #f4f6f7;
-  font-size: 14px;
-  box-sizing: border-box;
+#csvToJsonPage .csv-opt:hover {
+  color: var(--text);
 }
 
-body.light-mode #csvToJsonPage input[type="text"],
-body.light-mode #csvToJsonPage select {
-  background: #ffffff;
-  color: #111;
-  border-color: #1e3a8a;
-}
-
-/* Output panel: make it feel like the textarea */
 #csvToJsonPage #jsonOutput {
-  margin: 10px 10px 0 10px; /* breathing room; not touching section edges */
-  padding: 12px;
-  border-radius: 4px;
-  border: 1px solid #3498db;
-  background: #0f172a;
-  color: #48bb78; /* soft green output like regex output */
-  font-family: monospace;
-  font-size: 13.5px;
-  line-height: 1.45;
-  box-sizing: border-box;
+  flex: 1;
+  min-height: 220px;
+  max-height: 520px;
+  padding: var(--s-3);
+  overflow: auto;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-family: var(--font-data);
+  font-size: var(--t-13);
+  line-height: 1.6;
+  color: var(--text);
   white-space: pre-wrap;
+  word-break: break-word;
 }
 
-body.light-mode #csvToJsonPage #jsonOutput {
-  background: #ffffff;
-  color: #111;
-  border-color: #1e3a8a;
+#csvToJsonPage #jsonOutput:empty::before {
+  content: attr(data-empty);
+  color: var(--text-faint);
+  font-family: var(--font-body);
 }
 
-/* Deep 3D cards (scoped to this tool only) */
-#csvToJsonPage .upload-section {
-  background: #0f172a;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.10);
-
-  box-shadow:
-    0 12px 28px rgba(0,0,0,0.55),
-    0 6px 12px rgba(0,0,0,0.35),
-    0 2px 4px rgba(0,0,0,0.45),
-    0 0 0 1px rgba(255,255,255,0.06) inset,
-    0 0 12px rgba(255,255,255,0.03) inset;
-
-  padding: 20px;
-}
-
-body.light-mode #csvToJsonPage .upload-section {
-  background: #ffffff;
-  border: 1px solid rgba(0,0,0,0.12);
-
-  box-shadow:
-    0 12px 28px rgba(0,0,0,0.25),
-    0 6px 12px rgba(0,0,0,0.15),
-    0 2px 4px rgba(0,0,0,0.20),
-    0 0 0 1px rgba(0,0,0,0.05) inset,
-    0 0 12px rgba(0,0,0,0.03) inset;
-
-  padding: 20px;
-}
-
-/* Responsive */
 @media (max-width: 640px) {
-  #csvToJsonPage .upload-controls { flex-wrap: wrap; }
-  #csvToJsonPage select { width: 100%; }
-  #csvToJsonPage #jsonOutput { margin: 10px 0 0 0; }
+  #csvToJsonPage select {
+    width: 100%;
+  }
 }

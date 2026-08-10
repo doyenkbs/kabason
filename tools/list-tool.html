@@ -1,133 +1,114 @@
-
-<h2>List Comparison Tool</h2>
-<p>This tool compares two lists and shows items in both, only in A, and only in B.</p>
-
-<div class="upload-row">
-  <div class="upload-section">
-    <div class="upload-title">Upload for List A</div>
-    <div class="upload-desc">Choose a CSV/XLSX file. Select the column containing your items.</div>
-    <div class="upload-controls">
-      <input type="file" id="fileA" accept=".csv,.xlsx" />
-      <select id="columnA"><option value="">Select column…</option></select>
-      <span id="fileAInfo" style="font-size:12px;"></span>
-    </div>
-  </div>
-
-  <div class="upload-section">
-    <div class="upload-title">Upload for List B</div>
-    <div class="upload-desc">Choose a CSV/XLSX file. Select the column containing your items.</div>
-    <div class="upload-controls">
-      <input type="file" id="fileB" accept=".csv,.xlsx" />
-      <select id="columnB"><option value="">Select column…</option></select>
-      <span id="fileBInfo" style="font-size:12px;"></span>
-    </div>
-  </div>
+<div class="page-head">
+  <h2>List comparison</h2>
+  <p class="page-desc">Paste two lists and see what they share and where they differ. Useful for reconciling an inventory export against what a management console reports.</p>
 </div>
 
-<div class="lists">
-  <div class="list-section">
-    <div class="list-header">
-      <h3>List A</h3>
-      <div class="btn-group">
-        <!-- ✅ match JS: cleanA -->
-        <button class="btn btn-outline-green" id="cleanA">Trim &amp; Clean</button>
-        <!-- ✅ match JS: clearA -->
-        <button class="btn btn-outline-green" id="clearA">Clear A</button>
-        
-        <!-- NEW: List A count (hidden until there are items) -->
-        <span id="listACount" class="list-count" hidden></span>
+<!-- Two lists in, three lists out, so the bench runs down the page -->
+<div class="bench is-vertical">
 
+  <div>
+    <div class="lists">
+      <div class="list-section">
+        <div class="list-header">
+          <h3>List A</h3>
+          <span id="listACount" class="list-count" hidden></span>
+        </div>
+        <textarea id="listA" spellcheck="false" placeholder="One item per line"></textarea>
+
+        <div class="file-row">
+          <span class="file-row-label">Or load a CSV or XLSX column</span>
+          <input type="file" id="fileA" accept=".csv,.xlsx" />
+          <select id="columnA"><option value="">Select column</option></select>
+          <span id="fileAInfo" class="hint"></span>
+        </div>
+
+        <div class="buttons">
+          <button class="btn btn-ghost" id="cleanA">Trim and clean</button>
+          <button class="btn btn-ghost" id="clearA">Clear A</button>
+        </div>
+      </div>
+
+      <div class="list-section">
+        <div class="list-header">
+          <h3>List B</h3>
+          <span id="listBCount" class="list-count" hidden></span>
+        </div>
+        <textarea id="listB" spellcheck="false" placeholder="One item per line"></textarea>
+
+        <div class="file-row">
+          <span class="file-row-label">Or load a CSV or XLSX column</span>
+          <input type="file" id="fileB" accept=".csv,.xlsx" />
+          <select id="columnB"><option value="">Select column</option></select>
+          <span id="fileBInfo" class="hint"></span>
+        </div>
+
+        <div class="buttons">
+          <button class="btn btn-ghost" id="cleanB">Trim and clean</button>
+          <button class="btn btn-ghost" id="clearB">Clear B</button>
+        </div>
       </div>
     </div>
-    <textarea id="listA" placeholder="Enter List A items…"></textarea>
+
+    <div class="options">
+      <label><input type="checkbox" id="caseInsensitive" checked> Ignore case</label>
+      <label><input type="checkbox" id="removeDuplicates" checked> Remove duplicates</label>
+      <label><input type="checkbox" id="ignoreBlanks"> Ignore blank lines</label>
+      <label><input type="checkbox" id="stripWhitespace"> Strip whitespace</label>
+    </div>
+
+    <div class="buttons">
+      <button class="btn btn-primary" id="compareBtn">Compare lists</button>
+      <button class="btn btn-ghost" id="clearAllBtn">Clear all</button>
+    </div>
   </div>
 
-  <div class="list-section">
-    <div class="list-header">
-      <h3>List B</h3>
-      <div class="btn-group">
-        <!-- ✅ match JS: cleanB -->
-        <button class="btn btn-outline-green" id="cleanB">Trim &amp; Clean</button>
-        <!-- ✅ match JS: clearB -->
-        <button class="btn btn-outline-green" id="clearB">Clear B</button>
-     
-        <!-- NEW: List B count (hidden until there are items) -->
-        <span id="listBCount" class="list-count" hidden></span>
+  <div class="bench-gutter" aria-hidden="true">
+    <span class="bench-arrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12h14M13 6l6 6-6 6" />
+      </svg>
+    </span>
+  </div>
 
+  <div class="results">
+    <div class="result-section">
+      <div class="result-head">
+        <h3>In both lists</h3>
+        <span id="bothCount" class="count"></span>
+      </div>
+      <div id="bothOutput" class="output" aria-live="polite" data-empty="Nothing compared yet."></div>
+      <div class="buttons">
+        <button class="btn btn-quiet" data-copy="bothOutput">Copy</button>
+        <button class="btn btn-quiet" data-download="bothOutput" data-fn="items_in_both.txt">Download</button>
+        <button class="btn btn-ghost" data-clear="bothOutput" data-clearcount="bothCount">Clear</button>
       </div>
     </div>
-    <textarea id="listB" placeholder="Enter List B items…"></textarea>
-  </div>
-</div>
 
-<div class="buttons btn-group">
-  <!-- ✅ match JS: compareBtn -->
-  <button class="btn btn-green" id="compareBtn">Compare Lists</button>
-  <!-- ✅ match JS: clearAllBtn (only one element with this ID) -->
-  <button class="btn btn-outline-green" id="clearAllBtn">Clear All</button>
- 
-  <label style="margin-left:15px;">
-    <input type="checkbox" id="caseInsensitive" checked style="transform:scale(1.2); margin-right:6px;">
-    Case-insensitive
-  </label>
+    <div class="result-section">
+      <div class="result-head">
+        <h3>Only in list A</h3>
+        <span id="onlyACount" class="count"></span>
+      </div>
+      <div id="onlyAOutput" class="output" aria-live="polite" data-empty="Nothing compared yet."></div>
+      <div class="buttons">
+        <button class="btn btn-quiet" data-copy="onlyAOutput">Copy</button>
+        <button class="btn btn-quiet" data-download="onlyAOutput" data-fn="items_only_in_A.txt">Download</button>
+        <button class="btn btn-ghost" data-clear="onlyAOutput" data-clearcount="onlyACount">Clear</button>
+      </div>
+    </div>
 
-  <label style="margin-left:15px;">
-    <input type="checkbox" id="removeDuplicates" checked style="transform:scale(1.2); margin-right:6px;">
-    Remove duplicates
-  </label>
-
-  <!--label style="margin-left:15px;">
-    <input type="checkbox" id="caseInsensitive" style="transform:scale(1.2); margin-right:6px;">
-    Case-insensitive
-  </label>
-
-  <label style="margin-left:15px;">
-    <input type="checkbox" id="removeDuplicates" style="transform:scale(1.2); margin-right:6px;">
-    Remove duplicates
-  </label -->
-
-  <label style="margin-left:15px;">
-    <input type="checkbox" id="ignoreBlanks" style="transform:scale(1.2); margin-right:6px;">
-    Ignore blank lines
-  </label>
-
-  <label style="margin-left:15px;">
-    <input type="checkbox" id="stripWhitespace" style="transform:scale(1.2); margin-right:6px;">
-    Strip whitespace
-  </label>
-</div>
-
-<div class="results">
-  <div class="result-section">
-    <h3>Items in Both Lists</h3>
-    <div id="bothCount" class="count"></div>
-    <div id="bothOutput" class="output"></div>
-    <div class="buttons btn-group">
-      <button class="btn btn-blue"  data-copy="bothOutput">Copy</button>
-      <button class="btn btn-gray"  data-download="bothOutput" data-fn="items_in_both.txt">Download</button>
-      <button class="btn btn-outline-green" data-clear="bothOutput" data-clearcount="bothCount">Clear</button>
+    <div class="result-section">
+      <div class="result-head">
+        <h3>Only in list B</h3>
+        <span id="onlyBCount" class="count"></span>
+      </div>
+      <div id="onlyBOutput" class="output" aria-live="polite" data-empty="Nothing compared yet."></div>
+      <div class="buttons">
+        <button class="btn btn-quiet" data-copy="onlyBOutput">Copy</button>
+        <button class="btn btn-quiet" data-download="onlyBOutput" data-fn="items_only_in_B.txt">Download</button>
+        <button class="btn btn-ghost" data-clear="onlyBOutput" data-clearcount="onlyBCount">Clear</button>
+      </div>
     </div>
   </div>
 
-  <div class="result-section">
-    <h3>Items Only in List A</h3>
-    <div id="onlyACount" class="count"></div>
-    <div id="onlyAOutput" class="output"></div>
-    <div class="buttons btn-group">
-      <button class="btn btn-blue"  data-copy="onlyAOutput">Copy</button>
-      <button class="btn btn-gray"  data-download="onlyAOutput" data-fn="items_only_in_A.txt">Download</button>
-      <button class="btn btn-outline-green" data-clear="onlyAOutput" data-clearcount="onlyACount">Clear</button>
-    </div>
-  </div>
-
-  <div class="result-section">
-    <h3>Items Only in List B</h3>
-    <div id="onlyBCount" class="count"></div>
-    <div id="onlyBOutput" class="output"></div>
-    <div class="buttons btn-group">
-      <button class="btn btn-blue"  data-copy="onlyBOutput">Copy</button>
-      <button class="btn btn-gray"  data-download="onlyBOutput" data-fn="items_only_in_B.txt">Download</button>
-      <button class="btn btn-outline-green" data-clear="onlyBOutput" data-clearcount="onlyBCount">Clear</button>
-    </div>
-  </div>
 </div>

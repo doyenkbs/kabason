@@ -1,235 +1,46 @@
-/* ========== REGEX FORMATTER TOOL STYLES ========== */
+/* ========== REGEX FORMATTER ==========
+   Hostnames in, one pattern out. Everything structural is in global.css;
+   this file only handles what is specific to the pattern itself. */
 
-/* Input textarea */
+#regexTool .regex-section {
+  margin-bottom: var(--s-4);
+  padding: var(--s-4);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
 #regexInput {
-  height: 160px;
-  resize: none;
-  width: 100%;
-  padding: 10px;
-  border-radius: 4px;
-  border: 1px solid #3498db;
-  background: #0f172a;
-  color: #f4f6f7;
-  font-family: monospace;
-  font-size: 15px;
-  box-sizing: border-box;
+  min-height: 220px;
 }
 
-/* Light mode override */
-body.light-mode #regexInput {
-  background: #ffffff;
-  color: #111;
-  border-color: #1e3a8a;
-}
-
-/* Upload block */
-.upload-row {
-  margin-bottom: 20px;
-}
-
-.upload-section {
-  background: #0f172a;
-  padding: 15px;
-  border-radius: 4px;
-  border: 1px solid #3498db;
-}
-
-body.light-mode .upload-section {
-  background: #ffffff;
-  border-color: #1e3a8a;
-}
-
-.upload-title {
-  font-weight: 600;
-  margin-bottom: 5px;
-}
-
-.upload-desc {
-  font-size: 13px;
-  opacity: 0.8;
-  margin-bottom: 10px;
-}
-
-.upload-controls {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-/* Regex output block */
-.regex-output {
-  background: #1c2833;
-  color: #f4f6f7;
-  padding: 15px;
-  border: 1px solid #3498db;
-  border-radius: 4px;
-  white-space: pre-wrap;
-  font-family: monospace;
-  font-size: 15px;
-  min-height: 120px;
-  max-height: 200px;
-  overflow-y: auto;
-}
-
-/* Light mode override for regex output */
-body.light-mode .regex-output {
-  background: #ffffff;
-  color: #111;
-  border-color: #1e3a8a;
-}
-
-/* Tool heading alignment */
-#regexTool h2 {
-  margin-top: 0;
-}
-
-/* Section wrapper */
-.regex-section {
-  background: #0f172a;
-  padding: 15px;
-  border-radius: 4px;
-  border: 1px solid #3498db;
-  margin-bottom: 20px;
-}
-
-body.light-mode .regex-section {
-  background: #ffffff;
-  border-color: #1e3a8a;
-}
-
-.section-title {
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-
-/* Options row */
-.regex-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-top: 10px;
-}
-
-.regex-options label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 14px;
-}
-
-/* Environment dropdown */
 #regexEnvironment {
   width: 100%;
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid #3498db;
-  background: #0f172a;
-  color: #f4f6f7;
-  font-size: 15px;
+  max-width: 320px;
 }
 
-body.light-mode #regexEnvironment {
-  background: #ffffff;
-  color: #111;
-  border-color: #1e3a8a;
-}
-
-/* DEEP 3D CARD EFFECT */
-.upload-section,
-.regex-section,
+/* The pattern is the product of this tool, so it is set larger than the
+   input that produced it and carries the signal color. */
 #regexOutput {
-    background: #0f172a;
-    border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.10);
-
-    /* Deep multi-layer shadow stack */
-    box-shadow:
-        0 12px 28px rgba(0,0,0,0.55),      /* main depth */
-        0 6px 12px rgba(0,0,0,0.35),       /* mid depth */
-        0 2px 4px rgba(0,0,0,0.45),        /* tight shadow */
-        0 0 0 1px rgba(255,255,255,0.06) inset, /* inner bevel */
-        0 0 12px rgba(255,255,255,0.03) inset;  /* soft inner glow */
-
-    padding: 20px;
+  flex: 1;
+  min-height: 220px;
+  max-height: 420px;
+  padding: var(--s-3);
+  overflow: auto;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-family: var(--font-data);
+  font-size: var(--t-15);
+  line-height: 1.7;
+  color: var(--signal);
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 
-/* Light mode version */
-body.light-mode .upload-section,
-body.light-mode .regex-section,
-body.light-mode #regexOutput {
-    background: #ffffff;
-    border: 1px solid rgba(0,0,0,0.12);
-
-    box-shadow:
-        0 12px 28px rgba(0,0,0,0.25),
-        0 6px 12px rgba(0,0,0,0.15),
-        0 2px 4px rgba(0,0,0,0.20),
-        0 0 0 1px rgba(0,0,0,0.05) inset,
-        0 0 12px rgba(0,0,0,0.03) inset;
-
-    padding: 20px;
+#regexOutput:empty::before {
+  content: attr(data-empty);
+  font-family: var(--font-body);
+  font-size: var(--t-13);
+  color: var(--text-faint);
 }
-
-/* Make regex output text green */
-#regexOutput,
-.regex-output {
-    color: #48bb78 !important; /* soft green */
-}
-
-
-/* ================= 3D POP-OUT CARD EFFECT STYLES ================= 
----* 3D depth for all tool sections *---
-.upload-section,
-.regex-section,
-#regexOutput {
-    background: #0f172a;
-    border-radius: 6px;
-    border: 1px solid rgba(255,255,255,0.08);
-    box-shadow:
-        0 6px 14px rgba(0,0,0,0.45),
-        0 0 0 1px rgba(255,255,255,0.05) inset;
-    padding: 18px;
-}
-
----* Light mode support *---
-body.light-mode .upload-section,
-body.light-mode .regex-section,
-body.light-mode #regexOutput {
-    background: #ffffff;
-    border: 1px solid rgba(0,0,0,0.12);
-    box-shadow:
-        0 6px 14px rgba(0,0,0,0.18),
-        0 0 0 1px rgba(0,0,0,0.05) inset;
-}
-================== END OF 3D POP-OUT CARD EFFECT STYLES ================= */
-
-/* Buttons 
-.buttons {
-  display: flex;
-  gap: 10px;
-  margin: 15px 0;
-}
-
-.buttons button {
-  padding: 8px 14px;
-  border-radius: 4px;
-  border: 1px solid #3498db;
-  background: #1c2833;
-  color: #f4f6f7;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.buttons button:hover {
-  background: #243447;
-}
-
-body.light-mode .buttons button {
-  background: #ffffff;
-  color: #111;
-  border-color: #1e3a8a;
-}
-
-body.light-mode .buttons button:hover {
-  background: #e5e7eb;
-} */

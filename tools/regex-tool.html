@@ -1,59 +1,66 @@
-<h2>Tanium Hostname & FQDN Regex Formatter</h2>
-<p>This tool converts hostnames or FQDNs into a clean, Tanium‑ready regex pattern.</p>
+<div class="page-head">
+  <h2>Regex formatter</h2>
+  <p class="page-desc">Turn a list of hostnames or FQDNs into one pattern that matches all of them. The domain is stripped, so <code>srv-atl-01.corp.local</code> matches on <code>srv-atl-01</code>.</p>
+</div>
 
-<!-- ✅ KEEPING YOUR ORIGINAL UPLOAD BLOCK EXACTLY AS PROVIDED -->
-<div class="upload-row">
-  <div class="upload-section">
-    <div class="upload-title">Upload for Regex</div>
-    <div class="upload-desc">Choose a CSV/XLSX file. Select the column with hostnames/FQDNs.</div>
-    <div class="upload-controls">
+<div class="bench">
+  <!-- SOURCE -->
+  <div class="panel">
+    <div class="panel-head">
+      <span class="panel-title">Hostnames</span>
+    </div>
+
+    <textarea id="regexInput" spellcheck="false" placeholder="One hostname per line, or comma separated"></textarea>
+
+    <!-- Second way in: pull the column out of a spreadsheet -->
+    <div class="file-row">
+      <span class="file-row-label">Or load a CSV or XLSX column</span>
       <input type="file" id="regexFile" accept=".csv,.xlsx" />
-      <select id="regexColumn"><option value="">Select column…</option></select>
-      <span id="regexFileInfo" style="font-size:12px;"></span>
+      <select id="regexColumn"><option value="">Select column</option></select>
+      <span id="regexFileInfo" class="hint"></span>
+    </div>
+
+    <div class="regex-options">
+      <label><input type="checkbox" id="regexTrim" checked> Remove blanks and duplicates</label>
+      <label><input type="checkbox" id="regexCaseSensitive"> Case sensitive</label>
+      <label><input type="checkbox" id="regexBegin" checked> Anchor start (^)</label>
+      <label><input type="checkbox" id="regexEnd" checked> Anchor end ($)</label>
+    </div>
+
+    <div class="section-title">Target</div>
+    <select id="regexEnvironment">
+      <option value="tanium" selected>Tanium</option>
+      <option value="powershell">PowerShell</option>
+      <option value="javascript">JavaScript</option>
+      <option value="python">Python</option>
+      <option value="bash">Bash</option>
+    </select>
+
+    <div class="buttons">
+      <button class="btn btn-primary" onclick="formatHostnames()">Format regex</button>
+      <button class="btn btn-ghost" onclick="clearRegex()">Clear</button>
+    </div>
+  </div>
+
+  <div class="bench-gutter" aria-hidden="true">
+    <span class="bench-arrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12h14M13 6l6 6-6 6" />
+      </svg>
+    </span>
+  </div>
+
+  <!-- RESULT -->
+  <div class="panel">
+    <div class="panel-head">
+      <span class="panel-title">Pattern</span>
+    </div>
+
+    <div id="regexOutput" class="regex-output" aria-live="polite" data-empty="Paste hostnames and select Format regex."></div>
+
+    <div class="buttons">
+      <button class="btn btn-quiet" onclick="copyRegex()">Copy</button>
+      <button class="btn btn-quiet" onclick="downloadRegex()">Download</button>
     </div>
   </div>
 </div>
-
-<!-- ✅ INPUT SECTION -->
-<div class="regex-section">
-  <div class="section-title">Input</div>
-  <textarea id="regexInput" rows="8" placeholder="Enter hostnames or FQDNs here..."></textarea>
-
-  <div class="regex-options">
-    <label><input type="checkbox" id="regexTrim"> Trim / Clean Input</label>
-    <label><input type="checkbox" id="regexCaseSensitive"> Case Sensitive</label>
-    <label><input type="checkbox" id="regexBegin"> ^ Beginning Anchor</label>
-    <label><input type="checkbox" id="regexEnd"> $ Ending Anchor</label>
-  </div>
-</div>
-
-<!-- ✅ ENVIRONMENT DROPDOWN -->
-<div class="regex-section">
-  <div class="section-title">Environment</div>
-  <select id="regexEnvironment">
-    <option value="tanium" selected>Tanium</option>
-    <option value="powershell">PowerShell</option>
-    <option value="javascript">JavaScript</option>
-    <option value="python">Python</option>
-    <option value="bash">Bash</option>
-  </select>
-</div>
-
-<!-- ✅ BUTTONS -->
-<div class="buttons btn-group">
-  <button class="btn btn-green" onclick="formatHostnames()">Format Regex</button>
-  <button class="btn btn-blue" onclick="copyRegex()">Copy</button>
-  <button class="btn btn-gray" onclick="downloadRegex()">Download Regex</button>
-  <button class="btn btn-outline-green" onclick="clearRegex()">Clear</button>
-</div>
-
-<!-- div class="buttons">
-  <button onclick="formatHostnames()">Format Regex</button>
-  <button onclick="copyRegex()">Copy Output</button>
-  <button onclick="downloadRegex()">Download Regex</button>
-  <button onclick="clearRegex()">Clear</button>
-</div -->
-
-<!-- ✅ OUTPUT -->
-<h3>Formatted Regex Output</h3>
-<div id="regexOutput" class="regex-output"></div>

@@ -36,81 +36,29 @@ function initRegexTool() {
     };
   });
 
-  /* Escape regex characters */
-  function escapeRegex(str) {
-    return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  }
-
-  /* Apply environment formatting 
-  function formatForEnvironment(pattern, env) {
-    switch (env) {
-      case "tanium":
-        return `regex:${pattern}`;
-
-      case "powershell":
-        return `"${pattern.replace(/"/g, '\\"')}"`;
-
-      case "javascript":
-        return `/${pattern}/`;
-
-      case "python":
-        return `r"${pattern}"`;
-
-      case "bash":
-        return `"${pattern}"`;
-
-      default:
-        return pattern;
-    }
-  } */
-
-     /* ✅ ALWAYS return pure regex only */
+  /* Environment formatting is currently a no-op: every environment gets the
+     bare pattern. The dropdown stays so wrapping can come back per-environment
+     (regex: for Tanium, /…/ for JavaScript) without changing the markup. */
   function formatForEnvironment(pattern, env) {
     return pattern;
   }
 
-  
-  /* Format hostnames */
+  /* Format hostnames.
+     buildHostnameRegex lives in global.js and is shared with the landing
+     demo, so the two can never produce different output for the same input. */
   window.formatHostnames = function () {
-    let items = regexInput.value
-      .split(/[\r\n,]+/)
-      .map(s => s.trim())
-      .filter(Boolean);
+    const items = regexInput.value.split(/[\r\n,]+/);
 
-    if (!items.length) return;
+    const pattern = buildHostnameRegex(items, {
+      dedupe: trimBox.checked,
+      caseSensitive: caseBox.checked,
+      anchorStart: beginBox.checked,
+      anchorEnd: endBox.checked
+    });
 
-    /* Trim / Clean */
-    if (trimBox.checked) {
-      items = cleanList(items);
-    }
+    if (!pattern) return;
 
-    /* Extract base names */
-    let baseNames = items.map(item => item.split(".")[0]);
-
-    /* Escape */
-    let escaped = baseNames.map(escapeRegex);
-
-    /* Build core regex */
-    let core = "(" + escaped.join("|") + ")";
-
-    /* Add optional domain */
-    core += "(\\..*)?";
-
-    /* Add anchors */
-    if (beginBox.checked) core = "^" + core;
-    if (endBox.checked) core = core + "$";
-
-    /* Case sensitivity */
-    if (!caseBox.checked) {
-      // Case insensitive
-      core = "(?i)" + core;
-    }
-
-    /* Environment formatting */
-    const env = envSelect.value;
-    const finalRegex = formatForEnvironment(core, env);
-
-    document.getElementById("regexOutput").innerText = finalRegex;
+    document.getElementById("regexOutput").innerText = formatForEnvironment(pattern, envSelect.value);
   };
 
   window.copyRegex = function () {

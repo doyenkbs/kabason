@@ -242,9 +242,13 @@
       onlyAOutput && (onlyAOutput.innerText = onlyA.join("\n"));
       onlyBOutput && (onlyBOutput.innerText = onlyB.join("\n"));
 
-      bothCount   && (bothCount.innerText  = `${both.length} item(s) in both lists`);
-      onlyACount  && (onlyACount.innerText = `${onlyA.length} item(s) only in List A`);
-      onlyBCount  && (onlyBCount.innerText = `${onlyB.length} item(s) only in List B`);
+      // The panel heading already says which list this is, so the count
+      // only has to say how many.
+      const items = (n) => `${n} ${n === 1 ? "item" : "items"}`;
+
+      bothCount   && (bothCount.innerText  = items(both.length));
+      onlyACount  && (onlyACount.innerText = items(onlyA.length));
+      onlyBCount  && (onlyBCount.innerText = items(onlyB.length));
     });
 
     // --- Clear All ---

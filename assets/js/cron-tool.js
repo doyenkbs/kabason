@@ -295,10 +295,18 @@ window.clearEnglish = function () {
   /* -----------------------------
      CRON VALIDATOR (programmatic)
   ----------------------------- */
+  /* Says what is wrong and which field it is in. The class drives the color,
+     which is why the message itself carries no symbol. */
+  function setValidation(message, ok) {
+    cronValidation.innerText = message;
+    cronValidation.classList.toggle("is-valid", ok);
+    cronValidation.classList.toggle("is-invalid", !ok);
+  }
+
   function validateCron(cron) {
     const parts = cron.split(/\s+/);
     if (parts.length !== 5) {
-      cronValidation.innerText = "❌ Invalid: Cron must have 5 fields.";
+      setValidation(`Needs 5 fields, found ${parts.length}: minute, hour, day of month, month, day of week.`, false);
       return;
     }
 
@@ -306,27 +314,27 @@ window.clearEnglish = function () {
 
     // Validate each field using numeric bounds + token parsing
     if (!isValidField(min, 0, 59)) {
-      cronValidation.innerText = `❌ Invalid Minutes: "${min}"`;
+      setValidation(`Minute field "${min}" is not valid. Use 0-59.`, false);
       return;
     }
     if (!isValidField(hour, 0, 23)) {
-      cronValidation.innerText = `❌ Invalid Hours: "${hour}"`;
+      setValidation(`Hour field "${hour}" is not valid. Use 0-23.`, false);
       return;
     }
     if (!isValidField(dom, 1, 31)) {
-      cronValidation.innerText = `❌ Invalid Day of Month: "${dom}"`;
+      setValidation(`Day of month field "${dom}" is not valid. Use 1-31.`, false);
       return;
     }
     if (!isValidField(mon, 1, 12)) {
-      cronValidation.innerText = `❌ Invalid Month: "${mon}"`;
+      setValidation(`Month field "${mon}" is not valid. Use 1-12.`, false);
       return;
     }
     if (!isValidField(dow, 0, 6)) {
-      cronValidation.innerText = `❌ Invalid Day of Week: "${dow}"`;
+      setValidation(`Day of week field "${dow}" is not valid. Use 0-6, where 0 is Sunday.`, false);
       return;
     }
 
-    cronValidation.innerText = "✔️ Valid Cron Expression";
+    setValidation("Valid cron expression.", true);
   }
 
   // Validate a field (supports *, lists, ranges, steps)

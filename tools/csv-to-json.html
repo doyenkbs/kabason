@@ -1,39 +1,42 @@
 <div id="csvToJsonPage">
-  <h2>CSV → JSON Converter</h2>
-  <p>Paste CSV (or upload), preview conversion options, then export JSON.</p>
+  <div class="page-head">
+    <h2>CSV to JSON</h2>
+    <p class="page-desc">Turn a spreadsheet export into JSON you can feed an API, a config file, or a script. Dotted headers rebuild nested objects, and padded IDs like 001 stay strings.</p>
+  </div>
 
-  <div class="upload-row">
-    <!-- LEFT: INPUT -->
-    <div class="upload-section">
-      <div class="upload-title">Input CSV</div>
-      <div class="upload-desc">Paste CSV or upload a .csv file. First row can be headers.</div>
+  <div class="bench">
+    <!-- SOURCE -->
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-title">CSV</span>
+      </div>
 
       <div class="upload-controls">
         <input type="file" id="csvFile" accept=".csv,text/csv,.txt,text/plain" />
 
         <select id="delimiterMode" title="Delimiter">
-          <option value="auto" selected>Delimiter: Auto</option>
-          <option value=",">Delimiter: Comma (,)</option>
-          <option value=";">Delimiter: Semicolon (;)</option>
-          <option value="\t">Delimiter: Tab</option>
-          <option value="|">Delimiter: Pipe (|)</option>
+          <option value="auto" selected>Delimiter: auto</option>
+          <option value=",">Delimiter: comma</option>
+          <option value=";">Delimiter: semicolon</option>
+          <option value="\t">Delimiter: tab</option>
+          <option value="|">Delimiter: pipe</option>
         </select>
 
         <select id="headerMode" title="Header row">
-          <option value="headers" selected>Headers: First row</option>
-          <option value="noheaders">Headers: None</option>
+          <option value="headers" selected>First row is headers</option>
+          <option value="noheaders">No header row</option>
         </select>
       </div>
 
-      <div class="upload-controls">
+      <div class="options">
         <label class="csv-opt">
           <input type="checkbox" id="inferTypes" checked />
-          Infer types (numbers/booleans)
+          Read numbers and booleans as types
         </label>
 
         <label class="csv-opt">
           <input type="checkbox" id="dotNotation" checked />
-          Dot headers → nested JSON
+          Dotted headers become nested objects
         </label>
 
         <label class="csv-opt">
@@ -48,55 +51,55 @@
       </div>
 
       <div class="upload-controls">
-        <select id="outputMode" title="Output mode">
-          <option value="array" selected>Output: Array of objects</option>
-          <option value="keyed">Output: Object keyed by column</option>
+        <select id="outputMode" title="Output shape">
+          <option value="array" selected>Shape: array of objects</option>
+          <option value="keyed">Shape: object keyed by a column</option>
         </select>
 
-        <select id="keyColumn" title="Key column (for keyed output)" disabled>
-          <option value="">Key column: (select)</option>
+        <select id="keyColumn" title="Key column" disabled>
+          <option value="">Key column</option>
         </select>
 
         <select id="indent" title="Indent">
-          <option value="2" selected>Indent: 2</option>
-          <option value="4">Indent: 4</option>
-          <option value="0">Indent: Minify</option>
+          <option value="2" selected>Indent: 2 spaces</option>
+          <option value="4">Indent: 4 spaces</option>
+          <option value="0">Minified</option>
         </select>
       </div>
 
-      <textarea id="csvInput" rows="10" placeholder="id,name,email&#10;1,Alice,alice@example.com&#10;2,Bob,bob@example.com"></textarea>
+      <textarea id="csvInput" rows="10" spellcheck="false" placeholder="id,name,email&#10;1,Alice,alice@example.com&#10;2,Bob,bob@example.com"></textarea>
 
-      <div class="btn-group" style="margin-top:10px;">
-        <button class="btn btn-green" id="btnConvertCsv">Convert</button>
-        <button class="btn btn-outline-green" id="btnClearCsv">Clear</button>
+      <div class="buttons">
+        <button class="btn btn-primary" id="btnConvertCsv">Convert to JSON</button>
+        <button class="btn btn-ghost" id="btnClearCsv">Clear</button>
       </div>
     </div>
 
-    <!-- RIGHT: OUTPUT -->
-    <div class="upload-section">
-      <div class="upload-title">JSON Output</div>
-      <div class="upload-desc">Preview the generated JSON. Use Copy/Download when ready.</div>
+    <div class="bench-gutter" aria-hidden="true">
+      <span class="bench-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </span>
+    </div>
 
-      <!-- Buttons moved INTO the JSON Output section -->
-      <div class="btn-group" style="margin: 10px 0;">
-        <button class="btn btn-blue" id="btnCopyJson" disabled>Copy JSON</button>
-        <button class="btn btn-gray" id="btnDownloadJson" disabled>Download JSON</button>
+    <!-- RESULT -->
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-title">JSON</span>
       </div>
 
-      <div class="output" id="jsonOutput" style="max-height:520px; overflow:auto;"></div>
+      <div id="jsonOutput" aria-live="polite" data-empty="Paste CSV and select Convert to JSON."></div>
+
+      <div class="buttons">
+        <button class="btn btn-quiet" id="btnCopyJson" disabled>Copy</button>
+        <button class="btn btn-quiet" id="btnDownloadJson" disabled>Download</button>
+      </div>
     </div>
   </div>
 
-  <div class="upload-section" style="margin-top:20px;">
-    <div class="upload-title">Next step</div>
-    <div class="upload-desc">
-      Need to go the other direction? Send JSON into the JSON → CSV / Table Converter.
-    </div>
-
-    <div class="btn-group">
-      <button class="btn btn-blue" id="btnGoJsonToCsv" type="button">
-        Open JSON → CSV Converter
-      </button>
-    </div>
-  </div>
+  <p class="tool-footnote">
+    <span>Going the other way?</span>
+    <button class="btn btn-ghost" id="btnGoJsonToCsv" type="button">Open JSON to CSV</button>
+  </p>
 </div>

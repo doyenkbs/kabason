@@ -1,26 +1,30 @@
 <div id="jsonToCsvPage">
-  <h2>JSON → CSV / Table Converter</h2>
-  <p>Paste JSON from an API, flatten it, preview as a table, then export to CSV.</p>
+  <div class="page-head">
+    <h2>JSON to CSV</h2>
+    <p class="page-desc">Flatten an API response into columns you can open in Excel. Nested keys become dotted column names, and arrays are either joined or split across indexed columns.</p>
+  </div>
 
-  <div class="upload-row">
-    <div class="upload-section">
-      <div class="upload-title">Input JSON</div>
-      <div class="upload-desc">Paste JSON (object or array) or upload a .json file.</div>
+  <div class="bench">
+    <!-- SOURCE -->
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-title">JSON</span>
+      </div>
 
       <div class="upload-controls">
         <input type="file" id="jsonFile" accept=".json,application/json" />
+      </div>
 
-        <!-- Root path for API responses like: { "users": [...] } or { "data": { "items": [...] } } -->
+      <div class="upload-controls">
         <input
           type="text"
           id="rootPath"
-          placeholder="Root path (optional): e.g. users or data.items"
-          title="If your JSON is an object with an array inside, enter the path to that array (example: users, items, data.results, data.items)"
-          style="min-width:260px;"
+          placeholder="Root path, such as users or data.items"
+          title="If your JSON is an object with an array inside it, enter the path to that array"
         />
 
-        <select id="rootPreset" title="Quick root path presets (optional)">
-          <option value="">Use Root: (none)</option>
+        <select id="rootPreset" title="Common root paths">
+          <option value="">No root path</option>
           <option value="users">users</option>
           <option value="items">items</option>
           <option value="results">results</option>
@@ -32,9 +36,9 @@
       </div>
 
       <div class="upload-controls">
-        <select id="arrayMode">
-          <option value="join" selected>Arrays: Join values</option>
-          <option value="index">Arrays: Index keys</option>
+        <select id="arrayMode" title="How to handle arrays inside a record">
+          <option value="join" selected>Arrays: join the values</option>
+          <option value="index">Arrays: one column per index</option>
         </select>
 
         <input
@@ -42,37 +46,61 @@
           id="arrayJoiner"
           value="; "
           placeholder="; "
-          style="width:90px;"
-          title="Join separator (used only when Arrays: Join values is selected)"
+          title="Separator used when joining array values"
+          aria-label="Array join separator"
         />
       </div>
 
       <textarea
         id="jsonInput"
         rows="10"
+        spellcheck="false"
         placeholder='[{"id":1,"user":{"name":"Chris"},"tags":["a","b"]}]'
       ></textarea>
 
-      <div class="btn-group" style="margin-top:10px;">
-        <button class="btn btn-green" id="btnConvert">Convert</button>
-        <button class="btn btn-outline-green" id="btnClear">Clear</button>
-        <button class="btn btn-blue" id="btnCopyCsv" disabled>Copy CSV</button>
-        <button class="btn btn-gray" id="btnDownloadCsv" disabled>Download CSV</button>
+      <div class="buttons">
+        <button class="btn btn-primary" id="btnConvert">Convert to CSV</button>
+        <button class="btn btn-ghost" id="btnClear">Clear</button>
       </div>
     </div>
 
-    <div class="upload-section">
-      <div class="upload-title">Table Preview</div>
-      <div class="upload-desc">Search/filter rows instantly.</div>
+    <div class="bench-gutter" aria-hidden="true">
+      <span class="bench-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </span>
+    </div>
 
-      <div class="upload-controls">
-        <input type="text" id="tableSearch" placeholder="Search table..." style="min-width:260px;" />
+    <!-- RESULT: check the shape before you take the file -->
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Table preview</span>
       </div>
 
-      <div class="output" id="tableWrap" style="max-height:520px; overflow:auto;"></div>
+      <div class="upload-controls">
+        <input type="text" id="tableSearch" placeholder="Filter rows" aria-label="Filter rows" />
+      </div>
+
+      <div id="tableWrap" data-empty="Convert some JSON to see the columns it produces."></div>
     </div>
   </div>
 
-  <h3>CSV Output</h3>
-  <div class="output" id="csvOutput" style="max-height:260px;"></div>
+  <div class="panel">
+    <div class="panel-head">
+      <span class="panel-title">CSV</span>
+    </div>
+
+    <div id="csvOutput" aria-live="polite" data-empty="The CSV appears here once you convert."></div>
+
+    <div class="buttons">
+      <button class="btn btn-quiet" id="btnCopyCsv" disabled>Copy</button>
+      <button class="btn btn-quiet" id="btnDownloadCsv" disabled>Download</button>
+    </div>
+  </div>
+
+  <p class="tool-footnote">
+    <span>Going the other way?</span>
+    <button class="btn btn-ghost" type="button" data-goto="csvToJsonTool">Open CSV to JSON</button>
+  </p>
 </div>

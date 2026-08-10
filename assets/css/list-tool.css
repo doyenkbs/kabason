@@ -1,145 +1,81 @@
-/* ========== LIST COMPARISON TOOL STYLES ========== */
+/* ========== LIST COMPARISON ==========
+   Two lists in, three lists out. The surfaces, buttons, and theme colors
+   all come from global.css and tokens.css. Only layout lives here. */
 
-/* Lists layout */
 #listTool .lists {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--s-4);
 }
 
 #listTool .list-section {
-  flex: 1;
-  min-width: 260px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: var(--s-4);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
 }
 
 #listTool .list-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 6px;
+  gap: var(--s-2);
+  margin-bottom: var(--s-3);
 }
 
-/* Textareas for A/B */
+#listTool .list-header h3 {
+  margin: 0;
+  margin-right: auto;
+  font-size: var(--t-11);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text);
+}
+
 #listA,
 #listB {
-  height: 160px;
-  resize: none;
-  background: #0f172a;
-  padding: 15px;
-  border-radius: 4px;
-  border: 1px solid #3498db;
-  margin-bottom: 20px;
+  height: 200px;
+  resize: vertical;
 }
 
-body.light-mode #listA,
-body.light-mode #listB {
-  background: #ffffff;
-  border-color: #1e3a8a;
-}
-
-/* Results layout */
+/* Three result panels, side by side while there is room. */
 #listTool .results {
-  display: flex;
-  gap: 20px;
-  margin-top: 20px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--s-4);
 }
+
 #listTool .result-section {
-  flex: 1;
-  min-width: 260px;
+  min-width: 0;
+  padding: var(--s-4);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
 }
 
-#listTool .count {
-  font-size: 13px;
-  margin-bottom: 6px;
+#listTool .result-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-2);
+  margin-bottom: var(--s-3);
 }
 
-/* Results output box */
+#listTool .result-head h3 {
+  margin: 0;
+  margin-right: auto;
+  font-size: var(--t-11);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text);
+}
+
 #listTool .output {
-  min-height: 160px;
-  max-height: 260px;
-  overflow-y: auto;
+  min-height: 170px;
+  max-height: 300px;
 }
 
-/* Checkbox row next to buttons (inline styling mostly in HTML) */
-#listTool .buttons label {
-  font-size: 14px;
-}
-
-/* Ensure tool headings align with suite style */
-#listTool h2 {
-  margin-top: 0;
-}
-
-/* ========== DEEP 3D CARD WRAP FOR LIST TOOL ========== */
-
-/* Dark mode: wrap List A/B and result panels in deep 3D cards */
-body.dark-mode #listTool .list-section,
-body.dark-mode #listTool .result-section {
-  background: #0f172a;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  padding: 20px;
-
-  /* Deep multi-layer shadow stack (mirrors regex tool) */
-  box-shadow:
-    0 12px 28px rgba(0, 0, 0, 0.55),
-    0 6px 12px rgba(0, 0, 0, 0.35),
-    0 2px 4px rgba(0, 0, 0, 0.45),
-    0 0 0 1px rgba(255, 255, 255, 0.06) inset,
-    0 0 12px rgba(255, 255, 255, 0.03) inset;
-}
-
-/* Light mode card variant */
-body.light-mode #listTool .list-section,
-body.light-mode #listTool .result-section {
-  background: #ffffff;
-  border-radius: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  padding: 20px;
-
-  box-shadow:
-    0 12px 28px rgba(0, 0, 0, 0.25),
-    0 6px 12px rgba(0, 0, 0, 0.15),
-    0 2px 4px rgba(0, 0, 0, 0.20),
-    0 0 0 1px rgba(0, 0, 0, 0.05) inset,
-    0 0 12px rgba(0, 0, 0, 0.03) inset;
-}
-
-/* Ensure textareas and outputs stay inside the 3D card */
-#listTool .list-section textarea,
-#listTool .result-section .output {
-  width: 100%;
-  box-sizing: border-box; /* prevents overflow */
-  margin: 0;              /* removes default spacing that pushes outside */
-}
-
-/* Optional: tighten spacing inside cards */
-#listTool .list-section textarea {
-  margin-top: 10px;
-}
-
-#listTool .result-section .output {
-  margin-top: 10px;
-}
-
-/* Green result text inside output boxes */
-#listTool .output {
-  color: #48bb78 !important;
-  /*color: #2ecc71; 
-  font-weight: 600;*/
-}
-
-/* ========== LIST COUNT STYLES ========== */
-/* === NEW: Inline count near Trim & Clean buttons === */
-.list-count {
-  margin-left: 12px;
-  font-size: 13px;
-  color: #94a3b8; /* slate-400-ish for dark mode */
-}
-
-/* Light mode override for better contrast */
-body.light-mode .list-count {
-  color: #475569; /* slate-600-ish */
+#listTool .result-section .buttons {
+  margin: var(--s-3) 0 0;
 }

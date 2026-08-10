@@ -1,115 +1,116 @@
-
 <div id="ipTool">
-  <h2>IP Networking Tool</h2>
-  <p>Subnetting &amp; CIDR, public/private detection, and IP geolocation.</p>
+  <div class="page-head">
+    <h2>IP networking</h2>
+    <p class="page-desc">Subnet and CIDR maths, public or private classification, and geolocation. Each card takes an address and gives you the numbers back.</p>
+  </div>
 
-  <!-- Controls row -->
   <div class="ip-controls">
-    <!-- IPv4 / CIDR Calculator -->
+    <!-- IPv4 / CIDR calculator -->
     <div class="ip-card">
       <div class="ip-card-header">
-        <h3>IPv4 Subnet &amp; CIDR Calculator</h3>
+        <h3>Subnet and CIDR</h3>
       </div>
       <div class="ip-card-body">
         <div class="field-row">
-          <label for="ipv4Input">IPv4 Address</label>
-          <input type="text" id="ipv4Input" placeholder="e.g., 192.168.10.14">
+          <label for="ipv4Input">IPv4 address</label>
+          <input type="text" id="ipv4Input" placeholder="192.168.10.14">
         </div>
 
         <div class="field-row">
-          <label for="maskInput">Subnet Mask</label>
-          <input type="text" id="maskInput" placeholder="e.g., 255.255.255.0">
-          <span class="hint">or use Prefix:</span>
-          <input type="number" id="prefixInput" min="0" max="32" placeholder="/24">
+          <label for="maskInput">Subnet mask</label>
+          <input type="text" id="maskInput" placeholder="255.255.255.0">
+          <span class="hint">or prefix</span>
+          <input type="number" id="prefixInput" min="0" max="32" placeholder="24">
         </div>
 
         <div class="btn-group">
-          <button class="btn btn-green" id="calcBtn">Calculate</button>
-          <button class="btn btn-outline-green" id="clearCalcBtn">Clear</button>
+          <button class="btn btn-primary" id="calcBtn">Calculate</button>
+          <button class="btn btn-ghost" id="clearCalcBtn">Clear</button>
         </div>
 
         <div class="ip-results">
-          <div class="kv"><span>Network Address:</span><code id="netAddr"></code></div>
-          <div class="kv"><span>Broadcast Address:</span><code id="bcastAddr"></code></div>
-          <div class="kv"><span>First Host:</span><code id="firstHost"></code></div>
-          <div class="kv"><span>Last Host:</span><code id="lastHost"></code></div>
-          <div class="kv"><span>Usable Hosts:</span><code id="hostCount"></code></div>
-          <div class="kv"><span>Subnet Mask:</span><code id="maskOut"></code></div>
-          <div class="kv"><span>Prefix Length:</span><code id="prefixOut"></code></div>
-          <div class="kv"><span>Wildcard Mask:</span><code id="wildcardOut"></code></div>
-          <div class="kv"><span>Class:</span><code id="classOut"></code></div>
-          <div class="kv"><span>Scope:</span><code id="scopeOut"></code></div>
+          <div class="kv"><span>Network address</span><code id="netAddr"></code></div>
+          <div class="kv"><span>Broadcast address</span><code id="bcastAddr"></code></div>
+          <div class="kv"><span>First host</span><code id="firstHost"></code></div>
+          <div class="kv"><span>Last host</span><code id="lastHost"></code></div>
+          <div class="kv"><span>Usable hosts</span><code id="hostCount"></code></div>
+          <div class="kv"><span>Subnet mask</span><code id="maskOut"></code></div>
+          <div class="kv"><span>Prefix length</span><code id="prefixOut"></code></div>
+          <div class="kv"><span>Wildcard mask</span><code id="wildcardOut"></code></div>
+          <div class="kv"><span>Class</span><code id="classOut"></code></div>
+          <div class="kv"><span>Scope</span><code id="scopeOut"></code></div>
         </div>
       </div>
     </div>
 
-    <!-- Public / Private + IPv6 Classification -->
+    <!-- Public / private and IPv6 classification -->
     <div class="ip-card">
       <div class="ip-card-header">
-        <h3>Public / Private &amp; IPv6 Classification</h3>
+        <h3>Address type</h3>
       </div>
       <div class="ip-card-body">
         <div class="field-row">
-          <label for="ipClassInput">IP Address (v4 or v6)</label>
-          <input type="text" id="ipClassInput" placeholder="e.g., 10.0.0.5 or 2606:4700::">
+          <label for="ipClassInput">IPv4 or IPv6</label>
+          <input type="text" id="ipClassInput" placeholder="10.0.0.5 or 2606:4700::">
         </div>
+
         <div class="btn-group">
-          <button class="btn btn-green" id="classifyBtn">Classify</button>
-          <button class="btn btn-outline-green" id="clearClassBtn">Clear</button>
+          <button class="btn btn-primary" id="classifyBtn">Classify</button>
+          <button class="btn btn-ghost" id="clearClassBtn">Clear</button>
         </div>
+
         <div class="ip-results">
-          <div class="kv"><span>Version:</span><code id="verOut"></code></div>
-          <div class="kv"><span>Type:</span><code id="typeOut"></code></div>
-          <div class="kv"><span>Special Range:</span><code id="specialOut"></code></div>
+          <div class="kv"><span>Version</span><code id="verOut"></code></div>
+          <div class="kv"><span>Type</span><code id="typeOut"></code></div>
+          <div class="kv"><span>Special range</span><code id="specialOut"></code></div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Geolocation row -->
+  <!-- Geolocation: the one part of the suite that does leave the browser -->
   <div class="ip-controls">
     <div class="ip-card">
       <div class="ip-card-header">
-        <h3>IP Geolocation</h3>
+        <h3>Geolocation</h3>
       </div>
       <div class="ip-card-body">
+        <p class="upload-desc">
+          This is the only tool here that makes an outside request. The address you enter is sent to
+          the provider you pick so it can be looked up.
+        </p>
+
         <div class="field-row">
-          <label for="geoIpInput">IP Address (leave blank for your IP)</label>
-          <input type="text" id="geoIpInput" placeholder="e.g., 8.8.8.8">
+          <label for="geoIpInput">IP address</label>
+          <input type="text" id="geoIpInput" placeholder="8.8.8.8, or leave blank for your own">
         </div>
 
         <div class="field-row">
           <label for="geoProvider">Provider</label>
           <select id="geoProvider">
-            <option value="ipapi">ipapi.co (no token, CORS-friendly)</option>
+            <option value="ipapi">ipapi.co (no token needed)</option>
             <option value="ipinfo">ipinfo.io (token required)</option>
           </select>
-          <input type="text" id="ipinfoToken" placeholder="ipinfo token (if selected)" />
+          <input type="text" id="ipinfoToken" placeholder="ipinfo token" aria-label="ipinfo token" />
         </div>
 
         <div class="btn-group">
-          <button class="btn btn-green" id="geoBtn">Lookup</button>
-          <button class="btn btn-outline-green" id="clearGeoBtn">Clear</button>
+          <button class="btn btn-primary" id="geoBtn">Look up</button>
+          <button class="btn btn-ghost" id="clearGeoBtn">Clear</button>
         </div>
 
         <div class="ip-results">
-          <div class="kv"><span>IP:</span><code id="geoIp"></code></div>
-          <div class="kv"><span>Country:</span><code id="geoCountry"></code></div>
-          <div class="kv"><span>Region:</span><code id="geoRegion"></code></div>
-          <div class="kv"><span>City:</span><code id="geoCity"></code></div>
-          <div class="kv"><span>Latitude / Longitude:</span><code id="geoLatLng"></code></div>
-          <div class="kv"><span>ASN / Org:</span><code id="geoASN"></code></div>
-          <div class="kv"><span>Timezone:</span><code id="geoTZ"></code></div>
+          <div class="kv"><span>IP</span><code id="geoIp"></code></div>
+          <div class="kv"><span>Country</span><code id="geoCountry"></code></div>
+          <div class="kv"><span>Region</span><code id="geoRegion"></code></div>
+          <div class="kv"><span>City</span><code id="geoCity"></code></div>
+          <div class="kv"><span>Latitude, longitude</span><code id="geoLatLng"></code></div>
+          <div class="kv"><span>ASN and org</span><code id="geoASN"></code></div>
+          <div class="kv"><span>Timezone</span><code id="geoTZ"></code></div>
         </div>
-        <div id="geoMsg" class="msg"></div>
+
+        <div id="geoMsg" class="msg" aria-live="polite"></div>
       </div>
     </div>
   </div>
 </div>
-
-<!-- Place your script right after this markup and call the initializer -->
-<script src="assets/js/ip-tool.js"></script>
-<script>
-  // IMPORTANT: Call after the HTML above is present
-  window.initIpTool();
-</script>

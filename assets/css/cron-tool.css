@@ -1,286 +1,269 @@
+/* ========== CRON PARSER & BUILDER ==========
+   Three ways in (plain English, field generator, raw expression), one
+   expression, three readings of it. Layout only; colors come from tokens. */
 
-/* assets/css/cron-tool.css */
-
-/* ======== Header & Intro ======== */
-#cronTool h2 {
-  margin-top: 0;
-}
-.cron-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.cron-actions {
-  display: flex;
-  gap: 8px;
-}
-.cron-intro {
-  margin: 8px 0 18px;
-  font-size: 16px;
-  line-height: 1.6;
-  opacity: 0.9;
-}
-
-/* ======== Section card (Kabason deep 3D) ======== */
 .cron-section {
-  margin-bottom: 20px;
-  padding: 20px;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.1);
-  background: #0f172a;
-  box-shadow:
-    0 12px 28px rgba(0,0,0,0.55),
-    0 6px 12px rgba(0,0,0,0.35),
-    0 2px 4px rgba(0,0,0,0.45),
-    0 0 0 1px rgba(255,255,255,0.06) inset,
-    0 0 12px rgba(255,255,255,0.03) inset;
-}
-body.light-mode .cron-section {
-  background: #ffffff;
-  border: 1px solid #c7d3df;
-  box-shadow:
-    0 12px 28px rgba(0,0,0,0.25),
-    0 6px 12px rgba(0,0,0,0.15),
-    0 2px 4px rgba(0,0,0,0.20),
-    0 0 0 1px rgba(0,0,0,0.05) inset,
-    0 0 12px rgba(0,0,0,0.03) inset;
+  margin-bottom: var(--s-4);
+  padding: var(--s-4);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
 }
 
-/* ======== Section titles: white in dark mode, black in light mode ======== */
-.section-title {
-  font-weight: 700;
-  margin-bottom: 10px;
-  font-size: 16px;
-}
-body.dark-mode .section-title {
-  color: #ffffff;
-}
-body.light-mode .section-title {
-  color: #000000;
+/* The expression itself is the centre of this tool, so it is set larger
+   than any other input in the suite. */
+#cronInput {
+  font-size: var(--t-17);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: var(--s-3);
 }
 
-/* ======== Inputs ======== */
-#cronInput,
-#englishInput,
-.cron-section input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  font-size: 15px;
-  border-radius: 4px;
-  border: 1px solid #3498db;
-  background: #0f172a;
-  color: #fff;
-  box-sizing: border-box;
-}
-#cronInput { margin-bottom: 15px; }
-#englishInput { resize: vertical; }
-
-body.light-mode #cronInput,
-body.light-mode #englishInput,
-body.light-mode .cron-section input[type="text"] {
-  background: #ffffff;
-  border-color: #1e3a8a;
-  color: #111;
+#englishInput {
+  min-height: 76px;
 }
 
-/* Generator grid */
 .generator-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--s-3);
 }
+
 .field span {
   display: block;
-  font-size: 13px;
-  opacity: 0.85;
-  margin-bottom: 4px;
+  font-size: var(--t-11);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  font-family: var(--font-display);
+  color: var(--text-dim);
+  margin-bottom: var(--s-2);
 }
 
-/* Buttons */
-.cron-buttons { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; }
-.btn-primary {
-  background: #2ecc71;
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 13px;
+.cron-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin-top: var(--s-3);
 }
-.btn-primary:hover { background: #27ae60; }
-.btn-secondary {
-  background: #1e3a8a;
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 13px;
-}
-.btn-secondary:hover { background: #15316c; }
-.btn-outline {
-  background: transparent;
-  color: #2ecc71;
-  border: 1px solid #2ecc71;
-  padding: 7px 11px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 13px;
-}
-.btn-outline:hover { background: rgba(46,204,113,0.12); }
 
-/* ======== Outputs Deep 3D ======== */
-.cron-subtitle { margin: 14px 0 8px; }
+/* Readings of the expression */
+.cron-readings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--s-4);
+}
+
+.cron-reading {
+  min-width: 0;
+  padding: var(--s-4);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.cron-subtitle {
+  font-size: var(--t-11);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text);
+  margin: 0 0 var(--s-3);
+}
+
 .cron-output {
   min-height: 120px;
-  padding: 15px;
-  border-radius: 6px;
-  border: 1px solid rgba(255,255,255,0.1);
-  background: #0f172a;
-  color: #2ecc71;
+  max-height: 300px;
+  padding: var(--s-3);
+  overflow: auto;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-family: var(--font-data);
+  font-size: var(--t-13);
+  line-height: 1.7;
+  color: var(--text);
   white-space: pre-wrap;
-  font-family: monospace;
-  overflow-y: auto;
-  box-shadow:
-    0 12px 28px rgba(0,0,0,0.55),
-    0 6px 12px rgba(0,0,0,0.35),
-    0 2px 4px rgba(0,0,0,0.45),
-    0 0 0 1px rgba(255,255,255,0.06) inset,
-    0 0 12px rgba(255,255,255,0.03) inset;
 }
-body.light-mode .cron-output {
-  background: #ffffff;
-  border: 1px solid #c7d3df;
-  color: #2ecc71;
-  box-shadow:
-    0 12px 28px rgba(0,0,0,0.25),
-    0 6px 12px rgba(0,0,0,0.15),
-    0 2px 4px rgba(0,0,0,0.20),
-    0 0 0 1px rgba(0,0,0,0.05) inset,
-    0 0 12px rgba(0,0,0,0.03) inset;
-}
-/*.cron-subtitle { margin: 14px 0 8px; }
-.cron-output {
-  min-height: 120px;
-  padding: 15px;
-  border-radius: 6px;
-  background: #0f172a;
-  border: 1px solid #2ecc71;
-  color: #2ecc71;
-  white-space: pre-wrap;
-  font-family: monospace;
-  overflow-y: auto;
-}
-body.light-mode .cron-output {
-  background: #ffffff;
-  border-color: #1e3a8a;
-  color: #2ecc71;
-}*/
 
-/* ======== Help Modal ======== */
-.modal[hidden] { display: none; }
-.modal.open { display: block; }
-.modal { position: fixed; inset: 0; z-index: 9999; }
-.modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
+.cron-output:empty::before {
+  content: attr(data-empty);
+  color: var(--text-faint);
+  font-family: var(--font-body);
+}
+
+/* Validation is the one place in this tool allowed to use verify and fault. */
+#cronValidation.is-valid {
+  color: var(--verify);
+  border-color: var(--verify);
+  background: var(--verify-wash);
+}
+
+#cronValidation.is-invalid {
+  color: var(--fault);
+  border-color: var(--fault);
+  background: var(--fault-wash);
+}
+
+/* ========== HELP MODAL ========== */
+
+.modal[hidden] {
+  display: none;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+}
+
+.modal.open {
+  display: block;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 11, 17, 0.72);
+}
 
 .modal-panel {
   position: relative;
-  width: min(760px, 92vw);
-  margin: 6vh auto;
-  background: #0f172a;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.10);
-  box-shadow:
-    0 18px 40px rgba(0,0,0,0.6),
-    0 10px 20px rgba(0,0,0,0.35),
-    0 2px 6px rgba(0,0,0,0.45),
-    0 0 0 1px rgba(255,255,255,0.06) inset,
-    0 0 18px rgba(255,255,255,0.04) inset;
-  color: #e0e6ed;
+  width: min(720px, 92vw);
+  max-height: 86vh;
+  margin: 7vh auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lift);
   overflow: hidden;
 }
 
 .modal-header {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 14px 16px;
-  background: #1e3a8a;
-  color: #fff;
-  border-bottom: 2px solid #f39c12;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  border-bottom: 1px solid var(--line);
 }
-.brand {
+
+/* Scoped to the modal so it cannot collide with the top bar brand. */
+.modal .brand {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-weight: 800;
-  letter-spacing: 0.5px;
+  gap: var(--s-2);
 }
-.brand-mark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  background: #f39c12;
-  color: #0b1d3a;
-  border-radius: 6px;
-  font-weight: 800;
+
+.modal .brand-mark {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  background: var(--signal);
+  color: var(--signal-ink);
+  border-radius: var(--radius);
+  font-family: var(--font-display);
+  font-size: var(--t-11);
+  font-weight: 600;
 }
-.brand-text { font-size: 14px; }
-.modal-header h3 { margin: 0; font-size: 18px; }
+
+.modal .brand-text {
+  font-family: var(--font-display);
+  font-size: var(--t-11);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: var(--t-13);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
 
 .modal-close {
   margin-left: auto;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: grid;
+  place-items: center;
   background: transparent;
-  color: #fff;
-  border: 1px solid rgba(255,255,255,0.4);
-  border-radius: 6px;
-  padding: 4px 10px;
+  color: var(--text-dim);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-size: var(--t-15);
   cursor: pointer;
 }
-.modal-close:hover { background: rgba(255,255,255,0.1); }
 
-.modal-body { padding: 16px; }
-.help-list { margin: 8px 0 14px; padding-left: 18px; }
-.help-list li { margin: 6px 0; }
+.modal-close:hover {
+  color: var(--text);
+  border-color: var(--text-faint);
+}
+
+.modal-body {
+  padding: var(--s-4);
+  overflow-y: auto;
+  font-size: var(--t-13);
+  line-height: 1.7;
+  color: var(--text-dim);
+}
+
+.modal-body strong {
+  color: var(--text);
+}
+
+.help-list {
+  margin: var(--s-3) 0 var(--s-4);
+  padding-left: var(--s-4);
+}
+
+.help-list li {
+  margin: var(--s-1) 0;
+}
+
+.help-list code,
+.modal-body code {
+  color: var(--text);
+}
 
 .help-examples {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--s-3);
 }
-.example {
-  background: #112647;
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 8px;
-  padding: 12px;
-}
-.example-title {
-  font-weight: 700;
-  margin-bottom: 6px;
-  color: #f39c12;
-}
-.modal-footer { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 16px 18px; }
 
-/* Light mode overrides */
-body.light-mode .modal-panel {
-  background: #ffffff;
-  color: #1a1f24;
-  border-color: rgba(0,0,0,0.12);
-  box-shadow:
-    0 12px 28px rgba(0,0,0,0.25),
-    0 6px 12px rgba(0,0,0,0.15),
-    0 2px 4px rgba(0,0,0,0.2),
-    0 0 0 1px rgba(0,0,0,0.05) inset,
-    0 0 12px rgba(0,0,0,0.03) inset;
+.example {
+  padding: var(--s-3);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
 }
-body.light-mode .modal-header {
-  background: #ffffff;
-  color: #1e3a8a;
-  border-bottom-color: #1e3a8a;
+
+.example-title {
+  font-size: var(--t-11);
+  color: var(--text-dim);
+  margin-bottom: var(--s-2);
 }
-body.light-mode .brand-mark {
-  background: #1e3a8a;
-  color: #fff;
+
+.example code {
+  font-size: var(--t-13);
+  color: var(--signal);
+}
+
+.help-notes {
+  margin-top: var(--s-4);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--line-soft);
+  font-size: var(--t-11);
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--s-2);
+  padding: var(--s-3) var(--s-4);
+  border-top: 1px solid var(--line);
 }
