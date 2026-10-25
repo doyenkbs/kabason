@@ -1,178 +1,59 @@
-![Cloudflare Pages](https://img.shields.io/badge/Cloudflare-Pages-F38020?logo=cloudflare&logoColor=white)
-![GitHub Repo Size](https://img.shields.io/github/repo-size/doyenkbs/kabason)
-![GitHub Last Commit](https://img.shields.io/github/last-commit/doyenkbs/kabason)
+# kabason.com
 
-# KABASON Utility Suite
+Kabason Mail: the landing page and mail help page for members with @kabason.com
+mailboxes. Plain HTML and CSS on Cloudflare Pages, no build step. The only JavaScript
+is the light/dark theme switch.
 
-**KABASON Utility Suite** is a modular, browser-based collection of precision tools built to streamline **data processing**, **validation**, and **transformation** workflows. Each tool loads dynamically into a consistent UI, keeping the codebase clean, fast, and easy to extend.
+## What ships
 
-**Live Site:** https://kabason.com
+Cloudflare Pages publishes `public/` and nothing else:
 
----
+| Path | What it is |
+|---|---|
+| `public/index.html` | Home: Kabason Mail, welcome text, account card, how to get an address |
+| `public/mail/index.html` | Webmail link, account links, mail app settings, step-by-step setup per app |
+| `public/404.html` | Not-found page, served by Pages with status 404 |
+| `public/css/site.css` | The only stylesheet; every colour is a custom property, light and dark |
+| `public/js/theme-init.js` | Blocking, first in `<head>`: applies a saved theme choice before paint |
+| `public/js/theme.js` | The theme button; follows the device until someone picks a theme |
+| `public/favicon.svg` | Browser tab icon |
+| `public/_headers` | CSP and security headers for every path |
+| `public/robots.txt` | Disallows everything; every page also has `noindex` |
 
-## 🚀 Highlights
+Everything at the repo root (this README, `claude.md`, `context.md`, the scripts) stays
+out of the published site.
 
-- **Modular architecture** (each tool has its own HTML/CSS/JS)
-- **Dynamic tool loading** (fast UI, clean separation of concerns)
-- **Consistent UX** (shared layout, dark/light theme, standardized buttons)
-- **CSV/XLSX support** via **XLSX.js**
-- **Cloudflare Pages deployment** with auto-updates on push
+Pages settings: framework preset None, build command empty, build output directory `public`.
 
----
+## What the site does not do
 
-## 🧰 Included Tools
+- It never handles a login. Webmail (Bulwark) sends people to Authentik itself. The
+  site links only to the Authentik user dashboard for account management, never to a
+  login or authorize URL.
+- No forms, no inline scripts, no third-party fonts, CDNs or analytics. The CSP in
+  `_headers` would block them anyway.
+- No redirects of any kind.
 
-### 1) List Comparison Tool
-- Compare two datasets
-- Remove duplicates
-- Ignore blank lines
-- Case-insensitive matching
-- CSV/XLSX column extraction
-- Side-by-side comparison results
+## Local preview and checks
 
-### 2) Regex Formatter
-- Convert hostnames into clean, environment-ready regex
-- Escape special characters
-- Extract base names
-- CSV/XLSX column extraction
-- Copy / download output
+```
+node serve.mjs 8091 public     # http://localhost:8091, applies _headers, 404s like Pages
+node check.mjs                 # static rules, contrast, then browser checks against 8091
+node screenshot.mjs http://localhost:8091/mail/ label
+```
 
-### 3) Cron Scheduler & Expression Builder
-A cron utility for building, interpreting, validating, and previewing cron expressions.
+`check.mjs` fails on any internal link that does not resolve, any external link that is
+not one of the allowed URLs, missing `rel="noopener"`, form fields, inline styles or
+scripts, meta refresh, a `_redirects` file, missing `noindex`, the two dark token blocks
+drifting apart, contrast below WCAG AA in either theme, a request to another host, a CSP
+violation, horizontal overflow at 390px in any theme state, or a theme button that does
+not switch, save, and clear its choice.
 
-**Features**
-- Plain-English → Cron (e.g., “weekday at 09:00”, “every 15 minutes”)
-- Field generator (minutes, hours, DOM, month, DOW)
-- Parser output (human-readable)
-- Next run times (browser timezone)
-- Validator (Linux-style 5-field cron)
+## Placeholders
 
-### 4) IP Networking Tool
-- IPv4 Subnet & CIDR calculator (network/broadcast, usable hosts, first/last host)
-- Public/Private + IPv6 classification (version, type, special range)
-- IP geolocation lookup (ISP/ASN, city/region, lat/long, timezone)
-- Quick Calculate/Clear actions
+Search for `PLACEHOLDER` in `public/`:
 
-### 5) JSON → CSV / Table Converter (NEW)
-Convert raw JSON payloads into clean, exportable CSV with a searchable table preview.
+- the support address (home page twice, mail page once)
+- the "Stay safe" promise on the home page: keep it only if it is true
 
-**Features**
-- Paste or upload JSON (array or object)
-- Optional **Root Path** selection (e.g., `users`, `data.items`)
-- Flatten nested keys into dotted columns
-- Array handling:
-  - Join values with custom separator
-  - Index keys (optional)
-- Searchable **Table Preview**
-- Copy / download CSV output
-
-### 6) CSV → JSON Converter (NEW)
-Convert CSV (Excel exports) into structured JSON for APIs, configs, and automation.
-
-**Features**
-- Paste or upload CSV
-- Delimiter support (auto / comma / semicolon / tab / pipe)
-- Headers on/off
-- Type inference toggle (numbers/booleans, preserves padded IDs like `001`)
-- Dot-notation headers → nested JSON (optional)
-- Output modes:
-  - Array of objects
-  - Object keyed by a selected column
-- JSON formatting (indent/minify)
-- Copy / download JSON output (from the output panel)
-
----
-
-## 🧱 Tech Stack
-
-- **HTML / CSS / JavaScript**
-- **Cloudflare Pages** (deployment)
-- **GitHub** (version control)
-- **XLSX.js** (CSV/XLSX parsing)
-
----
-
-## ✅ Project Structure
-
-```text
-kabason-utility-suite/
-│
-├── index.html
-│
-├── assets/
-│   ├── css/
-│   │   ├── global.css
-│   │   ├── landing.css
-│   │   ├── list-tool.css
-│   │   ├── regex-tool.css
-│   │   ├── cron-tool.css
-│   │   ├── ip-tool.css
-│   │   ├── json-to-csv.css
-│   │   └── csv-to-json.css
-│   │
-│   ├── js/
-│   │   ├── global.js
-│   │   ├── list-tool.js
-│   │   ├── regex-tool.js
-│   │   ├── cron-tool.js
-│   │   ├── ip-tool.js
-│   │   ├── json-to-csv.js
-│   │   └── csv-to-json.js
-│   │
-│   └── img/
-│       ├── logo.png
-│       └── favicon.ico   (optional)
-│
-├── tools/
-│   ├── list-tool.html
-│   ├── regex-tool.html
-│   ├── cron-tool.html
-│   ├── ip-tool.html
-│   ├── json-to-csv.html
-│   └── csv-to-json.html
-│
-├── README.md
-└── LICENSE
-
-## 🌐 Deployment
-
-This project is deployed using **Cloudflare Pages** and automatically updates on every push to the `main` branch.
-
-## 📊 Analytics
-
-**Cloudflare Web Analytics** is enabled to provide privacy-friendly insights into usage patterns without tracking users.
-
-## 🛠️ Future Enhancements
-
-- Additional tools (log parser, hash generator, unit converter, etc.)
-- Global search across tools
-- User preferences (persisted theme, tool settings)
-- Tool-specific documentation pages
-
-## ✅ License (MIT)
-
-
-MIT License
-
-Copyright (c) 2025
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including, without limitation, the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-## © 2025 KABASON — Empowering Through Service
-::contentReference[oaicite:0]{index=0}
+The old tools site is in git history and in the `kabason.com-archived` folder.

@@ -1,0 +1,558 @@
+/* kabason.com: the only stylesheet.
+
+   Theme: light tokens on :root. Dark tokens appear twice with identical
+   values: once for devices set to dark (unless the visitor chose light), once
+   for a visitor who chose dark. js/theme-init.js sets data-theme from a saved
+   choice before first paint. check.mjs reads the blocks between the
+   "tokens:" markers to test contrast and to confirm both dark blocks match,
+   so keep every colour a plain 6-digit hex. light-dark() would remove the
+   duplication but older iPhones do not support it. */
+
+/* tokens:light */
+:root {
+  color-scheme: light;
+  --bg: #eef1e8;          /* sage page */
+  --band: #e3e9da;        /* hero band */
+  --surface: #ffffff;     /* cards, table */
+  --surface-2: #f4f6ef;   /* tinted cards */
+  --cream: #faf4e6;       /* "need an address" card */
+  --ink: #1c2418;
+  --muted: #4e5a48;
+  --link: #3d5a2a;        /* olive */
+  --accent: #3d5a2a;
+  --accent-hover: #2f4720;
+  --on-accent: #ffffff;
+  --flap: #2f4720;        /* envelope flap on the olive */
+  --stamp: #faf4e6;
+  --line: #d5dccb;
+  --focus: #3d5a2a;
+  --shadow-raised: 0 1px 2px rgb(45 70 30 / 0.06), 0 6px 18px rgb(45 70 30 / 0.07);
+  --shadow-float: 0 2px 6px rgb(45 70 30 / 0.10), 0 18px 40px rgb(45 70 30 / 0.14);
+}
+/* tokens:dark-media */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #262b24;
+    --band: #2d3329;
+    --surface: #323930;
+    --surface-2: #2f362c;
+    --cream: #3a3628;
+    --ink: #eceee6;
+    --muted: #bcc4b3;
+    --link: #b5d098;
+    --accent: #a8c58c;
+    --accent-hover: #bbd3a2;
+    --on-accent: #1c2418;
+    --flap: #8fae73;
+    --stamp: #3a3628;
+    --line: #444d40;
+    --focus: #b5d098;
+    --shadow-raised: 0 1px 2px rgb(0 0 0 / 0.20), 0 6px 18px rgb(0 0 0 / 0.18);
+    --shadow-float: 0 2px 6px rgb(0 0 0 / 0.25), 0 18px 40px rgb(0 0 0 / 0.28);
+  }
+}
+/* tokens:dark-forced */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #262b24;
+  --band: #2d3329;
+  --surface: #323930;
+  --surface-2: #2f362c;
+  --cream: #3a3628;
+  --ink: #eceee6;
+  --muted: #bcc4b3;
+  --link: #b5d098;
+  --accent: #a8c58c;
+  --accent-hover: #bbd3a2;
+  --on-accent: #1c2418;
+  --flap: #8fae73;
+  --stamp: #3a3628;
+  --line: #444d40;
+  --focus: #b5d098;
+  --shadow-raised: 0 1px 2px rgb(0 0 0 / 0.20), 0 6px 18px rgb(0 0 0 / 0.18);
+  --shadow-float: 0 2px 6px rgb(0 0 0 / 0.25), 0 18px 40px rgb(0 0 0 / 0.28);
+}
+/* tokens:end */
+
+:root {
+  --display: "Avenir Next", Avenir, "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, Menlo, monospace;
+
+  --s1: 0.25rem;
+  --s2: 0.5rem;
+  --s3: 0.75rem;
+  --s4: 1rem;
+  --s5: 1.5rem;
+  --s6: 2rem;
+  --s7: 3rem;
+  --s8: 4.5rem;
+
+  --radius: 16px;
+  --spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+}
+
+/* --- Base ------------------------------------------------------------------ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+
+main { flex: 1; }
+
+h1, h2, h3 {
+  font-family: var(--display);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 0 0 var(--s4);
+}
+h1 { font-size: clamp(2.5rem, 7vw, 4.25rem); }
+h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); }
+h3 { font-size: 1.1875rem; letter-spacing: -0.015em; margin-bottom: var(--s2); }
+
+p { margin: 0 0 var(--s4); }
+
+a { color: var(--link); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+a:active { opacity: 0.75; }
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.mono { font-family: var(--mono); }
+
+.skip {
+  position: absolute;
+  left: var(--s4);
+  top: -4rem;
+  padding: var(--s2) var(--s4);
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: 8px;
+  z-index: 10;
+}
+.skip:focus { top: var(--s2); }
+
+.eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--link);
+  margin-bottom: var(--s3);
+}
+
+/* --- Header ----------------------------------------------------------------- */
+
+.site-head { background: var(--band); }
+
+.head-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  min-height: 4.5rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  margin-right: auto;
+  padding: var(--s2) 0;
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: 1.1875rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+.brand-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 1rem;
+  letter-spacing: 0;
+}
+.brand:hover { color: var(--link); }
+
+.nav { display: flex; gap: var(--s1); }
+.nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--s3);
+  border-radius: 999px;
+  color: var(--ink);
+  font-weight: 500;
+  text-decoration: none;
+}
+.nav a:hover { background: var(--surface-2); }
+.nav a:active { opacity: 0.75; }
+.nav a[aria-current="page"] { color: var(--link); background: var(--surface); box-shadow: var(--shadow-raised); }
+
+/* The theme button blends into the header: no fill, a hairline edge, and the
+   moon and sun crossfade into each other when the theme changes. The moon shows
+   in light (switch to dark), the sun in dark (switch to light). */
+.theme-toggle {
+  position: relative;
+  display: inline-block;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: transform 0.3s var(--spring);
+}
+.theme-toggle[hidden] { display: none; }
+.theme-toggle:hover { color: var(--ink); border-color: var(--muted); }
+.theme-toggle:active { transform: scale(0.92); }
+.theme-toggle svg {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 20px;
+  height: 20px;
+  transition: opacity 0.35s ease, transform 0.5s var(--spring);
+}
+.icon-moon { opacity: 1; transform: none; }
+.icon-sun { opacity: 0; transform: rotate(-90deg) scale(0.5); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .icon-moon { opacity: 0; transform: rotate(90deg) scale(0.5); }
+  :root:not([data-theme="light"]) .icon-sun { opacity: 1; transform: none; }
+}
+:root[data-theme="dark"] .icon-moon { opacity: 0; transform: rotate(90deg) scale(0.5); }
+:root[data-theme="dark"] .icon-sun { opacity: 1; transform: none; }
+
+/* --- Buttons --------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  min-height: 52px;
+  padding: 0 var(--s5);
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.3s var(--spring);
+}
+.btn:hover { transform: translateY(-2px); text-decoration: none; }
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow-raised); }
+.btn-primary:hover { background: var(--accent-hover); }
+.btn-outline { background: var(--surface); color: var(--link); border: 1px solid var(--line); }
+.btn-small { min-height: 44px; padding: 0 var(--s4); font-size: 0.9375rem; }
+
+.btn-row { display: flex; flex-wrap: wrap; gap: var(--s3); margin-top: var(--s5); }
+
+/* The header pill: on phones the page's own buttons do this job. */
+.head-webmail { display: none; }
+.head-webmail svg { flex: none; width: 18px; height: 18px; }
+
+/* --- Hero (home) ------------------------------------------------------------ */
+
+.hero { background: var(--band); padding: var(--s6) 0 var(--s8); }
+.hero-grid { display: grid; gap: var(--s7); align-items: center; }
+.hero h1 { margin-bottom: var(--s5); }
+.welcome { font-size: 1.1875rem; max-width: 34rem; }
+.welcome p:last-child { margin-bottom: 0; }
+
+/* The account card: an addressed envelope with an olive flap and a stamp. */
+.account-card {
+  position: relative;
+  padding: 6.5rem var(--s5) var(--s5);
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-float);
+  overflow: hidden;
+  animation: card-in 0.7s var(--spring) both;
+}
+.account-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 5rem;
+  background: var(--accent);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+.stamp {
+  position: absolute;
+  top: var(--s4);
+  right: var(--s4);
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.75rem;
+  background: var(--stamp);
+  border: 2px dashed var(--line);
+  border-radius: 4px;
+  color: var(--link);
+  font-family: var(--display);
+  font-size: 1.375rem;
+  font-weight: 700;
+  transform: rotate(6deg);
+}
+.ac-label { margin: 0; color: var(--muted); font-size: 0.875rem; }
+.ac-address {
+  margin: 0 0 var(--s5);
+  font-family: var(--mono);
+  font-size: clamp(1.125rem, 4.6vw, 1.5rem);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.ac-rows { margin: 0; border-top: 1px solid var(--line); }
+.ac-rows div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s4);
+  padding: var(--s3) 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.9375rem;
+}
+.ac-rows div:last-child { border-bottom: 0; padding-bottom: 0; }
+.ac-rows dt { color: var(--muted); }
+.ac-rows dd { margin: 0; font-family: var(--mono); text-align: right; }
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(18px) rotate(-1deg); }
+  to { opacity: 1; transform: none; }
+}
+
+/* --- Tiles (home) ----------------------------------------------------------- */
+
+.tiles { display: grid; gap: var(--s4); margin: var(--s7) 0 0; padding: 0; list-style: none; }
+.tile {
+  display: flex;
+  flex-direction: column;
+  padding: var(--s5);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.tile p { color: var(--muted); font-size: 1rem; }
+.tile p:last-child { margin-bottom: 0; }
+.tile .tile-link { margin-top: auto; }
+.tile-cream { background: var(--cream); }
+.tile a { font-weight: 600; }
+
+/* --- Inner pages ------------------------------------------------------------ */
+
+.page-head { background: var(--band); padding: var(--s6) 0 var(--s7); }
+.page-head-grid { display: grid; gap: var(--s5); align-items: end; }
+.page-head .lead { font-size: 1.1875rem; color: var(--muted); max-width: 36rem; margin-bottom: 0; }
+
+.section { padding-top: var(--s7); }
+
+/* The big webmail button: the envelope again, on the olive. */
+.envelope {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s4);
+  min-height: 6rem;
+  padding: var(--s6) var(--s5) var(--s5);
+  overflow: hidden;
+  background: var(--accent);
+  color: var(--on-accent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-float);
+  text-decoration: none;
+  transition: transform 0.35s var(--spring);
+}
+.envelope::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2.25rem;
+  background: var(--flap);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top center;
+  transition: transform 0.35s var(--spring);
+}
+.envelope-text { position: relative; display: flex; flex-direction: column; }
+.envelope-label { font-family: var(--display); font-size: clamp(1.5rem, 5vw, 1.875rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+.envelope-host { font-family: var(--mono); font-size: 0.875rem; }
+.envelope-arrow { position: relative; flex: none; font-size: 1.75rem; line-height: 1; transition: transform 0.35s var(--spring); }
+.envelope:hover { background: var(--accent-hover); transform: translateY(-2px); }
+.envelope:hover::before { transform: scaleY(0.4); }
+.envelope:hover .envelope-arrow { transform: translateX(4px); }
+.envelope:active { transform: translateY(1px) scale(0.99); }
+.envelope:focus-visible { outline-offset: 4px; }
+.signin-note { margin: var(--s3) 0 0; color: var(--muted); font-size: 1rem; }
+
+.cards { display: grid; gap: var(--s3); margin: var(--s4) 0; padding: 0; list-style: none; }
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s4);
+  height: 100%;
+  min-height: 4rem;
+  padding: var(--s4) var(--s5);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-raised);
+  color: var(--ink);
+  text-decoration: none;
+  transition: transform 0.3s var(--spring);
+}
+.card-title { font-weight: 600; color: var(--link); }
+.card-sub { display: block; color: var(--muted); font-size: 0.9375rem; line-height: 1.5; }
+.card-arrow { flex: none; color: var(--link); font-size: 1.25rem; transition: transform 0.3s var(--spring); }
+.card:hover { transform: translateY(-2px); }
+.card:hover .card-arrow { transform: translateX(3px); }
+.card:active { transform: translateY(1px); }
+
+.explain { max-width: 44rem; }
+
+.mail-cols { display: grid; gap: 0 var(--s7); }
+
+/* --- Settings table --------------------------------------------------------- */
+
+.settings {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-raised);
+  margin: var(--s4) 0;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.settings th, .settings td {
+  padding: var(--s3) var(--s4);
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--line);
+}
+.settings tr:last-child th, .settings tr:last-child td { border-bottom: 0; }
+.settings thead th { font-size: 0.8125rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.settings tbody th { font-weight: 500; width: 42%; }
+.settings td { overflow-wrap: anywhere; }
+.settings td a { overflow-wrap: normal; }
+.settings code { font-family: var(--mono); font-size: 0.9375rem; font-weight: 600; user-select: all; }
+.settings .or { display: block; color: var(--muted); font-size: 0.875rem; margin-top: var(--s1); }
+
+/* --- Step lists ------------------------------------------------------------- */
+
+.before { background: var(--cream); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s4) var(--s5); }
+.before a { font-weight: 600; }
+
+.apps { margin: var(--s4) 0; display: grid; gap: var(--s3); }
+.app { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-raised); }
+.app summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s4);
+  min-height: 3.75rem;
+  padding: var(--s3) var(--s5);
+  cursor: pointer;
+  list-style: none;
+  font-weight: 600;
+  border-radius: var(--radius);
+}
+.app summary::-webkit-details-marker { display: none; }
+.app summary::after {
+  content: "+";
+  flex: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--link);
+  transition: transform 0.3s var(--spring);
+}
+.app[open] summary::after { transform: rotate(45deg); }
+.app summary:hover { color: var(--link); }
+.app summary:active { opacity: 0.75; }
+.app-body { padding: 0 var(--s5) var(--s4); }
+.app-body ol { margin: 0 0 var(--s3); padding-left: var(--s5); }
+.app-body li { margin-bottom: var(--s2); padding-left: var(--s1); }
+.app-body .small { color: var(--muted); font-size: 0.9375rem; }
+.ui { font-weight: 600; }
+
+.help {
+  margin-top: var(--s7);
+  padding: var(--s5);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-size: 1.125rem;
+}
+
+/* --- Footer ----------------------------------------------------------------- */
+
+.site-foot { margin-top: var(--s8); padding: var(--s5) 0 var(--s6); border-top: 1px solid var(--line); color: var(--muted); font-size: 0.9375rem; }
+.foot-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s3); }
+.foot-inner p { margin: 0; }
+.foot-inner nav { display: flex; gap: var(--s4); }
+.foot-inner a { color: var(--muted); display: inline-block; padding: var(--s2) 0; }
+.foot-inner a:hover { color: var(--link); }
+
+/* --- Wider screens ---------------------------------------------------------- */
+
+@media (max-width: 559px) {
+  .btn-row .btn { flex: 1 1 100%; }
+}
+
+@media (min-width: 640px) {
+  .head-webmail { display: inline-flex; }
+  .cards-2 { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 860px) {
+  .tiles { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 920px) {
+  .hero { padding: var(--s7) 0 var(--s8); }
+  .hero-grid { grid-template-columns: 1.1fr 0.9fr; gap: var(--s8); }
+  .page-head-grid { grid-template-columns: 1.2fr 0.8fr; gap: var(--s7); }
+}
+
+@media (min-width: 1000px) {
+  .mail-cols { grid-template-columns: 1fr 1fr; align-items: start; }
+  /* The table stays in view while you work down a step list beside it. */
+  .settings-col { position: sticky; top: 0; padding-bottom: var(--s4); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}

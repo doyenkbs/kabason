@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Mail Help | Kabason Mail</title>
+<meta name="description" content="Open Kabason webmail, manage your account, and set up your mail app.">
+<script src="/js/theme-init.js"></script>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">K</span>Kabason</a>
+    <nav class="nav" aria-label="Main">
+      <a href="/">Home</a>
+      <a href="/mail/" aria-current="page">Mail Help</a>
+    </nav>
+    <a class="btn btn-primary btn-small head-webmail" href="https://webmail.kabason.com" rel="noopener"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false"><rect x="2.5" y="4.5" width="15" height="11" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="m3.5 6 6.5 5 6.5-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>Webmail</a>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch theme" hidden>
+      <svg class="icon-moon" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false"><path d="M16.5 12.6A7 7 0 0 1 7.4 3.5a7 7 0 1 0 9.1 9.1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      <svg class="icon-sun" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="3.4" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2M10 16.2v2M1.8 10h2M16.2 10h2M4.2 4.2l1.4 1.4M14.4 14.4l1.4 1.4M4.2 15.8l1.4-1.4M14.4 5.6l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-head">
+    <div class="wrap page-head-grid">
+      <div>
+        <p class="eyebrow">Kabason Mail</p>
+        <h1>Mail Help</h1>
+        <p class="lead">Read your @kabason.com mail in the browser, manage your account, or set up the mail app on your phone or computer.</p>
+      </div>
+      <div>
+        <a class="envelope" href="https://webmail.kabason.com" rel="noopener">
+          <span class="envelope-text">
+            <span class="envelope-label">Open Webmail</span>
+            <span class="envelope-host">webmail.kabason.com</span>
+          </span>
+          <span class="envelope-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+        <p class="signin-note">You sign in with your Kabason account. Your username is your full email address.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="section" aria-labelledby="account">
+      <h2 id="account">Your account</h2>
+      <ul class="cards cards-2">
+        <li>
+          <a class="card" href="https://authentik.kabason.net/if/user/" rel="noopener">
+            <span><span class="card-title">Manage your account</span><span class="card-sub">Change your password, set up two-step sign-in</span></span>
+            <span class="card-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </li>
+        <li>
+          <a class="card" href="https://mail.kabason.com/account" rel="noopener">
+            <span><span class="card-title">App passwords for phone and desktop apps</span><span class="card-sub">What your phone or computer mail app signs in with</span></span>
+            <span class="card-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </li>
+      </ul>
+      <p class="explain">
+        Mail apps on your phone or computer cannot use your normal sign-in password.
+        Instead, create an app password on the app passwords page and type that into the
+        mail app wherever it asks for a password.
+      </p>
+    </section>
+
+    <div class="mail-cols">
+      <section class="section settings-col" aria-labelledby="settings">
+        <h2 id="settings">Mail app settings</h2>
+        <p>If your mail app asks for server details, use these.</p>
+        <table class="settings">
+          <thead>
+            <tr><th scope="col">Setting</th><th scope="col">Value</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Incoming (IMAP) server</th><td><code>mail.kabason.com</code></td></tr>
+            <tr><th scope="row">IMAP port / security</th><td><code>993</code> / SSL/TLS</td></tr>
+            <tr><th scope="row">Outgoing (SMTP) server</th><td><code>mail.kabason.com</code></td></tr>
+            <tr><th scope="row">SMTP port / security</th><td><code>465</code> / SSL/TLS <span class="or">or <code>587</code> / STARTTLS if the app only offers that</span></td></tr>
+            <tr><th scope="row">Username</th><td>your full email address</td></tr>
+            <tr><th scope="row">Password</th><td>an app password from <a href="https://mail.kabason.com/account" rel="noopener">mail.kabason.com/<wbr>account</a></td></tr>
+          </tbody>
+        </table>
+        <p>Thunderbird fills these in automatically from your email address.</p>
+      </section>
+
+      <section class="section" aria-labelledby="apps">
+        <h2 id="apps">Step by step</h2>
+        <p class="before">
+          Before you start, create an app password on the
+          <a href="https://mail.kabason.com/account" rel="noopener">app passwords page</a>.
+          Keep it open, you will type it in below.
+        </p>
+
+      <div class="apps">
+        <details class="app">
+          <summary>iPhone or iPad (Mail app)</summary>
+          <div class="app-body">
+            <ol>
+              <li>Open <span class="ui">Settings</span>.</li>
+              <li>Tap <span class="ui">Apps</span>.</li>
+              <li>Tap <span class="ui">Mail</span>.</li>
+              <li>Tap <span class="ui">Mail Accounts</span>.</li>
+              <li>Tap <span class="ui">Add Account</span>.</li>
+              <li>Type your full email address, then tap <span class="ui">Next</span>.</li>
+              <li>Tap <span class="ui">Add Other Account</span>.</li>
+              <li>Tap <span class="ui">Mail Account</span>.</li>
+              <li>Fill in your name, your email address, your app password, and a description such as "Kabason".</li>
+              <li>Tap <span class="ui">Next</span>.</li>
+              <li>If Mail finds your settings, tap <span class="ui">Done</span>. You are finished.</li>
+              <li>If it does not, tap <span class="ui">IMAP</span>.</li>
+              <li>Fill in the incoming and outgoing mail server details from the settings table, then tap <span class="ui">Next</span>.</li>
+              <li>Tap <span class="ui">Save</span>.</li>
+            </ol>
+            <p class="small">These steps match current iPhone and iPad software. On an older version, some menu names may be different.</p>
+          </div>
+        </details>
+
+        <details class="app">
+          <summary>Android (Gmail app)</summary>
+          <div class="app-body">
+            <ol>
+              <li>Open the <span class="ui">Gmail</span> app.</li>
+              <li>Tap your profile picture at the top right.</li>
+              <li>Tap <span class="ui">Add another account</span>.</li>
+              <li>Tap <span class="ui">Other</span>.</li>
+              <li>Type your full email address, then tap <span class="ui">Next</span>.</li>
+              <li>Tap <span class="ui">Personal (IMAP)</span>.</li>
+              <li>Type your app password, then tap <span class="ui">Next</span>.</li>
+              <li>When it asks for server settings, use the settings table.</li>
+              <li>Follow the remaining screens to finish.</li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="app">
+          <summary>New Outlook for Windows</summary>
+          <div class="app-body">
+            <ol>
+              <li>Open Outlook.</li>
+              <li>Select the <span class="ui">View</span> tab, then <span class="ui">View settings</span>.</li>
+              <li>Select <span class="ui">Accounts</span>, then <span class="ui">Your accounts</span>.</li>
+              <li>Under <span class="ui">Email accounts</span>, select <span class="ui">Add Account</span>.</li>
+              <li>Type your full email address, then select <span class="ui">Continue</span>.</li>
+              <li>When it asks for a password, type your app password, then select <span class="ui">Done</span>.</li>
+            </ol>
+            <p class="small">If Outlook asks for server details along the way, use the settings table.</p>
+          </div>
+        </details>
+
+        <details class="app">
+          <summary>Classic Outlook for Windows</summary>
+          <div class="app-body">
+            <ol>
+              <li>Open Outlook.</li>
+              <li>Select <span class="ui">File</span>, then <span class="ui">Add Account</span>.</li>
+              <li>Type your full email address.</li>
+              <li>Select <span class="ui">Advanced options</span>.</li>
+              <li>Check <span class="ui">Let me set up my account manually</span>.</li>
+              <li>Select <span class="ui">Connect</span>.</li>
+              <li>Select <span class="ui">IMAP</span>.</li>
+              <li>Fill in the incoming and outgoing server details from the settings table, then select <span class="ui">Next</span>.</li>
+              <li>Type your app password, then select <span class="ui">Connect</span>.</li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="app">
+          <summary>Outlook for Mac</summary>
+          <div class="app-body">
+            <ol>
+              <li>Open Outlook.</li>
+              <li>In the menu bar at the top of the screen, select <span class="ui">Outlook</span>, then <span class="ui">Settings</span>.</li>
+              <li>Select <span class="ui">Accounts</span>.</li>
+              <li>Select <span class="ui">+ Add Account</span>.</li>
+              <li>Type your full email address, then select <span class="ui">Continue</span>.</li>
+              <li>Follow the prompts. Use your app password when it asks for a password, and the settings table if it asks for server details.</li>
+              <li>Select <span class="ui">Done</span>.</li>
+            </ol>
+            <p class="small">On the older Outlook for Mac, step 3 is <span class="ui">Accounts</span> under Personal Settings, and step 4 is <span class="ui">Add Email Account</span>.</p>
+          </div>
+        </details>
+
+        <details class="app">
+          <summary>Thunderbird</summary>
+          <div class="app-body">
+            <ol>
+              <li>Open Thunderbird. The first time you open it, the account setup screen appears by itself. If it does, skip to step 4.</li>
+              <li>Select the <span class="ui">&#8801;</span> menu button.</li>
+              <li>Select <span class="ui">New Account</span>, then <span class="ui">Existing Email</span>.</li>
+              <li>Fill in your name, your full email address, and your app password.</li>
+              <li>Select <span class="ui">Continue</span>.</li>
+              <li>Thunderbird finds the server settings by itself. Select <span class="ui">Done</span>.</li>
+            </ol>
+          </div>
+        </details>
+      </div>
+      </section>
+    </div>
+
+    <!-- PLACEHOLDER: support address, to be confirmed -->
+    <p class="help">Need help? Email <a href="mailto:support@kabason.com">support@kabason.com</a></p>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-inner">
+    <p>&copy; 2026 Kabason</p>
+    <nav aria-label="Footer">
+      <a href="/">Home</a>
+      <a href="/mail/">Mail Help</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="/js/theme.js" defer></script>
+</body>
+</html>

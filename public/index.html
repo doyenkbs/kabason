@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Kabason Mail</title>
+<meta name="description" content="Private email from Kabason. Open webmail or set up your mail app.">
+<script src="/js/theme-init.js"></script>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">K</span>Kabason</a>
+    <nav class="nav" aria-label="Main">
+      <a href="/" aria-current="page">Home</a>
+      <a href="/mail/">Mail Help</a>
+    </nav>
+    <a class="btn btn-primary btn-small head-webmail" href="https://webmail.kabason.com" rel="noopener"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false"><rect x="2.5" y="4.5" width="15" height="11" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="m3.5 6 6.5 5 6.5-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>Webmail</a>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch theme" hidden>
+      <svg class="icon-moon" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false"><path d="M16.5 12.6A7 7 0 0 1 7.4 3.5a7 7 0 1 0 9.1 9.1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      <svg class="icon-sun" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="3.4" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2M10 16.2v2M1.8 10h2M16.2 10h2M4.2 4.2l1.4 1.4M14.4 14.4l1.4 1.4M4.2 15.8l1.4-1.4M14.4 5.6l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Kabason</p>
+        <h1>Kabason Mail</h1>
+        <div class="welcome">
+          <p>Kabason runs its own email service for a small group of members. Your @kabason.com mailbox works in any web browser and in the mail app on your phone or computer.</p>
+          <!-- PLACEHOLDER: support address, to be confirmed -->
+          <p>Accounts are by invitation. If you need an address, email <a href="mailto:support@kabason.com">support@kabason.com</a>.</p>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="https://webmail.kabason.com" rel="noopener">Open webmail <span aria-hidden="true">&rarr;</span></a>
+          <a class="btn btn-outline" href="/mail/#apps">Set up on your phone</a>
+        </div>
+      </div>
+
+      <div class="account-card">
+        <span class="stamp" aria-hidden="true">K</span>
+        <p class="ac-label">Your address</p>
+        <p class="ac-address">yourname@kabason.com</p>
+        <dl class="ac-rows">
+          <div><dt>Webmail</dt><dd>webmail.kabason.com</dd></div>
+          <div><dt>Mail apps</dt><dd>IMAP 993 &middot; SMTP 465</dd></div>
+          <div><dt>Username</dt><dd>your full address</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <ul class="tiles">
+      <li class="tile">
+        <h3>Phone and desktop apps</h3>
+        <p>Choose IMAP when the app asks for the account type. Use an app password, not your sign-in password.</p>
+        <p class="tile-link"><a href="/mail/">Mail app settings and steps</a></p>
+      </li>
+      <li class="tile tile-cream">
+        <h3>Need an address?</h3>
+        <!-- PLACEHOLDER: support address, to be confirmed -->
+        <p>Email <a href="mailto:support@kabason.com">support@kabason.com</a> with your name and the address you would like.</p>
+      </li>
+      <li class="tile">
+        <h3>Stay safe</h3>
+        <!-- PLACEHOLDER: confirm this promise before publishing -->
+        <p>Nobody from Kabason will ask for your password by email or text. Change your password or set up two-step sign-in on your account page.</p>
+        <p class="tile-link"><a href="https://authentik.kabason.net/if/user/" rel="noopener">Manage your account</a></p>
+      </li>
+    </ul>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-inner">
+    <p>&copy; 2026 Kabason</p>
+    <nav aria-label="Footer">
+      <a href="/">Home</a>
+      <a href="/mail/">Mail Help</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="/js/theme.js" defer></script>
+</body>
+</html>
