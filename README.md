@@ -2,7 +2,7 @@
 
 Kabason Mail: the landing page and mail help page for members with @kabason.com
 mailboxes. Plain HTML and CSS on Cloudflare Pages, no build step. The only JavaScript
-is the light/dark theme switch.
+is the light/dark theme switch and the envelope animation's stop button.
 
 ## What ships
 
@@ -16,6 +16,7 @@ Cloudflare Pages publishes `public/` and nothing else:
 | `public/css/site.css` | The only stylesheet; every colour is a custom property, light and dark |
 | `public/js/theme-init.js` | Blocking, first in `<head>`: applies a saved theme choice before paint |
 | `public/js/theme.js` | The theme button; follows the device until someone picks a theme |
+| `public/js/envelope.js` | The "Stop animation" button for the looping envelope (WCAG 2.2.2) |
 | `public/favicon.svg` | Browser tab icon |
 | `public/_headers` | CSP and security headers for every path |
 | `public/robots.txt` | Disallows everything; every page also has `noindex` |

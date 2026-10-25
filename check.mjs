@@ -261,6 +261,35 @@ async function browserChecks() {
     await load('/', 1280, 'dark');
     check('no saved choice on a dark device: dark colours', (await bg()) === darkBg);
     await evalIn('localStorage.removeItem("theme")');
+
+    console.log('\n   Envelope loop and its stop button (WCAG 2.2.2)');
+    const cs = (sel, prop) => evalIn(`getComputedStyle(document.querySelector(${JSON.stringify(sel)})).${prop}`);
+    await evalIn('localStorage.removeItem("envelope")');
+    await load('/', 1280, 'light');
+    check('the real card shows at once, before any fold', (await cs('.ac-real', 'opacity')) === '1');
+    check('the loop repeats', (await cs('.ac-real', 'animationIterationCount')) === 'infinite' && (await cs('.plane', 'animationIterationCount')) === 'infinite');
+    check('stop button is shown when JS runs', await evalIn('!document.getElementById("anim-toggle").hidden'));
+    await evalIn('document.getElementById("anim-toggle").click()');
+    await sleep(100);
+    check('stop removes every animation',
+      ['.ac-real', '.ac-sender', '.ac-sender .flap', '.ac-sender .ac-body', '.plane'].length ===
+      (await evalIn(`['.ac-real', '.ac-sender', '.ac-sender .flap', '.ac-sender .ac-body', '.plane'].filter(s => getComputedStyle(document.querySelector(s)).animationName === 'none').length`)));
+    check('stopped: real card showing, copy and plane hidden',
+      (await cs('.ac-real', 'opacity')) === '1' && (await cs('.ac-sender', 'opacity')) === '0' && (await cs('.plane', 'opacity')) === '0');
+    check('stopped: button says Play and is pressed',
+      (await evalIn('document.getElementById("anim-toggle").getAttribute("aria-pressed") + "/" + document.querySelector(".anim-label").textContent')) === 'true/Play animation');
+    await load('/', 1280, 'light');
+    check('the stop is remembered on reload', await evalIn('document.getElementById("ac-stage").classList.contains("is-still")'));
+    await evalIn('document.getElementById("anim-toggle").click()');
+    await sleep(100);
+    check('play restarts the loop and clears the saved choice',
+      (await cs('.ac-real', 'animationName')) === 'real-cycle' && (await evalIn('localStorage.getItem("envelope")')) === null);
+    await send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
+    await send('Page.reload');
+    await sleep(800);
+    check('reduced motion: no animation and no stop button',
+      (await cs('.ac-real', 'animationName')) === 'none' && (await cs('#anim-toggle', 'display')) === 'none' && (await cs('.ac-sender', 'opacity')) === '0');
+    await send('Emulation.setEmulatedMedia', { features: [] });
     await raw('Browser.close').catch(() => {});
   } catch (err) {
     check('browser driver', false, err.message);

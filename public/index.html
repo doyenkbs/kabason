@@ -46,15 +46,43 @@
         </div>
       </div>
 
-      <div class="account-card">
-        <span class="stamp" aria-hidden="true">K</span>
-        <p class="ac-label">Your address</p>
-        <p class="ac-address">yourname@kabason.com</p>
-        <dl class="ac-rows">
-          <div><dt>Webmail</dt><dd>webmail.kabason.com</dd></div>
-          <div><dt>Mail apps</dt><dd>IMAP 993 &middot; SMTP 465</dd></div>
-          <div><dt>Username</dt><dd>your full address</dd></div>
-        </dl>
+      <div class="ac-side">
+      <!-- The first card is a decorative copy that folds into the plane and
+           flies off; the second is the real one, which takes its place. -->
+      <div class="ac-stage" id="ac-stage">
+        <div class="account-card ac-sender" aria-hidden="true">
+          <span class="flap"></span>
+          <div class="ac-body">
+            <span class="stamp">K</span>
+            <p class="ac-label">Your address</p>
+            <p class="ac-address">yourname@kabason.com</p>
+            <dl class="ac-rows">
+              <div><dt>Webmail</dt><dd>webmail.kabason.com</dd></div>
+              <div><dt>Mail apps</dt><dd>IMAP 993 &middot; SMTP 465</dd></div>
+              <div><dt>Username</dt><dd>your full address</dd></div>
+            </dl>
+          </div>
+        </div>
+
+        <div class="account-card ac-real">
+          <span class="flap" aria-hidden="true"></span>
+          <span class="stamp" aria-hidden="true">K</span>
+          <p class="ac-label">Your address</p>
+          <p class="ac-address">yourname@kabason.com</p>
+          <dl class="ac-rows">
+            <div><dt>Webmail</dt><dd>webmail.kabason.com</dd></div>
+            <div><dt>Mail apps</dt><dd>IMAP 993 &middot; SMTP 465</dd></div>
+            <div><dt>Username</dt><dd>your full address</dd></div>
+          </dl>
+        </div>
+
+        <svg class="plane" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path class="plane-side" d="M22 28 44 6 30 42Z"/><path class="plane-top" d="M4 22 44 6 22 28Z"/><path class="plane-keel" d="M22 28 20 38 26 32Z"/></svg>
+      </div>
+      <button class="anim-toggle" id="anim-toggle" type="button" aria-pressed="false" hidden>
+        <svg class="icon-pause" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><rect x="3" y="2" width="3" height="10" rx="1" fill="currentColor"/><rect x="8" y="2" width="3" height="10" rx="1" fill="currentColor"/></svg>
+        <svg class="icon-play" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M4 2.5v9l7.5-4.5Z" fill="currentColor"/></svg>
+        <span class="anim-label">Stop animation</span>
+      </button>
       </div>
     </div>
   </section>
@@ -92,5 +120,6 @@
 </footer>
 
 <script src="/js/theme.js" defer></script>
+<script src="/js/envelope.js" defer></script>
 </body>
 </html>

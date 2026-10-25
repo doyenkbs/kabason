@@ -285,32 +285,115 @@ a:active { opacity: 0.75; }
 
 /* --- Hero (home) ------------------------------------------------------------ */
 
-.hero { background: var(--band); padding: var(--s6) 0 var(--s8); }
-.hero-grid { display: grid; gap: var(--s7); align-items: center; }
+/* overflow: hidden keeps the paper plane's flight from widening the page. */
+.hero { background: var(--band); padding: var(--s6) 0 var(--s8); overflow: hidden; }
+/* Room above the card on phones for the flap while it stands open. */
+.hero-grid { display: grid; gap: 5.5rem; align-items: center; }
 .hero h1 { margin-bottom: var(--s5); }
 .welcome { font-size: 1.1875rem; max-width: 34rem; }
 .welcome p:last-child { margin-bottom: 0; }
 
-/* The account card: an addressed envelope with an olive flap and a stamp. */
+/* The account card: an addressed envelope with an olive flap and a stamp.
+   It loops on a 9s cycle, transform and opacity only. Two cards share one
+   grid cell: a decorative copy (.ac-sender) and the real card (.ac-real).
+     0.0s  the real card is showing
+     3.0s  the copy swaps in, identical, so the swap is invisible
+     3.0s  its flap opens, then seals by 3.9s
+     4.0s  the whole copy folds: tips back, narrows, twists, shrinks
+     4.35s it becomes the paper plane, which shoots off to the right
+     5.6s  a new card (the real one) drops into the empty place
+   Every animation below shares the 9s duration so they stay in step; their
+   keyframe percentages are positions in that cycle (1s = 11.11%).
+   The "Stop animation" button (js/envelope.js) adds .is-still, which removes
+   the animations and leaves the real card showing; WCAG 2.2.2 requires a way
+   to stop motion that runs longer than 5 seconds.
+   With reduced motion (or no animation support) only the real card shows. */
+.ac-stage { position: relative; display: grid; }
+.ac-stage > .account-card { grid-area: 1 / 1; }
+.ac-stage.is-still .ac-sender,
+.ac-stage.is-still .ac-sender .flap,
+.ac-stage.is-still .ac-sender .ac-body,
+.ac-stage.is-still .ac-real,
+.ac-stage.is-still .plane { animation: none; }
+
+.anim-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  min-height: 44px;
+  margin-top: var(--s3);
+  padding: 0 var(--s3);
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  justify-self: end;
+}
+.anim-toggle[hidden] { display: none; }
+.anim-toggle:hover { color: var(--ink); border-color: var(--line); }
+.anim-toggle:active { opacity: 0.75; }
+.anim-toggle svg { width: 14px; height: 14px; flex: none; }
+.anim-toggle .icon-play { display: none; }
+.anim-toggle[aria-pressed="true"] .icon-play { display: block; }
+.anim-toggle[aria-pressed="true"] .icon-pause { display: none; }
+.ac-side { display: grid; }
+
 .account-card {
   position: relative;
   padding: 6.5rem var(--s5) var(--s5);
   background: var(--surface);
   border-radius: var(--radius);
   box-shadow: var(--shadow-float);
-  overflow: hidden;
-  animation: card-in 0.7s var(--spring) both;
+  perspective: 1000px;
 }
-.account-card::before {
-  content: "";
+.ac-sender {
+  z-index: 2;
+  opacity: 0;
+  transform-origin: 50% 40%;
+  pointer-events: none;
+  animation: send-cycle 9s ease-in-out infinite;
+}
+.ac-sender .flap { animation: flap-cycle 9s ease-in-out infinite; }
+.ac-sender .ac-body { animation: body-cycle 9s ease infinite; }
+.ac-real { animation: real-cycle 9s ease-out infinite; }
+
+.flap {
   position: absolute;
   inset: 0 0 auto 0;
+  z-index: 1;
   height: 5rem;
+  border-radius: var(--radius) var(--radius) 0 0;
+  overflow: hidden;
+  transform-origin: top center;
+}
+.flap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   background: var(--accent);
   clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
+.plane {
+  position: absolute;
+  top: calc(40% - 3rem);
+  left: calc(50% - 3rem);
+  z-index: 3;
+  width: 6rem;
+  height: 6rem;
+  opacity: 0;
+  pointer-events: none;
+  filter: drop-shadow(0 8px 10px rgb(30 45 20 / 0.25));
+  animation: plane-cycle 9s ease-in-out infinite;
+}
+.plane-top { fill: var(--surface); stroke: var(--accent); stroke-width: 1.5; stroke-linejoin: round; }
+.plane-side { fill: var(--surface-2); stroke: var(--accent); stroke-width: 1.5; stroke-linejoin: round; }
+.plane-keel { fill: var(--accent); }
 .stamp {
   position: absolute;
+  z-index: 2;
   top: var(--s4);
   right: var(--s4);
   display: grid;
@@ -347,9 +430,47 @@ a:active { opacity: 0.75; }
 .ac-rows dt { color: var(--muted); }
 .ac-rows dd { margin: 0; font-family: var(--mono); text-align: right; }
 
-@keyframes card-in {
-  from { opacity: 0; transform: translateY(18px) rotate(-1deg); }
-  to { opacity: 1; transform: none; }
+/* All 9s, in step. Times in the comments are seconds into the cycle. */
+
+/* The real card: showing, hidden from the swap at 3.0s, drops back in 5.6–6.4s.
+   It hides in place and only moves up while invisible, so the swap with the
+   identical copy cannot flicker. */
+@keyframes real-cycle {
+  0%, 33.3% { opacity: 1; transform: none; }
+  33.4% { opacity: 0; transform: none; }
+  40% { opacity: 0; transform: translateY(-28px) scale(0.96); }
+  62.22% { opacity: 0; transform: translateY(-28px) scale(0.96); animation-timing-function: cubic-bezier(0.34, 1.4, 0.64, 1); }
+  71.11%, 100% { opacity: 1; transform: none; }
+}
+/* The copy: appears at 3.0s exactly over the real card, folds 4.0–4.7s. */
+@keyframes send-cycle {
+  0%, 33.3% { opacity: 0; transform: perspective(900px) rotateX(0deg) scale(1, 1) rotate(0deg); }
+  33.4%, 44.44% { opacity: 1; transform: perspective(900px) rotateX(0deg) scale(1, 1) rotate(0deg); }
+  46.94% { opacity: 1; transform: perspective(900px) rotateX(58deg) scale(0.9, 0.62) rotate(0deg); }
+  49.44% { opacity: 1; transform: perspective(900px) rotateX(58deg) scale(0.34, 0.28) rotate(-28deg); }
+  52.22%, 100% { opacity: 0; transform: perspective(900px) rotateX(58deg) scale(0.16, 0.14) rotate(-38deg); }
+}
+/* The copy's flap: opens 3.0–3.4s, seals 3.4–3.9s. */
+@keyframes flap-cycle {
+  0%, 33.33% { transform: rotateX(0deg); }
+  37.78% { transform: rotateX(180deg); }
+  43.33%, 100% { transform: rotateX(0deg); }
+}
+/* The copy's text fades 4.0–4.3s so what folds is blank paper; it resets
+   while the copy is invisible. */
+@keyframes body-cycle {
+  0%, 44.44% { opacity: 1; }
+  47.78%, 60% { opacity: 0; }
+  61%, 100% { opacity: 1; }
+}
+/* The plane: takes over from the folded copy at 4.35s, settles, pulls back a
+   little, then shoots off to the right, gone by 6.05s. */
+@keyframes plane-cycle {
+  0%, 48.33% { opacity: 0; transform: translate(0, 0) scale(1.5) rotate(-34deg); }
+  50.98% { opacity: 1; transform: translate(0, 0) scale(1) rotate(-8deg); }
+  54% { opacity: 1; transform: translate(-22px, 10px) scale(1) rotate(-14deg); }
+  64.39% { opacity: 1; transform: translate(520px, -110px) scale(0.8) rotate(-6deg); }
+  67.22%, 100% { opacity: 0; transform: translate(680px, -130px) scale(0.7) rotate(-4deg); }
 }
 
 /* --- Tiles (home) ----------------------------------------------------------- */
@@ -555,4 +676,5 @@ a:active { opacity: 0.75; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
+  .anim-toggle { display: none !important; }
 }

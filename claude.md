@@ -14,6 +14,9 @@ Where they conflict, this file wins.
 - **No forms or input fields, and no login handling.** Links only. Never link or redirect to an
   Authentik login or authorize URL; only `https://authentik.kabason.net/if/user/`.
 - **No redirects:** no `_redirects`, no meta refresh, no JS redirects.
+- **The envelope animation loops** (9s cycle, CSS only). Every looping animation must keep the same
+  duration so they stay in step, and the "Stop animation" button (`js/envelope.js`) must stay: WCAG
+  2.2.2 requires a way to stop motion that runs longer than 5 seconds.
 - **Tone:** business, not family or homelab, even though members are family and friends.
 - **Privacy:** `noindex` on every page, `robots.txt` disallows all. No names of children, photos of
   people, school, location, or schedule details.
