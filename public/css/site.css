@@ -9,45 +9,53 @@
    duplication but older iPhones do not support it. */
 
 /* tokens:light */
+/* Taken from the logo: navy #043963 frame, sky #02adef square, orange
+   #e76e16 swoosh. Navy anchors text and buttons, a pale sky tint is the page,
+   orange is the one spark (--spark is decorative only; --spark-ink is the
+   orange that passes for small text). */
 :root {
   color-scheme: light;
-  --bg: #eef1e8;          /* sage page */
-  --band: #e3e9da;        /* hero band */
+  --bg: #f3f7fb;          /* cool page */
+  --band: #e3eff8;        /* sky-tinted header and hero */
   --surface: #ffffff;     /* cards, table */
-  --surface-2: #f4f6ef;   /* tinted cards */
-  --cream: #faf4e6;       /* "need an address" card */
-  --ink: #1c2418;
-  --muted: #4e5a48;
-  --link: #3d5a2a;        /* olive */
-  --accent: #3d5a2a;
-  --accent-hover: #2f4720;
+  --surface-2: #f6fafd;   /* tinted cards */
+  --cream: #fdf2e8;       /* orange-tinted "need an address" card */
+  --ink: #0d2235;
+  --muted: #4a5e72;
+  --link: #075a9c;
+  --accent: #043963;      /* logo navy */
+  --accent-hover: #032b4b;
   --on-accent: #ffffff;
-  --flap: #2f4720;        /* envelope flap on the olive */
-  --stamp: #faf4e6;
-  --line: #d5dccb;
-  --focus: #3d5a2a;
-  --shadow-raised: 0 1px 2px rgb(45 70 30 / 0.06), 0 6px 18px rgb(45 70 30 / 0.07);
-  --shadow-float: 0 2px 6px rgb(45 70 30 / 0.10), 0 18px 40px rgb(45 70 30 / 0.14);
+  --flap: #032b4b;        /* envelope flap on the navy */
+  --stamp: #ffffff;       /* the logo needs a white ground */
+  --spark: #e76e16;       /* logo orange, decoration only */
+  --spark-ink: #9a4507;
+  --line: #d3e0ec;
+  --focus: #0a6fc0;
+  --shadow-raised: 0 1px 2px rgb(4 57 99 / 0.06), 0 6px 18px rgb(4 57 99 / 0.07);
+  --shadow-float: 0 2px 6px rgb(4 57 99 / 0.10), 0 18px 40px rgb(4 57 99 / 0.14);
 }
 /* tokens:dark-media */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --bg: #262b24;
-    --band: #2d3329;
-    --surface: #323930;
-    --surface-2: #2f362c;
-    --cream: #3a3628;
-    --ink: #eceee6;
-    --muted: #bcc4b3;
-    --link: #b5d098;
-    --accent: #a8c58c;
-    --accent-hover: #bbd3a2;
-    --on-accent: #1c2418;
-    --flap: #8fae73;
-    --stamp: #3a3628;
-    --line: #444d40;
-    --focus: #b5d098;
+    --bg: #172433;
+    --band: #1e2f42;
+    --surface: #243749;
+    --surface-2: #213346;
+    --cream: #3a2c20;
+    --ink: #e9f1f8;
+    --muted: #afc0d1;
+    --link: #6fcdf4;
+    --accent: #3dbdf0;
+    --accent-hover: #6bcdf4;
+    --on-accent: #06243b;
+    --flap: #1c9ed6;
+    --stamp: #ffffff;
+    --spark: #f08a3e;
+    --spark-ink: #f5a766;
+    --line: #33495e;
+    --focus: #6fcdf4;
     --shadow-raised: 0 1px 2px rgb(0 0 0 / 0.20), 0 6px 18px rgb(0 0 0 / 0.18);
     --shadow-float: 0 2px 6px rgb(0 0 0 / 0.25), 0 18px 40px rgb(0 0 0 / 0.28);
   }
@@ -55,21 +63,23 @@
 /* tokens:dark-forced */
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #262b24;
-  --band: #2d3329;
-  --surface: #323930;
-  --surface-2: #2f362c;
-  --cream: #3a3628;
-  --ink: #eceee6;
-  --muted: #bcc4b3;
-  --link: #b5d098;
-  --accent: #a8c58c;
-  --accent-hover: #bbd3a2;
-  --on-accent: #1c2418;
-  --flap: #8fae73;
-  --stamp: #3a3628;
-  --line: #444d40;
-  --focus: #b5d098;
+  --bg: #172433;
+  --band: #1e2f42;
+  --surface: #243749;
+  --surface-2: #213346;
+  --cream: #3a2c20;
+  --ink: #e9f1f8;
+  --muted: #afc0d1;
+  --link: #6fcdf4;
+  --accent: #3dbdf0;
+  --accent-hover: #6bcdf4;
+  --on-accent: #06243b;
+  --flap: #1c9ed6;
+  --stamp: #ffffff;
+  --spark: #f08a3e;
+  --spark-ink: #f5a766;
+  --line: #33495e;
+  --focus: #6fcdf4;
   --shadow-raised: 0 1px 2px rgb(0 0 0 / 0.20), 0 6px 18px rgb(0 0 0 / 0.18);
   --shadow-float: 0 2px 6px rgb(0 0 0 / 0.25), 0 18px 40px rgb(0 0 0 / 0.28);
 }
@@ -163,7 +173,7 @@ a:active { opacity: 0.75; }
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--link);
+  color: var(--spark-ink);
   margin-bottom: var(--s3);
 }
 
@@ -181,32 +191,33 @@ a:active { opacity: 0.75; }
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: var(--s2);
+  gap: var(--s3);
   margin-right: auto;
   padding: var(--s2) 0;
   color: var(--ink);
   font-family: var(--display);
-  font-size: 1.1875rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-size: 1.0625rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;   /* the spaced capitals of the logo lockup */
+  text-transform: uppercase;
   text-decoration: none;
 }
+/* The logo mark sits on its own white tile so it reads in both themes. */
 .brand-mark {
-  display: inline-grid;
-  place-items: center;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 8px;
-  background: var(--accent);
-  color: var(--on-accent);
-  font-size: 1rem;
-  letter-spacing: 0;
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 3px;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: var(--shadow-raised);
 }
 .brand:hover { color: var(--link); }
 
 .nav { display: flex; gap: var(--s1); }
 .nav a {
   display: inline-flex;
+  white-space: nowrap;
   align-items: center;
   min-height: 44px;
   padding: 0 var(--s3);
@@ -289,7 +300,10 @@ a:active { opacity: 0.75; }
 .hero { background: var(--band); padding: var(--s6) 0 var(--s8); overflow: hidden; }
 /* Room above the card on phones for the flap while it stands open. */
 .hero-grid { display: grid; gap: 5.5rem; align-items: center; }
-.hero h1 { margin-bottom: var(--s5); }
+.hero h1 { margin-bottom: var(--s2); }
+/* The logo's orange swoosh, echoed once under the home heading. */
+.swoosh { display: block; width: min(15rem, 62%); height: auto; margin: 0 0 var(--s5); }
+.swoosh path { fill: none; stroke: var(--spark); stroke-width: 5; stroke-linecap: round; }
 .welcome { font-size: 1.1875rem; max-width: 34rem; }
 .welcome p:last-child { margin-bottom: 0; }
 
@@ -390,7 +404,7 @@ a:active { opacity: 0.75; }
 }
 .plane-top { fill: var(--surface); stroke: var(--accent); stroke-width: 1.5; stroke-linejoin: round; }
 .plane-side { fill: var(--surface-2); stroke: var(--accent); stroke-width: 1.5; stroke-linejoin: round; }
-.plane-keel { fill: var(--accent); }
+.plane-keel { fill: var(--spark); }
 .stamp {
   position: absolute;
   z-index: 2;
@@ -403,12 +417,9 @@ a:active { opacity: 0.75; }
   background: var(--stamp);
   border: 2px dashed var(--line);
   border-radius: 4px;
-  color: var(--link);
-  font-family: var(--display);
-  font-size: 1.375rem;
-  font-weight: 700;
   transform: rotate(6deg);
 }
+.stamp img { display: block; width: 2.4rem; height: 2.4rem; }
 .ac-label { margin: 0; color: var(--muted); font-size: 0.875rem; }
 .ac-address {
   margin: 0 0 var(--s5);
@@ -651,6 +662,18 @@ a:active { opacity: 0.75; }
 
 @media (max-width: 559px) {
   .btn-row .btn { flex: 1 1 100%; }
+}
+
+/* Narrow phones: the logo mark alone; the word stays for screen readers. */
+@media (max-width: 419px) {
+  .brand-word {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
 }
 
 @media (min-width: 640px) {

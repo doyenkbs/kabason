@@ -17,7 +17,8 @@ Cloudflare Pages publishes `public/` and nothing else:
 | `public/js/theme-init.js` | Blocking, first in `<head>`: applies a saved theme choice before paint |
 | `public/js/theme.js` | The theme button; follows the device until someone picks a theme |
 | `public/js/envelope.js` | The "Stop animation" button for the looping envelope (WCAG 2.2.2) |
-| `public/favicon.svg` | Browser tab icon |
+| `public/img/logo-mark.png` | The KABASON logo mark (header and envelope stamp), cropped from the full logo |
+| `public/favicon.png`, `public/apple-touch-icon.png` | Browser tab and phone home-screen icons, from the same mark |
 | `public/_headers` | CSP and security headers for every path |
 | `public/robots.txt` | Disallows everything; every page also has `noindex` |
 

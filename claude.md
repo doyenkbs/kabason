@@ -17,6 +17,9 @@ Where they conflict, this file wins.
 - **The envelope animation loops** (9s cycle, CSS only). Every looping animation must keep the same
   duration so they stay in step, and the "Stop animation" button (`js/envelope.js`) must stay: WCAG
   2.2.2 requires a way to stop motion that runs longer than 5 seconds.
+- **Brand:** colours come from the KABASON logo: navy `#043963`, sky `#02adef`, orange `#e76e16`
+  (green `#1ea32c` stays in the logo only). Orange `--spark` is decoration only; text uses `--spark-ink`.
+  The logo mark always sits on white, so it reads in both themes.
 - **Tone:** business, not family or homelab, even though members are family and friends.
 - **Privacy:** `noindex` on every page, `robots.txt` disallows all. No names of children, photos of
   people, school, location, or schedule details.

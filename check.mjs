@@ -150,7 +150,8 @@ const SURFACES = ['bg', 'band', 'surface', 'surface-2', 'cream'];
 const PAIRS = [
   ...SURFACES.flatMap((bg) => [['ink', bg, 4.5], ['muted', bg, 4.5], ['link', bg, 4.5], ['focus', bg, 3]]),
   ['on-accent', 'accent', 4.5], ['on-accent', 'accent-hover', 4.5], ['on-accent', 'flap', 4.5],
-  ['link', 'stamp', 4.5],
+  // --spark-ink: the orange eyebrow labels. --spark itself is decoration only.
+  ['spark-ink', 'bg', 4.5], ['spark-ink', 'band', 4.5], ['spark-ink', 'surface', 4.5],
   ['accent', 'surface', 3], ['accent', 'band', 3],
 ];
 console.log('\n   Contrast (WCAG AA)');
