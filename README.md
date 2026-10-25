@@ -14,8 +14,8 @@ Cloudflare Pages publishes `public/` and nothing else:
 | `public/mail/index.html` | Webmail link, account links, mail app settings, step-by-step setup per app |
 | `public/404.html` | Not-found page, served by Pages with status 404 |
 | `public/css/site.css` | The only stylesheet; every colour is a custom property, light and dark |
-| `public/js/theme-init.js` | Blocking, first in `<head>`: applies a saved theme choice before paint |
-| `public/js/theme.js` | The theme button; follows the device until someone picks a theme |
+| `public/js/theme-init.js` | Blocking, first in `<head>`: applies a saved choice of light before paint |
+| `public/js/theme.js` | The theme button. Dark is the default for everyone; the button switches to light and remembers it |
 | `public/js/envelope.js` | The "Stop animation" button for the looping envelope (WCAG 2.2.2) |
 | `public/img/logo-mark.png` | The KABASON logo mark (header and envelope stamp), cropped from the full logo |
 | `public/favicon.png`, `public/apple-touch-icon.png` | Browser tab and phone home-screen icons, from the same mark |

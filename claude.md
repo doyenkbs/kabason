@@ -9,8 +9,9 @@ Where they conflict, this file wins.
   dark values under `prefers-color-scheme`. `check.mjs` reads those blocks to test contrast.
 - **No inline styles or scripts.** The CSP in `public/_headers` blocks them. The only JS is the theme
   switch in `public/js/`. `theme-init.js` must stay a blocking script first in `<head>`, never
-  `defer` or `async`, or the wrong theme flashes. Dark tokens live in two CSS blocks (device dark,
-  chosen dark) that must stay identical; `check.mjs` fails if they drift.
+  `defer` or `async`, or the wrong theme flashes. **Dark is the default for everyone**, whatever
+  the device is set to: dark tokens on `:root`, light only under `[data-theme="light"]`, which the
+  visitor picks with the button. No `prefers-color-scheme` rule; `check.mjs` fails if one appears.
 - **No forms or input fields, and no login handling.** Links only. Never link or redirect to an
   Authentik login or authorize URL; only `https://authentik.kabason.net/if/user/`.
 - **No redirects:** no `_redirects`, no meta refresh, no JS redirects.

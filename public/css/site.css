@@ -1,67 +1,18 @@
 /* kabason.com: the only stylesheet.
 
-   Theme: light tokens on :root. Dark tokens appear twice with identical
-   values: once for devices set to dark (unless the visitor chose light), once
-   for a visitor who chose dark. js/theme-init.js sets data-theme from a saved
-   choice before first paint. check.mjs reads the blocks between the
-   "tokens:" markers to test contrast and to confirm both dark blocks match,
-   so keep every colour a plain 6-digit hex. light-dark() would remove the
-   duplication but older iPhones do not support it. */
+   Theme: dark is the default for everyone, whatever the device is set to,
+   and with no JavaScript at all. Light applies only when the visitor picks
+   it with the theme button: js/theme-init.js sets data-theme="light" from the
+   saved choice before first paint. check.mjs reads the blocks between the
+   "tokens:" markers to test contrast in both themes, so keep every colour a
+   plain 6-digit hex. */
 
-/* tokens:light */
+/* tokens:dark */
 /* Taken from the logo: navy #043963 frame, sky #02adef square, orange
-   #e76e16 swoosh. Navy anchors text and buttons, a pale sky tint is the page,
-   orange is the one spark (--spark is decorative only; --spark-ink is the
-   orange that passes for small text). */
+   #e76e16 swoosh. Dark is a soft slate-navy, not black. Sky buttons, orange
+   as the one spark (--spark is decorative only; --spark-ink is the orange
+   that passes for small text). */
 :root {
-  color-scheme: light;
-  --bg: #f3f7fb;          /* cool page */
-  --band: #e3eff8;        /* sky-tinted header and hero */
-  --surface: #ffffff;     /* cards, table */
-  --surface-2: #f6fafd;   /* tinted cards */
-  --cream: #fdf2e8;       /* orange-tinted "need an address" card */
-  --ink: #0d2235;
-  --muted: #4a5e72;
-  --link: #075a9c;
-  --accent: #043963;      /* logo navy */
-  --accent-hover: #032b4b;
-  --on-accent: #ffffff;
-  --flap: #032b4b;        /* envelope flap on the navy */
-  --stamp: #ffffff;       /* the logo needs a white ground */
-  --spark: #e76e16;       /* logo orange, decoration only */
-  --spark-ink: #9a4507;
-  --line: #d3e0ec;
-  --focus: #0a6fc0;
-  --shadow-raised: 0 1px 2px rgb(4 57 99 / 0.06), 0 6px 18px rgb(4 57 99 / 0.07);
-  --shadow-float: 0 2px 6px rgb(4 57 99 / 0.10), 0 18px 40px rgb(4 57 99 / 0.14);
-}
-/* tokens:dark-media */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --bg: #172433;
-    --band: #1e2f42;
-    --surface: #243749;
-    --surface-2: #213346;
-    --cream: #3a2c20;
-    --ink: #e9f1f8;
-    --muted: #afc0d1;
-    --link: #6fcdf4;
-    --accent: #3dbdf0;
-    --accent-hover: #6bcdf4;
-    --on-accent: #06243b;
-    --flap: #1c9ed6;
-    --stamp: #ffffff;
-    --spark: #f08a3e;
-    --spark-ink: #f5a766;
-    --line: #33495e;
-    --focus: #6fcdf4;
-    --shadow-raised: 0 1px 2px rgb(0 0 0 / 0.20), 0 6px 18px rgb(0 0 0 / 0.18);
-    --shadow-float: 0 2px 6px rgb(0 0 0 / 0.25), 0 18px 40px rgb(0 0 0 / 0.28);
-  }
-}
-/* tokens:dark-forced */
-:root[data-theme="dark"] {
   color-scheme: dark;
   --bg: #172433;
   --band: #1e2f42;
@@ -75,13 +26,37 @@
   --accent-hover: #6bcdf4;
   --on-accent: #06243b;
   --flap: #1c9ed6;
-  --stamp: #ffffff;
+  --stamp: #ffffff;       /* the logo needs a white ground */
   --spark: #f08a3e;
   --spark-ink: #f5a766;
   --line: #33495e;
   --focus: #6fcdf4;
   --shadow-raised: 0 1px 2px rgb(0 0 0 / 0.20), 0 6px 18px rgb(0 0 0 / 0.18);
   --shadow-float: 0 2px 6px rgb(0 0 0 / 0.25), 0 18px 40px rgb(0 0 0 / 0.28);
+}
+/* tokens:light */
+/* Navy anchors text and buttons, a pale sky tint is the page. */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f3f7fb;          /* cool page */
+  --band: #e3eff8;        /* sky-tinted header and hero */
+  --surface: #ffffff;     /* cards, table */
+  --surface-2: #f6fafd;   /* tinted cards */
+  --cream: #fdf2e8;       /* orange-tinted "need an address" card */
+  --ink: #0d2235;
+  --muted: #4a5e72;
+  --link: #075a9c;
+  --accent: #043963;      /* logo navy */
+  --accent-hover: #032b4b;
+  --on-accent: #ffffff;
+  --flap: #032b4b;        /* envelope flap on the navy */
+  --stamp: #ffffff;
+  --spark: #e76e16;       /* logo orange, decoration only */
+  --spark-ink: #9a4507;
+  --line: #d3e0ec;
+  --focus: #0a6fc0;
+  --shadow-raised: 0 1px 2px rgb(4 57 99 / 0.06), 0 6px 18px rgb(4 57 99 / 0.07);
+  --shadow-float: 0 2px 6px rgb(4 57 99 / 0.10), 0 18px 40px rgb(4 57 99 / 0.14);
 }
 /* tokens:end */
 
@@ -258,14 +233,10 @@ a:active { opacity: 0.75; }
   height: 20px;
   transition: opacity 0.35s ease, transform 0.5s var(--spring);
 }
-.icon-moon { opacity: 1; transform: none; }
-.icon-sun { opacity: 0; transform: rotate(-90deg) scale(0.5); }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .icon-moon { opacity: 0; transform: rotate(90deg) scale(0.5); }
-  :root:not([data-theme="light"]) .icon-sun { opacity: 1; transform: none; }
-}
-:root[data-theme="dark"] .icon-moon { opacity: 0; transform: rotate(90deg) scale(0.5); }
-:root[data-theme="dark"] .icon-sun { opacity: 1; transform: none; }
+.icon-sun { opacity: 1; transform: none; }
+.icon-moon { opacity: 0; transform: rotate(90deg) scale(0.5); }
+:root[data-theme="light"] .icon-sun { opacity: 0; transform: rotate(-90deg) scale(0.5); }
+:root[data-theme="light"] .icon-moon { opacity: 1; transform: none; }
 
 /* --- Buttons --------------------------------------------------------------- */
 

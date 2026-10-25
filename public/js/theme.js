@@ -1,14 +1,13 @@
-// The theme button. It flips light and dark and saves the choice. Choosing the
-// theme the device already uses clears the saved choice, so the site goes back
-// to following the device. Without this script the button stays hidden.
+// The theme button. Dark is the default for everyone; the button switches to
+// light and saves that choice, and switching back to dark clears it. The
+// device's own setting is not consulted. Without this script the button
+// stays hidden and the site stays dark.
 (function () {
   var root = document.documentElement;
   var btn = document.getElementById('theme-toggle');
   if (!btn) return;
-  var media = window.matchMedia('(prefers-color-scheme: dark)');
 
-  function device() { return media.matches ? 'dark' : 'light'; }
-  function current() { return root.getAttribute('data-theme') || device(); }
+  function current() { return root.getAttribute('data-theme') === 'light' ? 'light' : 'dark'; }
 
   function store(value) {
     try {
@@ -24,19 +23,15 @@
   }
 
   btn.addEventListener('click', function () {
-    var next = current() === 'dark' ? 'light' : 'dark';
-    if (next === device()) {
+    if (current() === 'dark') {
+      root.setAttribute('data-theme', 'light');
+      store('light');
+    } else {
       root.removeAttribute('data-theme');
       store(null);
-    } else {
-      root.setAttribute('data-theme', next);
-      store(next);
     }
     label();
   });
-
-  if (media.addEventListener) media.addEventListener('change', label);
-  else if (media.addListener) media.addListener(label);
 
   label();
   btn.hidden = false;

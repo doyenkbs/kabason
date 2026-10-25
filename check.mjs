@@ -130,13 +130,11 @@ function vars(block) {
   for (const m of block.matchAll(/--([a-z0-9-]+):\s*(#[0-9a-f]{6})\b/gi)) out[m[1]] = m[2];
   return out;
 }
-const light = vars(between('light', 'dark-media'));
-const darkMedia = vars(between('dark-media', 'dark-forced'));
-const darkForced = vars(between('dark-forced', 'end'));
-const dark = { ...light, ...darkMedia };
-check('css: light and both dark token blocks found', Object.keys(light).length > 10 && Object.keys(darkMedia).length > 10);
-check('css: device-dark and chosen-dark tokens are identical', JSON.stringify(darkMedia) === JSON.stringify(darkForced));
-check('css: dark blocks set every light colour', Object.keys(light).every((k) => k in darkMedia));
+const dark = vars(between('dark', 'light'));
+const light = { ...dark, ...vars(between('light', 'end')) };
+check('css: dark (default) and light token blocks found', Object.keys(dark).length > 10 && Object.keys(vars(between('light', 'end'))).length > 10);
+check('css: the light block sets every dark colour', Object.keys(dark).every((k) => k in vars(between('light', 'end'))));
+check('css: no prefers-color-scheme rule (dark is the default for everyone)', !/prefers-color-scheme/.test(css));
 
 function lum(hex) {
   const c = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255)
@@ -244,20 +242,23 @@ async function browserChecks() {
     await load('/', 1280, 'light');
     await evalIn('localStorage.removeItem("theme")');
     await load('/', 1280, 'light');
+    // Dark is the default for everyone: test on a device set to LIGHT.
     check('button is shown when JS runs', await evalIn('!document.getElementById("theme-toggle").hidden'));
-    check('no saved choice: follows the device (light)', (await evalIn('document.documentElement.getAttribute("data-theme")')) === null);
-    const lightBg = await bg();
-    check('button label offers dark', (await evalIn('document.getElementById("theme-toggle").getAttribute("aria-label")')) === 'Switch to dark theme');
-    await evalIn('document.getElementById("theme-toggle").click()');
-    await sleep(100);
-    check('click switches to dark and saves it', (await evalIn('document.documentElement.dataset.theme + "/" + localStorage.getItem("theme")')) === 'dark/dark');
+    check('no saved choice on a light device: still dark (no data-theme)', (await evalIn('document.documentElement.getAttribute("data-theme")')) === null);
     const darkBg = await bg();
-    check('the page colours actually change', darkBg !== lightBg, lightBg + ' -> ' + darkBg);
-    await load('/mail/', 1280, 'light');
-    check('the choice holds on the next page, set before paint', (await evalIn('document.documentElement.dataset.theme')) === 'dark' && (await bg()) === darkBg);
+    check('dark colours on a light device', darkBg === 'rgb(23, 36, 51)', darkBg);
+    check('button label offers light', (await evalIn('document.getElementById("theme-toggle").getAttribute("aria-label")')) === 'Switch to light theme');
     await evalIn('document.getElementById("theme-toggle").click()');
     await sleep(100);
-    check('clicking back to the device theme clears the saved choice',
+    check('click switches to light and saves it', (await evalIn('document.documentElement.dataset.theme + "/" + localStorage.getItem("theme")')) === 'light/light');
+    const lightBg = await bg();
+    check('the page colours actually change', lightBg !== darkBg, darkBg + ' -> ' + lightBg);
+    await load('/mail/', 1280, 'dark');
+    check('the light choice holds on the next page, even on a dark device, set before paint',
+      (await evalIn('document.documentElement.dataset.theme')) === 'light' && (await bg()) === lightBg);
+    await evalIn('document.getElementById("theme-toggle").click()');
+    await sleep(100);
+    check('clicking back to dark clears the saved choice',
       (await evalIn('String(document.documentElement.getAttribute("data-theme")) + "/" + localStorage.getItem("theme")')) === 'null/null');
     await load('/', 1280, 'dark');
     check('no saved choice on a dark device: dark colours', (await bg()) === darkBg);
