@@ -5,8 +5,8 @@ Where they conflict, this file wins.
 
 - **Only `public/` ships.** Cloudflare Pages publishes that folder. Notes and scripts stay at the root.
 - **No Tailwind, no web fonts, no placehold.co, no CDN, no third-party anything.** Hand-written CSS in
-  `public/css/site.css` with system font stacks. Every colour is a custom property on `:root`, with
-  dark values under `prefers-color-scheme`. `check.mjs` reads those blocks to test contrast.
+  `public/css/site.css` with system font stacks. Every colour is a custom property: dark (the default)
+  on `:root`, light under `[data-theme="light"]`. `check.mjs` reads both blocks to test contrast.
 - **No inline styles or scripts.** The CSP in `public/_headers` blocks them. The only JS is the theme
   switch in `public/js/`. `theme-init.js` must stay a blocking script first in `<head>`, never
   `defer` or `async`, or the wrong theme flashes. **Dark is the default for everyone**, whatever

@@ -46,8 +46,9 @@ node screenshot.mjs http://localhost:8091/mail/ label
 
 `check.mjs` fails on any internal link that does not resolve, any external link that is
 not one of the allowed URLs, missing `rel="noopener"`, form fields, inline styles or
-scripts, meta refresh, a `_redirects` file, missing `noindex`, the two dark token blocks
-drifting apart, contrast below WCAG AA in either theme, a request to another host, a CSP
+scripts, meta refresh, a `_redirects` file, missing `noindex`, the light block missing a
+colour the dark block sets, any `prefers-color-scheme` rule (dark is the default for
+everyone), contrast below WCAG AA in either theme, a request to another host, a CSP
 violation, horizontal overflow at 390px in any theme state, or a theme button that does
 not switch, save, and clear its choice.
 
